@@ -40,14 +40,15 @@ class PathAndQuery private constructor() {
     }
 
     companion object {
-        fun builder(): PathAndQuery {
-            return PathAndQuery()
-        }
+        fun segment(folder: Any) =
+            PathAndQuery().segment(folder)
 
-        private fun checkBlank(folder: Any): String {
-            return folder.toString().also {
+        fun param(parameter: Any, value: Any) =
+            PathAndQuery().param(parameter, value)
+
+        private fun checkBlank(folder: Any) =
+            folder.toString().also {
                 require(it.isNotBlank()) { "folder is blank" }
             }
-        }
     }
 }

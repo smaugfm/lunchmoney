@@ -5,14 +5,9 @@ import io.netty.handler.codec.http.HttpMethod
 import reactor.core.publisher.Mono
 
 abstract class ApiRequest<R, T> {
-    private val pathAndQuery: PathAndQuery? = null
-
+    abstract val pathAndQuery: PathAndQuery
     abstract fun method(): HttpMethod
-    fun pathAndQuery(): String {
-        return pathAndQuery.toString()
-    }
 
-    fun body(): Mono<T> {
-        return Mono.empty()
-    }
+    fun pathAndQuery() = pathAndQuery.toString()
+    open fun body(): Mono<T> = Mono.empty()
 }

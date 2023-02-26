@@ -10,7 +10,7 @@ data class ApiErrorResponse(
     var name: String? = null,
     var message: String? = null,
     var error: String? = null,
-    var dependents: CategoryDeletionDependency? = null,
+    var dependents: CategoryDeletionDependency? = null
 ) {
     fun toException(body: InputStream, statusCode: Int): ApiResponseException {
         return ApiResponseException(this, body, statusCode)
