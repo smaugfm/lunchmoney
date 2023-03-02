@@ -1,0 +1,11 @@
+{
+  "id": 427749,
+  "name": "Coffee Shops",
+  "description": null,
+  "is_income": false,
+  "exclude_from_budget": false,
+  "exclude_from_totals": false,
+  "is_group": false,
+  "group_id": 427758,
+  "group_category_name": "Food"
+}

@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 import java.time.Instant
 
 @Serializable
-class CategorySingleChild(
+data class CategoryChild(
     val id: Long,
     val name: String,
-    val description: String?,
+    val description: String? = null,
     @Serializable(with = InstantSerializer::class)
     val createdAt: Instant
 )

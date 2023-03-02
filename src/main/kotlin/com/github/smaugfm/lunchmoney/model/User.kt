@@ -9,5 +9,5 @@ data class User(
     val email: String,
     val accountId: Long,
     val budgetName: String,
-    val apiKeyLabel: String?
+    val apiKeyLabel: String? = null
 )

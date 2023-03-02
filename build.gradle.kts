@@ -17,7 +17,7 @@ repositories {
 
 val reactorCore = "3.5.2"
 val reactorNetty = "1.1.2"
-val mockserver = "5.14.0"
+val mockserver = "5.15.0"
 var logback = "1.4.5"
 
 dependencies {
@@ -27,7 +27,6 @@ dependencies {
     implementation("io.projectreactor.netty:reactor-netty-core:$reactorNetty")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     testImplementation("org.mock-server:mockserver-netty:$mockserver")
-    testImplementation("org.mock-server:mockserver-junit-jupiter:$mockserver")
     testImplementation("org.mock-server:mockserver-client-java:$mockserver")
     testImplementation("io.projectreactor:reactor-test:$reactorCore")
     testImplementation("io.mockk:mockk:1.13.4")
@@ -47,11 +46,12 @@ configure<KtlintExtension> {
 tasks {
     test {
         useJUnitPlatform()
+        systemProperty("java.util.logging.config.fil", "logging.properties")
     }
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(11)
 }
 
 application {

@@ -1,0 +1,10 @@
+{
+  "id": 427755,
+  "name": "Shopping",
+  "description": null,
+  "is_income": false,
+  "exclude_from_budget": false,
+  "exclude_from_totals": false,
+  "is_group": false,
+  "group_id": null
+}

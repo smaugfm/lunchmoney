@@ -1,6 +1,6 @@
 package com.github.smaugfm.lunchmoney.request.category
 
-import com.github.smaugfm.lunchmoney.PathAndQuery
+import com.github.smaugfm.lunchmoney.helper.PathAndQuery
 import com.github.smaugfm.lunchmoney.request.ApiRequest
 import com.github.smaugfm.lunchmoney.request.category.params.CreateUpdateCategoryRequestParams
 import com.github.smaugfm.lunchmoney.response.CreateCategoryResponse

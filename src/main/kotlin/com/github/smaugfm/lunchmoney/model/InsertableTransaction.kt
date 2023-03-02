@@ -15,56 +15,15 @@ data class InsertableTransaction(
     val date: LocalDate,
     @Serializable(with = BigDecimalSerializer::class)
     val amount: BigDecimal,
-    val categoryId: Long?,
-    val payee: String?,
+    val categoryId: Long? = null,
+    val payee: String? = null,
     @Serializable(with = CurrencySerializer::class)
-    val currency: Currency?,
-    val assetId: Long?,
-    val recurringId: Long?,
-    val notes: String?,
+    val currency: Currency? = null,
+    val assetId: Long? = null,
+    val recurringId: Long? = null,
+    val notes: String? = null,
     @Serializable(with = TransactionStatusSerializer::class)
-    val status: TransactionStatus?,
-    val externalId: String?,
-    val tags: List<Tag>?
-) {
-
-    class InsertableTransactionBuilder(
-        var date: LocalDate,
-        var amount: BigDecimal
-    ) {
-        var categoryId: Long? = null
-        var payee: String? = null
-        var currency: Currency? = null
-        var assetId: Long? = null
-        var recurringId: Long? = null
-        var notes: String? = null
-        var status: TransactionStatus? = null
-        var externalId: String? = null
-        var tags: List<Tag>? = null
-
-        fun build(): InsertableTransaction =
-            InsertableTransaction(
-                date,
-                amount,
-                categoryId,
-                payee,
-                currency,
-                assetId,
-                recurringId,
-                notes,
-                status,
-                externalId,
-                tags
-            )
-    }
-
-    companion object {
-        fun builder(
-            date: LocalDate,
-            amount: BigDecimal,
-            init: (InsertableTransactionBuilder.() -> Unit)?
-        ) = InsertableTransactionBuilder(date, amount)
-            .also { builder -> init?.let { builder.it() } }
-            .build()
-    }
-}
+    val status: TransactionStatus? = null,
+    val externalId: String? = null,
+    val tags: List<Tag>? = null
+)

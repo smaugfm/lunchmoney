@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1807,
+    "name": "Wedding",
+    "description": "All wedding-related expenses"
+  },
+  {
+    "id": 1808,
+    "name": "Honeymoon",
+    "description": "All honeymoon-related expenses"
+  }
+]

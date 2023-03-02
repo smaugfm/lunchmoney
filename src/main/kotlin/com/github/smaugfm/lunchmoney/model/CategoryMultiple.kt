@@ -8,7 +8,7 @@ import java.time.Instant
 data class CategoryMultiple(
     val id: Long,
     val name: String,
-    val description: String?,
+    val description: String? = null,
     val isIncome: Boolean,
     val excludeFromBudget: Boolean,
     val excludeFromTotals: Boolean,
@@ -17,5 +17,5 @@ data class CategoryMultiple(
     @Serializable(with = InstantSerializer::class)
     val createdAt: Instant,
     val isGroup: Boolean,
-    val groupId: Long?
+    val groupId: Long? = null
 )

@@ -1,0 +1,18 @@
+{
+  "id": 315358,
+  "name": "Food & Drink",
+  "description": null,
+  "is_income": false,
+  "exclude_from_budget": false,
+  "exclude_from_totals": false,
+  "is_group": true,
+  "group_id": null,
+  "children": [
+    {
+      "id": 315162,
+      "name": "Alcohol, Bars",
+      "description": null,
+      "created_at": "2022-03-06T20:11:36.066Z"
+    }
+  ]
+}
