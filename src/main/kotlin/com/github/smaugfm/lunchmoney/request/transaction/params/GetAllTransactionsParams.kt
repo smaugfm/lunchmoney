@@ -24,4 +24,5 @@ data class GetAllTransactionsParams(
     @Serializable(with = LocalDateSerializer::class)
     val endDate: LocalDate? = null,
     val debitAsNegative: Boolean? = null,
+    val pending: Boolean? = null,
 )

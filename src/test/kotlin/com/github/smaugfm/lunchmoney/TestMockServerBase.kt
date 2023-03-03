@@ -1,6 +1,7 @@
 package com.github.smaugfm.lunchmoney
 
 import io.netty.handler.codec.http.HttpHeaderNames
+import org.slf4j.event.Level;
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
@@ -70,7 +71,12 @@ open class TestMockServerBase {
         @BeforeAll
         @JvmStatic
         fun beforeAll() {
-            mockServer = ClientAndServer.startClientAndServer(configuration(), PORT)
+            mockServer = ClientAndServer
+                .startClientAndServer(
+                    configuration()
+                        .logLevel(Level.INFO),
+                    PORT
+                )
         }
 
         @AfterAll

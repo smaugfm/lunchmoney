@@ -8,7 +8,7 @@ import io.netty.handler.codec.http.HttpMethod
 
 class GetSingleTransactionRequest(
     id: Long,
-    params: GetSingleTransactionParams?
+    params: GetSingleTransactionParams? = null
 ) : ApiRequest<Transaction, GetSingleTransactionParams>() {
     override val pathAndQuery =
         PathAndQuery

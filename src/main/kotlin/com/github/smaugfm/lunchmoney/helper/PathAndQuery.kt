@@ -32,7 +32,8 @@ class PathAndQuery private constructor(
             query = QueryParamsEncoder.encode(serializer, value)
     }
 
-    override fun toString() = segments.append(query).toString()
+    override fun toString() =
+        segments.append(query).toString()
 
     companion object {
         fun segment(folder: Any) =
