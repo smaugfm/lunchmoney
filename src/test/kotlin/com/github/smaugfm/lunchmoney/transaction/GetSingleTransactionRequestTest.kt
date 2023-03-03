@@ -1,5 +1,7 @@
 package com.github.smaugfm.lunchmoney.transaction
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import com.github.smaugfm.lunchmoney.TestMockServerBase
 import com.github.smaugfm.lunchmoney.Util.getResourceAsString
 import com.github.smaugfm.lunchmoney.model.Transaction
@@ -30,9 +32,8 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("getSingleTransaction.json"))
             )
         val getSingleTransactionRequest = GetSingleTransactionRequest(id)
-        StepVerifier
-            .create(api.execute(getSingleTransactionRequest))
-            .expectNext(
+        assertThat(api.execute(getSingleTransactionRequest).block())
+            .isEqualTo(
                 Transaction(
                     id = 602L,
                     date = LocalDate.of(2020, 1, 1),
@@ -58,7 +59,7 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     price = null,
                     quantity = null
                 )
-            ).verifyComplete()
+            )
     }
 
     @Test
@@ -79,9 +80,8 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
             id,
             GetSingleTransactionParams(false)
         )
-        StepVerifier
-            .create(api.execute(getSingleTransactionRequest))
-            .expectNext(
+        assertThat(api.execute(getSingleTransactionRequest).block())
+            .isEqualTo(
                 Transaction(
                     id = 602L,
                     date = LocalDate.of(2020, 1, 1),
@@ -107,6 +107,6 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     price = null,
                     quantity = null
                 )
-            ).verifyComplete()
+            )
     }
 }

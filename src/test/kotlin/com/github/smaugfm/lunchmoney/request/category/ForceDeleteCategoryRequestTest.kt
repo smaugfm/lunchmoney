@@ -1,10 +1,11 @@
 package com.github.smaugfm.lunchmoney.request.category
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import com.github.smaugfm.lunchmoney.TestMockServerBase
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
-import reactor.test.StepVerifier
 
 internal class ForceDeleteCategoryRequestTest : TestMockServerBase() {
     @Test
@@ -23,9 +24,8 @@ internal class ForceDeleteCategoryRequestTest : TestMockServerBase() {
         val forceDeleteCategoryRequest = ForceDeleteCategoryRequest(
             id
         )
-        StepVerifier
-            .create(api.execute(forceDeleteCategoryRequest))
-            .expectNext(true)
-            .verifyComplete()
+        assertThat(api.execute(forceDeleteCategoryRequest).block())
+            .isEqualTo(true)
+
     }
 }

@@ -1,5 +1,7 @@
 package com.github.smaugfm.lunchmoney.request.category
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import com.github.smaugfm.lunchmoney.TestMockServerBase
 import com.github.smaugfm.lunchmoney.Util.getResourceAsString
 import com.github.smaugfm.lunchmoney.model.CategoryChild
@@ -8,7 +10,6 @@ import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
 import org.mockserver.model.MediaType
-import reactor.test.StepVerifier
 import java.time.Instant
 
 internal class GetSingleCategoryRequestTest : TestMockServerBase() {
@@ -26,13 +27,12 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("getSingleCategory-simple.json"))
             )
         val getSingleCategoryRequest = GetSingleCategoryRequest(id)
-        StepVerifier
-            .create(api.execute(getSingleCategoryRequest))
-            .expectNext(
+        assertThat(api.execute(getSingleCategoryRequest).block())
+            .isEqualTo(
                 CategorySingle(
-                    id,
-                    "Shopping",
-                    null,
+                    id = id,
+                    name = "Shopping",
+                    description = null,
                     isIncome = false,
                     excludeFromBudget = false,
                     excludeFromTotals = false,
@@ -41,7 +41,7 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     groupCategoryName = null,
                     children = null
                 )
-            ).verifyComplete()
+            )
     }
 
     @Test
@@ -58,13 +58,12 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("getSingleCategory-group.json"))
             )
         val getSingleCategoryRequest = GetSingleCategoryRequest(id)
-        StepVerifier
-            .create(api.execute(getSingleCategoryRequest))
-            .expectNext(
+        assertThat(api.execute(getSingleCategoryRequest).block())
+            .isEqualTo(
                 CategorySingle(
-                    id,
-                    "Food",
-                    "Consumables",
+                    id = id,
+                    name = "Food",
+                    description = "Consumables",
                     isIncome = false,
                     excludeFromBudget = false,
                     excludeFromTotals = false,
@@ -85,7 +84,7 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                         )
                     )
                 )
-            ).verifyComplete()
+            )
     }
 
     @Test
@@ -102,9 +101,8 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("getSingleCategory-subgroup.json"))
             )
         val getSingleCategoryRequest = GetSingleCategoryRequest(id)
-        StepVerifier
-            .create(api.execute(getSingleCategoryRequest))
-            .expectNext(
+        assertThat(api.execute(getSingleCategoryRequest).block())
+            .isEqualTo(
                 CategorySingle(
                     id,
                     "Coffee Shops",
@@ -117,6 +115,6 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     groupCategoryName = "Food",
                     children = null
                 )
-            ).verifyComplete()
+            )
     }
 }

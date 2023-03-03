@@ -1,5 +1,7 @@
 package com.github.smaugfm.lunchmoney.request.category
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import com.github.smaugfm.lunchmoney.TestMockServerBase
 import com.github.smaugfm.lunchmoney.Util.getResourceAsString
 import com.github.smaugfm.lunchmoney.model.CategoryMultiple
@@ -8,7 +10,6 @@ import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
 import org.mockserver.model.MediaType
-import reactor.test.StepVerifier
 import java.time.Instant
 
 internal class GetAllCategoriesTest : TestMockServerBase() {
@@ -24,15 +25,14 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                 .withBody(getResourceAsString("getAllCategories.json"))
         )
         val getAllCategoriesRequest = GetAllCategoriesRequest()
-        StepVerifier
-            .create(api.execute(getAllCategoriesRequest))
-            .expectNext(
+        assertThat(api.execute(getAllCategoriesRequest).block())
+            .isEqualTo(
                 GetAllCategoriesResponse(
                     listOf(
                         CategoryMultiple(
-                            427748L,
-                            "Alcohol, Bars",
-                            null,
+                            id = 427748L,
+                            name = "Alcohol, Bars",
+                            description = null,
                             isIncome = false,
                             excludeFromBudget = false,
                             excludeFromTotals = false,
@@ -42,21 +42,20 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                             groupId = null
                         ),
                         CategoryMultiple(
-                            427749L,
-                            "Coffee Shops",
-                            null,
-                            false,
-                            false,
-                            false,
-                            Instant.parse("2023-02-02T14:57:43.459Z"),
-                            Instant.parse("2023-02-02T14:57:43.459Z"),
-                            false,
-                            427758L
+                            id = 427749L,
+                            name = "Coffee Shops",
+                            description = null,
+                            isIncome = false,
+                            excludeFromBudget = false,
+                            excludeFromTotals = false,
+                            updatedAt = Instant.parse("2023-02-02T14:57:43.459Z"),
+                            createdAt = Instant.parse("2023-02-02T14:57:43.459Z"),
+                            isGroup = false,
+                            groupId = 427758L
                         )
                     )
                 )
             )
-            .verifyComplete()
     }
 
     @Test
@@ -71,9 +70,7 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                 .withBody(getResourceAsString("getAllCategories-empty.json"))
         )
         val getAllCategoriesRequest = GetAllCategoriesRequest()
-        StepVerifier
-            .create(api.execute(getAllCategoriesRequest))
-            .expectNext(GetAllCategoriesResponse(listOf()))
-            .verifyComplete()
+        assertThat(api.execute(getAllCategoriesRequest).block())
+            .isEqualTo(GetAllCategoriesResponse(listOf()))
     }
 }

@@ -1,5 +1,7 @@
 package com.github.smaugfm.lunchmoney.user
 
+import assertk.assertThat
+import assertk.assertions.isEqualTo
 import com.github.smaugfm.lunchmoney.TestMockServerBase
 import com.github.smaugfm.lunchmoney.Util.getResourceAsString
 import com.github.smaugfm.lunchmoney.model.User
@@ -8,7 +10,6 @@ import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
 import org.mockserver.model.MediaType
-import reactor.test.StepVerifier
 
 internal class GetCurrentUserRequestTest : TestMockServerBase() {
     @Test
@@ -24,9 +25,8 @@ internal class GetCurrentUserRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("getCurrentUser.json"))
             )
         val getUserRequest = GetCurrentUserRequest()
-        StepVerifier
-            .create(api.execute(getUserRequest))
-            .expectNext(
+        assertThat(api.execute(getUserRequest).block())
+            .isEqualTo(
                 User(
                     1234L,
                     "Dummy Vasa",
@@ -36,6 +36,6 @@ internal class GetCurrentUserRequestTest : TestMockServerBase() {
                     null
                 )
             )
-            .verifyComplete()
+
     }
 }

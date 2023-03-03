@@ -2,7 +2,6 @@ package com.github.smaugfm.lunchmoney.request.category
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import assertk.assertions.isSuccess
 import com.github.smaugfm.lunchmoney.TestMockServerBase
 import com.github.smaugfm.lunchmoney.Util.getResourceAsString
 import com.github.smaugfm.lunchmoney.model.CategoryChild
@@ -32,28 +31,27 @@ internal class AddToCategoryGroupRequestTest : TestMockServerBase() {
                 listOf(315162L, 315164L, 315169L, 315172L)
             )
         )
-        assertThat {
-            api.execute(addToCategoryGroupRequest).block()
-        }.isSuccess().isEqualTo(
-            CategorySingle(
-                315358L,
-                "Food & Drink",
-                null,
-                isIncome = false,
-                excludeFromBudget = false,
-                excludeFromTotals = false,
-                isGroup = true,
-                groupId = null,
-                groupCategoryName = null,
-                children = listOf(
-                    CategoryChild(
-                        315162L,
-                        "Alcohol, Bars",
-                        null,
-                        Instant.parse("2022-03-06T20:11:36.066Z")
+        assertThat(api.execute(addToCategoryGroupRequest).block())
+            .isEqualTo(
+                CategorySingle(
+                    315358L,
+                    "Food & Drink",
+                    null,
+                    isIncome = false,
+                    excludeFromBudget = false,
+                    excludeFromTotals = false,
+                    isGroup = true,
+                    groupId = null,
+                    groupCategoryName = null,
+                    children = listOf(
+                        CategoryChild(
+                            315162L,
+                            "Alcohol, Bars",
+                            null,
+                            Instant.parse("2022-03-06T20:11:36.066Z")
+                        )
                     )
                 )
             )
-        );
     }
 }

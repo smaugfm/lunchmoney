@@ -1,7 +1,9 @@
 package com.github.smaugfm.lunchmoney.request.category
 
 import assertk.assertThat
+import assertk.assertions.cause
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.prop
@@ -13,7 +15,6 @@ import com.github.smaugfm.lunchmoney.response.ApiErrorResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
-import reactor.test.StepVerifier
 
 internal class DeleteCategoryRequestTest : TestMockServerBase() {
     @Test
@@ -32,10 +33,9 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
         val deleteCategoryRequest = DeleteCategoryRequest(
             id
         )
-        StepVerifier
-            .create(api.execute(deleteCategoryRequest))
-            .expectNext(true)
-            .verifyComplete()
+        assertThat(api.execute(deleteCategoryRequest).block())
+            .isEqualTo(true)
+
     }
 
     @Test
@@ -53,24 +53,24 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
         val deleteCategoryRequest = DeleteCategoryRequest(
             id
         )
-        StepVerifier
-            .create(api.execute(deleteCategoryRequest))
-            .expectErrorSatisfies { e: Throwable ->
-                assertThat(e).isInstanceOf(ApiResponseException::class.java)
-                    .prop(ApiResponseException::apiErrorResponse)
-                    .isNotNull()
-                    .prop(ApiErrorResponse::dependents)
-                    .isEqualTo(
-                        CategoryDeletionDependency(
-                            "Food & Drink",
-                            4L,
-                            0L,
-                            43L,
-                            7L,
-                            0L
-                        )
-                    )
-            }
-            .verify()
+        assertThat { api.execute(deleteCategoryRequest).block() }
+            .isFailure()
+            .isInstanceOf(RuntimeException::class)
+            .cause()
+            .isNotNull()
+            .isInstanceOf(ApiResponseException::class.java)
+            .prop(ApiResponseException::apiErrorResponse)
+            .isNotNull()
+            .prop(ApiErrorResponse::dependents)
+            .isEqualTo(
+                CategoryDeletionDependency(
+                    "Food & Drink",
+                    4L,
+                    0L,
+                    43L,
+                    7L,
+                    0L
+                )
+            )
     }
 }
