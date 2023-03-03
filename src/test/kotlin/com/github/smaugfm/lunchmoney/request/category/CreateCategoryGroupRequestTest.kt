@@ -25,11 +25,11 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
         mockServer.`when`(
             request("/categories/group")
                 .withMethod("POST")
-                .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON)
+                .withContentType(MediaType.APPLICATION_JSON)
         ).respond(
             response()
                 .withStatusCode(200)
-                .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
+                .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("createCategory.json"))
         )
         val createCategoryRequest = CreateCategoryGroupRequest(
@@ -47,7 +47,7 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
         mockServer.`when`(
             request("/categories/group")
                 .withMethod("POST")
-                .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON)
+                .withContentType(MediaType.APPLICATION_JSON)
         ).respond(
             response()
                 .withStatusCode(200)

@@ -1,7 +1,6 @@
 package com.github.smaugfm.lunchmoney.exception
 
 import com.github.smaugfm.lunchmoney.response.ApiErrorResponse
-import java.io.InputStream
 
 class ApiResponseException : ApiException {
     val apiErrorResponse: ApiErrorResponse?

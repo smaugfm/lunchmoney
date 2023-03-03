@@ -13,13 +13,13 @@ internal class UpdateCategoryRequestTest : TestMockServerBase() {
     fun updateCategoryRequestTest() {
         val id = 1234L
         mockServer.`when`(
-                request("/categories/$id").withMethod("PUT")
-                    .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON)
-            ).respond(
-                response().withStatusCode(200)
-                    .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody("true")
-            )
+            request("/categories/$id").withMethod("PUT")
+                .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON)
+        ).respond(
+            response().withStatusCode(200)
+                .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
+                .withBody("true")
+        )
         val createCategoryRequest = UpdateCategoryRequest(
             id, CreateUpdateCategoryRequestParams("vasa")
         )

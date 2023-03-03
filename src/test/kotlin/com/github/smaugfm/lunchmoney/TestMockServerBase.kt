@@ -1,7 +1,6 @@
 package com.github.smaugfm.lunchmoney
 
 import io.netty.handler.codec.http.HttpHeaderNames
-import org.slf4j.event.Level;
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
@@ -10,6 +9,7 @@ import org.mockserver.integration.ClientAndServer
 import org.mockserver.model.HttpRequest
 import org.mockserver.model.HttpResponse
 import org.mockserver.model.NottableString
+import org.slf4j.event.Level
 
 open class TestMockServerBase {
     protected val api: Lunchmoney = LunchmoneyTest(
