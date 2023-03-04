@@ -9,7 +9,7 @@ import java.time.LocalDate
 
 object LocalDateSerializer : KSerializer<LocalDate> {
     override val descriptor =
-        PrimitiveSerialDescriptor("LocalDate", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor(LocalDate::class.qualifiedName!!, PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): LocalDate {
         return LocalDate.parse(decoder.decodeString())

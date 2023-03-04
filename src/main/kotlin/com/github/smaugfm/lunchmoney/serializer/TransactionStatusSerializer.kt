@@ -9,7 +9,7 @@ import kotlinx.serialization.encoding.Encoder
 
 object TransactionStatusSerializer : KSerializer<TransactionStatus> {
     override val descriptor =
-        PrimitiveSerialDescriptor("TransactionStatus", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor(TransactionStatus::class.qualifiedName!!, PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): TransactionStatus {
         return TransactionStatus.valueOf(decoder.decodeString().uppercase())

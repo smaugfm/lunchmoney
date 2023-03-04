@@ -9,7 +9,7 @@ import java.time.Instant
 
 object InstantSerializer : KSerializer<Instant> {
     override val descriptor =
-        PrimitiveSerialDescriptor("Instant", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor(Instant::class.qualifiedName!!, PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): Instant {
         return Instant.parse(decoder.decodeString())

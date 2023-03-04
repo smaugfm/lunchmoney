@@ -9,7 +9,7 @@ import java.math.BigDecimal
 
 class BigDecimalSerializer : KSerializer<BigDecimal> {
     override val descriptor =
-        PrimitiveSerialDescriptor("BigDecimal", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor(BigDecimal::class.qualifiedName!!, PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): BigDecimal {
         return BigDecimal(decoder.decodeString())

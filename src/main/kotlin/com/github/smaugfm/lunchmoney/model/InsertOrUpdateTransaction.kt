@@ -10,7 +10,7 @@ import java.time.LocalDate
 import java.util.Currency
 
 @Serializable
-data class InsertableTransaction(
+data class InsertOrUpdateTransaction(
     @Serializable(with = LocalDateSerializer::class)
     val date: LocalDate,
     @Serializable(with = BigDecimalSerializer::class)

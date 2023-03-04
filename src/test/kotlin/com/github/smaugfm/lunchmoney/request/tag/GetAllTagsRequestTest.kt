@@ -1,4 +1,4 @@
-package com.github.smaugfm.lunchmoney.tag
+package com.github.smaugfm.lunchmoney.request.tag
 
 import assertk.assertThat
 import assertk.assertions.containsExactlyInAnyOrder

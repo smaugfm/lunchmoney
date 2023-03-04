@@ -63,6 +63,6 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
             .prop(ApiResponseException::apiErrorResponse)
             .isNotNull()
             .prop(ApiErrorResponse::error)
-            .isEqualTo("A category with the same name (vasa) already exists.")
+            .isEqualTo(listOf("A category with the same name (vasa) already exists."))
     }
 }

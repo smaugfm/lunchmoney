@@ -9,7 +9,7 @@ import java.util.Currency
 
 object CurrencySerializer : KSerializer<Currency> {
     override val descriptor =
-        PrimitiveSerialDescriptor("Currency", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor(Currency::class.qualifiedName!!, PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): Currency {
         return Currency.getInstance(decoder.decodeString().uppercase())

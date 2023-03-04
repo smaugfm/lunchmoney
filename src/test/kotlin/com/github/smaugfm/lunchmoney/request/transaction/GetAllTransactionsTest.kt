@@ -1,4 +1,4 @@
-package com.github.smaugfm.lunchmoney.transaction
+package com.github.smaugfm.lunchmoney.request.transaction
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo
