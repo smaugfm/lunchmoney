@@ -1,4 +1,4 @@
-package com.github.smaugfm.lunchmoney.model
+package com.github.smaugfm.lunchmoney.model.enumeration
 
 enum class TransactionStatus {
     CLEARED,

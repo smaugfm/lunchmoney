@@ -6,7 +6,7 @@ import com.github.smaugfm.lunchmoney.TestMockServerBase
 import com.github.smaugfm.lunchmoney.Util.getResourceAsString
 import com.github.smaugfm.lunchmoney.model.InsertOrUpdateTransaction
 import com.github.smaugfm.lunchmoney.model.Split
-import com.github.smaugfm.lunchmoney.model.TransactionStatus
+import com.github.smaugfm.lunchmoney.model.enumeration.TransactionStatus
 import com.github.smaugfm.lunchmoney.request.transaction.params.UpdateTransactionParams
 import com.github.smaugfm.lunchmoney.response.UpdateTransactionResponse
 import org.junit.jupiter.api.Test

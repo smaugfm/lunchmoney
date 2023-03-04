@@ -1,5 +1,6 @@
 package com.github.smaugfm.lunchmoney.model
 
+import com.github.smaugfm.lunchmoney.model.enumeration.TransactionStatus
 import com.github.smaugfm.lunchmoney.serializer.BigDecimalSerializer
 import com.github.smaugfm.lunchmoney.serializer.CurrencySerializer
 import com.github.smaugfm.lunchmoney.serializer.LocalDateSerializer

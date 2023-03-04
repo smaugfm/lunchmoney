@@ -1,6 +1,6 @@
 package com.github.smaugfm.lunchmoney.request.transaction.params
 
-import com.github.smaugfm.lunchmoney.model.TransactionStatus
+import com.github.smaugfm.lunchmoney.model.enumeration.TransactionStatus
 import com.github.smaugfm.lunchmoney.serializer.LocalDateSerializer
 import com.github.smaugfm.lunchmoney.serializer.TransactionStatusSerializer
 import kotlinx.serialization.Serializable
