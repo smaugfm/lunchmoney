@@ -21,7 +21,6 @@ import java.util.Currency
 class GetRecurringExpensesRequestTest : TestMockServerBase() {
     @Test
     fun getRecurringExpensesTest() {
-
         mockServer.`when`(
             request("/recurring_expenses")
                 .withMethod("GET")
@@ -34,7 +33,6 @@ class GetRecurringExpensesRequestTest : TestMockServerBase() {
         val getRecurringExpensesRequest = GetRecurringExpensesRequest(
             GetRecurringExpensesParams(LocalDate.now(), true)
         )
-
 
         assertThat(api.execute(getRecurringExpensesRequest).block())
             .isEqualTo(
