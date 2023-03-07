@@ -34,7 +34,8 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
         val request = GetBudgetSummaryRequest(
             GetBudgetSummaryParams(
                 LocalDate.now(),
-                LocalDate.now().plusDays(1)
+                LocalDate.now().plusDays(1),
+                Currency.getInstance("USD")
             )
         )
 
