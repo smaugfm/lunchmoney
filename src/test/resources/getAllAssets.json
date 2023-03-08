@@ -1,0 +1,18 @@
+{
+  "assets": [
+    {
+      "id": 47653,
+      "type_name": "investment",
+      "subtype_name": "brokerage",
+      "name": "Individual Brokerage",
+      "display_name": null,
+      "balance": "41211.8000",
+      "balance_as_of": "2023-02-02T14:57:53.000Z",
+      "closed_on": null,
+      "currency": "usd",
+      "institution_name": "Fidelity",
+      "exclude_transactions": false,
+      "created_at": "2023-02-02T14:57:53.477Z"
+    }
+  ]
+}

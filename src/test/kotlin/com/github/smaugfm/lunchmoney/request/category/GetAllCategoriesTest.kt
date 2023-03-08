@@ -24,8 +24,8 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("getAllCategories.json"))
         )
-        val getAllCategoriesRequest = GetAllCategoriesRequest()
-        assertThat(api.execute(getAllCategoriesRequest).block())
+        val request = GetAllCategoriesRequest()
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 GetAllCategoriesResponse(
                     listOf(
