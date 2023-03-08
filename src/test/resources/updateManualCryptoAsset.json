@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "source": "manual",
+  "created_at": "2021-02-10T05:57:34.305Z",
+  "name": "Shiba Token",
+  "display_name": "SHIB",
+  "balance": "12.000000000000000000",
+  "currency": "SHIB",
+  "status": "active",
+  "institution_name": null
+}

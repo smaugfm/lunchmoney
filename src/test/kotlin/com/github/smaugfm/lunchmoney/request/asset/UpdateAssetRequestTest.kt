@@ -7,7 +7,6 @@ import com.github.smaugfm.lunchmoney.Util.getResourceAsString
 import com.github.smaugfm.lunchmoney.model.Asset
 import com.github.smaugfm.lunchmoney.model.enumeration.AssetType
 import com.github.smaugfm.lunchmoney.request.asset.params.CreateUpdateAssetParams
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -50,18 +49,18 @@ class UpdateAssetRequestTest : TestMockServerBase() {
         assertThat(api.execute(request).block())
             .isEqualTo(
                 Asset(
-                    id = 34061,
+                    id = 12,
                     typeName = AssetType.CASH,
-                    subtypeName = null,
-                    name = "My Test Asset",
+                    subtypeName = "savings",
+                    name = "TD Savings Account",
                     displayName = null,
-                    balance = BigDecimal("67.2100"),
-                    balanceAsOf = Instant.parse("2022-05-29T21:35:36.557Z"),
+                    balance = BigDecimal("28658.5300"),
+                    balanceAsOf = Instant.parse("2020-03-10T05:17:23.856Z"),
                     closedOn = null,
                     currency = Currency.getInstance("CAD"),
-                    institutionName = null,
-                    excludeTransactions = false,
-                    createdAt = Instant.parse("2022-05-29T21:35:36.564Z"),
+                    institutionName = "TD Bank",
+                    excludeTransactions = null,
+                    createdAt = Instant.parse("2019-08-10T22:46:19.486Z"),
                 )
             )
     }

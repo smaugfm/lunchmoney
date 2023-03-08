@@ -33,6 +33,6 @@ data class Asset(
     val closedOn: LocalDate? = null,
     val currency: Currency,
     val institutionName: String? = null,
-    val excludeTransactions: Boolean,
+    val excludeTransactions: Boolean? = null,
     val createdAt: Instant
 )
