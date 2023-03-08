@@ -25,7 +25,7 @@ class CreateTransactionGroupRequestTest : TestMockServerBase() {
                     .withBody("84389")
             )
 
-        val createTransactionGroupRequest = CreateTransactionGroupRequest(
+        val request = CreateTransactionGroupRequest(
             CreateTransactionGroupParams(
                 LocalDate.now(),
                 "vasa",
@@ -33,7 +33,7 @@ class CreateTransactionGroupRequestTest : TestMockServerBase() {
             )
         )
 
-        assertThat(api.execute(createTransactionGroupRequest).block())
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 84389L
             )

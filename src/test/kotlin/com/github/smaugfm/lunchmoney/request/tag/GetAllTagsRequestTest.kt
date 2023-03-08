@@ -24,8 +24,8 @@ internal class GetAllTagsRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getAllTags.json"))
             )
-        val getAllTagsRequest = GetAllTagsRequest()
-        assertThat(api.execute(getAllTagsRequest).block())
+        val request = GetAllTagsRequest()
+        assertThat(api.execute(request).block())
             .isNotNull()
             .containsExactlyInAnyOrder(
                 Tag(1807L, "Wedding", "All wedding-related expenses"),

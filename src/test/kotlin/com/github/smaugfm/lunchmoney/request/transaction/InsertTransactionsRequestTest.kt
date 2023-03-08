@@ -40,7 +40,7 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/insertTransactions.json"))
             )
 
-        val insertTransactionsRequest = InsertTransactionsRequest(
+        val request = InsertTransactionsRequest(
             InsertTransactionRequestParams(
                 listOf(
                     InsertOrUpdateTransaction(
@@ -60,7 +60,7 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
             )
         )
 
-        assertThat(api.execute(insertTransactionsRequest).block())
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 InsertTransactionsResponse(
                     listOf(54L)

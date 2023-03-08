@@ -32,11 +32,11 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/createCategory.json"))
         )
-        val createCategoryRequest = CreateCategoryGroupRequest(
+        val request = CreateCategoryGroupRequest(
             CreateCategoryGroupRequestParams("vasa")
         )
 
-        assertThat { api.execute(createCategoryRequest).block() }
+        assertThat { api.execute(request).block() }
             .isSuccess().isEqualTo(
                 CreateCategoryResponse(1234L)
             )

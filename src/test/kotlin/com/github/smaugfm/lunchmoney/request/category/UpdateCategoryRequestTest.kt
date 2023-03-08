@@ -20,10 +20,10 @@ internal class UpdateCategoryRequestTest : TestMockServerBase() {
                 .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                 .withBody("true")
         )
-        val createCategoryRequest = UpdateCategoryRequest(
+        val request = UpdateCategoryRequest(
             id, CreateUpdateCategoryRequestParams("vasa")
         )
-        assertThat(api.execute(createCategoryRequest).block()).isEqualTo(true)
+        assertThat(api.execute(request).block()).isEqualTo(true)
 
     }
 }

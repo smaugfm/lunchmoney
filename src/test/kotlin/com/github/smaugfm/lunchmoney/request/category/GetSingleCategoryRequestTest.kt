@@ -26,8 +26,8 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleCategory-simple.json"))
             )
-        val getSingleCategoryRequest = GetSingleCategoryRequest(id)
-        assertThat(api.execute(getSingleCategoryRequest).block())
+        val request = GetSingleCategoryRequest(id)
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 CategorySingle(
                     id = id,

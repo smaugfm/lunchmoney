@@ -30,11 +30,11 @@ class GetRecurringExpensesRequestTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getRecurringExpenses.json"))
         )
-        val getRecurringExpensesRequest = GetRecurringExpensesRequest(
+        val request = GetRecurringExpensesRequest(
             GetRecurringExpensesParams(LocalDate.now(), true)
         )
 
-        assertThat(api.execute(getRecurringExpensesRequest).block())
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 GetRecurringExpensesResponse(
                     listOf(

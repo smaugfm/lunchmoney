@@ -29,8 +29,8 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleTransaction.json"))
             )
-        val getSingleTransactionRequest = GetSingleTransactionRequest(id)
-        assertThat(api.execute(getSingleTransactionRequest).block())
+        val request = GetSingleTransactionRequest(id)
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 Transaction(
                     id = 602L,

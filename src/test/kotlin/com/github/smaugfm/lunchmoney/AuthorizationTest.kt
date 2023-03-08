@@ -21,8 +21,8 @@ internal class AuthorizationTest : TestMockServerBase() {
             BASE_URL,
             PORT
         )
-        val getUserRequest = GetCurrentUserRequest()
-        assertThat { api.execute(getUserRequest).block() }
+        val request = GetCurrentUserRequest()
+        assertThat { api.execute(request).block() }
             .isFailure()
             .isInstanceOf(RuntimeException::class)
             .cause()

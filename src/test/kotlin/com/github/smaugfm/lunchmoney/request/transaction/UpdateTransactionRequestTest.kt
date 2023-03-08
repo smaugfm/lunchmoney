@@ -34,7 +34,7 @@ class UpdateTransactionRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/updateTransaction.json"))
             )
 
-        val updateTransactionRequest = UpdateTransactionRequest(
+        val request = UpdateTransactionRequest(
             id,
             UpdateTransactionParams(
                 InsertOrUpdateTransaction(
@@ -62,7 +62,7 @@ class UpdateTransactionRequestTest : TestMockServerBase() {
             ),
         )
 
-        assertThat(api.execute(updateTransactionRequest).block())
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 UpdateTransactionResponse(
                     true,

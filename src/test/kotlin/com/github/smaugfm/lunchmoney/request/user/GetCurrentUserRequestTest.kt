@@ -23,8 +23,8 @@ internal class GetCurrentUserRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getCurrentUser.json"))
             )
-        val getUserRequest = GetCurrentUserRequest()
-        assertThat(api.execute(getUserRequest).block())
+        val request = GetCurrentUserRequest()
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 User(
                     1234L,

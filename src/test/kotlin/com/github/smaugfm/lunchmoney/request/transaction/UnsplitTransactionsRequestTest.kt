@@ -24,13 +24,13 @@ class UnsplitTransactionsRequestTest : TestMockServerBase() {
                     .withBody("[84389, 23212, 43333]")
             )
 
-        val unsplitTransactionsRequest = UnsplitTransactionsRequest(
+        val request = UnsplitTransactionsRequest(
             UnsplitTransactionsParams(
                 listOf(1234, 1234)
             )
         )
 
-        assertThat(api.execute(unsplitTransactionsRequest).block())
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 listOf<Long>(84389, 23212, 43333)
             )

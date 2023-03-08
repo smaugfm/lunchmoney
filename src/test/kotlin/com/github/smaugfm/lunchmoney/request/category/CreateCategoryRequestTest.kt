@@ -31,10 +31,10 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
                     .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/createCategory.json"))
             )
-        val createCategoryRequest = CreateCategoryRequest(
+        val request = CreateCategoryRequest(
             CreateUpdateCategoryRequestParams("vasa")
         )
-        assertThat(api.execute(createCategoryRequest).block())
+        assertThat(api.execute(request).block())
             .isEqualTo(CreateCategoryResponse(1234L))
 
     }

@@ -25,13 +25,13 @@ internal class AddToCategoryGroupRequestTest : TestMockServerBase() {
                     .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/addToGroup.json"))
             )
-        val addToCategoryGroupRequest = AddToCategoryGroupRequest(
+        val request = AddToCategoryGroupRequest(
             groupId,
             AddToCategoryGroupsParams(
                 listOf(315162L, 315164L, 315169L, 315172L)
             )
         )
-        assertThat(api.execute(addToCategoryGroupRequest).block())
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 CategorySingle(
                     315358L,

@@ -40,7 +40,7 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllTransactions.json"))
         )
-        val getAllTransactions = GetAllTransactionsRequest(
+        val request = GetAllTransactionsRequest(
             GetAllTransactionsParams(
                 tagId = 1234L,
                 recurringId = 1234L,
@@ -58,7 +58,7 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                 pending = false
             )
         )
-        assertThat(api.execute(getAllTransactions).block())
+        assertThat(api.execute(request).block())
             .isEqualTo(
                 GetAllTransactionsResponse(
                     listOf(

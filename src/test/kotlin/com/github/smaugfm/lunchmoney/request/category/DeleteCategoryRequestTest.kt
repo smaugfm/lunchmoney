@@ -30,10 +30,10 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
                     .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                     .withBody("true")
             )
-        val deleteCategoryRequest = DeleteCategoryRequest(
+        val request = DeleteCategoryRequest(
             id
         )
-        assertThat(api.execute(deleteCategoryRequest).block())
+        assertThat(api.execute(request).block())
             .isEqualTo(true)
 
     }
