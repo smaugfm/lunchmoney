@@ -25,7 +25,7 @@ class GetAllPlaidAccountsRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("getAllPlaidAccounts.json"))
+                .withBody(getResourceAsString("response/getAllPlaidAccounts.json"))
         )
 
         val request = GetAllPlaidAccountsRequest()

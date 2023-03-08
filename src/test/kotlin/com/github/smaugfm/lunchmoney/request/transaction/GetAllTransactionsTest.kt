@@ -38,7 +38,7 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
         ).respond(
             response().withStatusCode(200)
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("getAllTransactions.json"))
+                .withBody(getResourceAsString("response/getAllTransactions.json"))
         )
         val getAllTransactions = GetAllTransactionsRequest(
             GetAllTransactionsParams(

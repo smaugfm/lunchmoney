@@ -26,7 +26,7 @@ class GetAllAssetsRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("getAllAssets.json"))
+                .withBody(getResourceAsString("response/getAllAssets.json"))
         )
         val request = GetAllAssetsRequest()
         assertThat(api.execute(request).block())

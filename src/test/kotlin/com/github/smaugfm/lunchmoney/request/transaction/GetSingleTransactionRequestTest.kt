@@ -27,7 +27,7 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                 response()
                     .withStatusCode(200)
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("getSingleTransaction.json"))
+                    .withBody(getResourceAsString("response/getSingleTransaction.json"))
             )
         val getSingleTransactionRequest = GetSingleTransactionRequest(id)
         assertThat(api.execute(getSingleTransactionRequest).block())
@@ -72,7 +72,7 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                 response()
                     .withStatusCode(200)
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("getSingleTransaction.json"))
+                    .withBody(getResourceAsString("response/getSingleTransaction.json"))
             )
         val getSingleTransactionRequest = GetSingleTransactionRequest(
             id,

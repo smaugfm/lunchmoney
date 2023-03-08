@@ -27,7 +27,7 @@ class UpdateAssetRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("updateAsset.json"))
+                .withBody(getResourceAsString("response/updateAsset.json"))
         )
 
         val request = UpdateAssetRequest(

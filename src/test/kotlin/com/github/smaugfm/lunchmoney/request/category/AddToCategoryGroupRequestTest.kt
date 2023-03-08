@@ -23,7 +23,7 @@ internal class AddToCategoryGroupRequestTest : TestMockServerBase() {
                 org.mockserver.model.HttpResponse.response()
                     .withStatusCode(200)
                     .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("addToGroup.json"))
+                    .withBody(getResourceAsString("response/addToGroup.json"))
             )
         val addToCategoryGroupRequest = AddToCategoryGroupRequest(
             groupId,

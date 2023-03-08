@@ -28,7 +28,7 @@ class GetRecurringExpensesRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("getRecurringExpenses.json"))
+                .withBody(getResourceAsString("response/getRecurringExpenses.json"))
         )
         val getRecurringExpensesRequest = GetRecurringExpensesRequest(
             GetRecurringExpensesParams(LocalDate.now(), true)

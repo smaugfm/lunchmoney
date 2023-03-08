@@ -29,7 +29,7 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
                 response()
                     .withStatusCode(200)
                     .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("createCategory.json"))
+                    .withBody(getResourceAsString("response/createCategory.json"))
             )
         val createCategoryRequest = CreateCategoryRequest(
             CreateUpdateCategoryRequestParams("vasa")
@@ -49,7 +49,7 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("createCategory-errorAlreadyExists.json"))
+                .withBody(getResourceAsString("response/createCategory-errorAlreadyExists.json"))
         )
         val createCategoryRequest = CreateCategoryRequest(
             CreateUpdateCategoryRequestParams("vasa")

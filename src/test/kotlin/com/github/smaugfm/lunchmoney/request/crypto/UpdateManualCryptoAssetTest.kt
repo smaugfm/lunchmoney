@@ -23,7 +23,7 @@ class UpdateManualCryptoAssetTest : TestMockServerBase() {
         ).respond(
             response().withStatusCode(200)
                 .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("updateManualCryptoAsset.json"))
+                .withBody(getResourceAsString("response/updateManualCryptoAsset.json"))
         )
         val request = UpdateManualCryptoAsset(
             id, UpdateManualCryptoParams(

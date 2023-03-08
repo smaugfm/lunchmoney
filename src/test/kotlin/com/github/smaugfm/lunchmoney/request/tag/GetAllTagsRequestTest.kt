@@ -6,7 +6,6 @@ import assertk.assertions.isNotNull
 import com.github.smaugfm.lunchmoney.TestMockServerBase
 import com.github.smaugfm.lunchmoney.Util.getResourceAsString
 import com.github.smaugfm.lunchmoney.model.Tag
-import com.github.smaugfm.lunchmoney.request.tag.GetAllTagsRequest
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -23,7 +22,7 @@ internal class GetAllTagsRequestTest : TestMockServerBase() {
                 response()
                     .withStatusCode(200)
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("getAllTags.json"))
+                    .withBody(getResourceAsString("response/getAllTags.json"))
             )
         val getAllTagsRequest = GetAllTagsRequest()
         assertThat(api.execute(getAllTagsRequest).block())

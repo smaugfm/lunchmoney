@@ -26,7 +26,7 @@ class GetAllCryptoRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("getAllCrypto.json"))
+                .withBody(getResourceAsString("response/getAllCrypto.json"))
         )
 
         val request = GetAllCryptoRequest()

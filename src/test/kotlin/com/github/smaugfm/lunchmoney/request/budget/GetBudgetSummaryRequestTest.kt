@@ -28,7 +28,7 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                 response()
                     .withStatusCode(200)
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("getBudgetSummary.json"))
+                    .withBody(getResourceAsString("response/getBudgetSummary.json"))
             )
 
         val request = GetBudgetSummaryRequest(

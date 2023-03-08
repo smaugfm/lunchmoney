@@ -37,7 +37,7 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
                 response()
                     .withStatusCode(200)
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("insertTransactions.json"))
+                    .withBody(getResourceAsString("response/insertTransactions.json"))
             )
 
         val insertTransactionsRequest = InsertTransactionsRequest(
@@ -79,7 +79,7 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
                 response()
                     .withStatusCode(200)
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("insertTransactions-error.json"))
+                    .withBody(getResourceAsString("response/insertTransactions-error.json"))
             )
 
         val insertTransactionsRequest = InsertTransactionsRequest(

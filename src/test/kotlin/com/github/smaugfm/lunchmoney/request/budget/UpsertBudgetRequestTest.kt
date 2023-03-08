@@ -25,7 +25,7 @@ class UpsertBudgetRequestTest : TestMockServerBase() {
                 response()
                     .withStatusCode(200)
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("upsertBudget.json"))
+                    .withBody(getResourceAsString("response/upsertBudget.json"))
             )
 
         val request = UpsertBudgetRequest(

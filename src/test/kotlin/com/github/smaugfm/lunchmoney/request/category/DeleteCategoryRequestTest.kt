@@ -48,7 +48,7 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("deleteCategory-dependents.json"))
+                .withBody(getResourceAsString("response/deleteCategory-dependents.json"))
         )
         val deleteCategoryRequest = DeleteCategoryRequest(
             id

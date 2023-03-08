@@ -31,7 +31,7 @@ class UpdateTransactionRequestTest : TestMockServerBase() {
                 response()
                     .withStatusCode(200)
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                    .withBody(getResourceAsString("updateTransaction.json"))
+                    .withBody(getResourceAsString("response/updateTransaction.json"))
             )
 
         val updateTransactionRequest = UpdateTransactionRequest(

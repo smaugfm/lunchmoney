@@ -30,7 +30,7 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("createCategory.json"))
+                .withBody(getResourceAsString("response/createCategory.json"))
         )
         val createCategoryRequest = CreateCategoryGroupRequest(
             CreateCategoryGroupRequestParams("vasa")
@@ -52,7 +52,7 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("createCategory-errorAlreadyExists.json"))
+                .withBody(getResourceAsString("response/createCategory-errorAlreadyExists.json"))
         )
         val createCategoryRequest = CreateCategoryGroupRequest(
             CreateCategoryGroupRequestParams("vasa")

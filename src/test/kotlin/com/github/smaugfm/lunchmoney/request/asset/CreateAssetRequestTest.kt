@@ -26,7 +26,7 @@ class CreateAssetRequestTest : TestMockServerBase() {
             response()
                 .withStatusCode(200)
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
-                .withBody(getResourceAsString("createAsset.json"))
+                .withBody(getResourceAsString("response/createAsset.json"))
         )
 
         val request = CreateAssetRequest(
