@@ -6,7 +6,6 @@ import com.github.smaugfm.lunchmoney.serializer.BigDecimalSerializer
 import com.github.smaugfm.lunchmoney.serializer.CurrencySerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
-import java.math.BigDecimal
 import java.util.Currency
 
 @Serializable

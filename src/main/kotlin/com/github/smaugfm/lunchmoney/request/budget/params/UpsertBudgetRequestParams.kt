@@ -1,4 +1,5 @@
 @file:UseSerializers(LocalDateSerializer::class, CurrencySerializer::class)
+
 package com.github.smaugfm.lunchmoney.request.budget.params
 
 import com.github.smaugfm.lunchmoney.serializer.CurrencySerializer

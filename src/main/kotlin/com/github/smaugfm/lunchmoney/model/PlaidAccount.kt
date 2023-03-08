@@ -15,7 +15,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import java.math.BigDecimal
 import java.time.Instant
-import java.time.LocalDate
 import java.util.Currency
 
 @Serializable

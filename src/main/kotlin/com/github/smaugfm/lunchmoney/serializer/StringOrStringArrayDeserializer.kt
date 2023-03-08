@@ -17,7 +17,7 @@ class StringOrStringArrayDeserializer : KSerializer<List<String>> {
 
     override fun deserialize(decoder: Decoder): List<String> {
         return try {
-            listOf(decoder.decodeString());
+            listOf(decoder.decodeString())
         } catch (e: SerializationException) {
             decoder.decodeSerializableValue(serializer)
         }

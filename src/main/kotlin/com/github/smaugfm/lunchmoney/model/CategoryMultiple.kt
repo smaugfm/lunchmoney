@@ -1,4 +1,5 @@
 @file:UseSerializers(InstantSerializer::class)
+
 package com.github.smaugfm.lunchmoney.model
 
 import com.github.smaugfm.lunchmoney.serializer.InstantSerializer
