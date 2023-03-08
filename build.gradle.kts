@@ -1,3 +1,5 @@
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
@@ -5,6 +7,7 @@ plugins {
     kotlin("jvm") version "1.8.10"
     kotlin("plugin.serialization") version "1.8.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.2.0"
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
     application
 }
 
@@ -18,7 +21,8 @@ repositories {
 val reactorCore = "3.5.2"
 val reactorNetty = "1.1.2"
 val mockserver = "5.15.0"
-var logback = "1.4.5"
+val logback = "1.4.5"
+val javaVersion = "11"
 
 dependencies {
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
@@ -43,15 +47,33 @@ configure<KtlintExtension> {
     }
 }
 
+detekt {
+    buildUponDefaultConfig = true
+    config =
+        files("$projectDir/detekt.yml")
+}
+
 tasks {
     test {
         useJUnitPlatform()
-        systemProperty("java.util.logging.config.fil", "logging.properties")
+    }
+    withType<DetektCreateBaselineTask>().configureEach {
+        jvmTarget = javaVersion
+    }
+    withType<Detekt>().configureEach {
+        jvmTarget = javaVersion
+        reports {
+            html.required.set(true)
+            md.required.set(true)
+            xml.required.set(false)
+            txt.required.set(false)
+            sarif.required.set(false)
+        }
     }
 }
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(javaVersion.toInt())
 }
 
 application {
