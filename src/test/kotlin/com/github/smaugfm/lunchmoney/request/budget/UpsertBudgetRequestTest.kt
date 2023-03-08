@@ -16,7 +16,6 @@ import java.util.Currency
 class UpsertBudgetRequestTest : TestMockServerBase() {
     @Test
     fun upsertBudgetTest() {
-
         mockServer
             .`when`(
                 request("/budgets")

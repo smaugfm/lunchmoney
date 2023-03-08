@@ -10,6 +10,6 @@ class CreateTransactionGroupRequest(params: Mono<CreateTransactionGroupParams>) 
         PathAndQuery.segment("transactions").segment("group"),
         params
     ) {
-    constructor(params: CreateTransactionGroupParams)
-            : this(Mono.just(params))
+    constructor(params: CreateTransactionGroupParams) :
+        this(Mono.just(params))
 }

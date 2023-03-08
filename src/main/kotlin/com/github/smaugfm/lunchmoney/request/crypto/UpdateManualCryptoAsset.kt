@@ -8,7 +8,8 @@ import reactor.core.publisher.Mono
 
 class UpdateManualCryptoAsset(id: Long, params: Mono<UpdateManualCryptoParams>) :
     PutRequest<Crypto, UpdateManualCryptoParams>(
-        PathAndQuery.segment("crypto").segment("manual").segment(id), params
+        PathAndQuery.segment("crypto").segment("manual").segment(id),
+        params
     ) {
     constructor(id: Long, params: UpdateManualCryptoParams) : this(id, Mono.just(params))
 }

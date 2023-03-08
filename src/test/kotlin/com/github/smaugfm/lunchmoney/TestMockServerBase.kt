@@ -31,8 +31,8 @@ open class TestMockServerBase {
                 HttpResponse.response()
                     .withStatusCode(200)
                     .withBody(
-                        " { \"name\": \"Error\", "
-                                + "\"message\": \"Access token does not exist.\" } "
+                        " { \"name\": \"Error\", " +
+                            "\"message\": \"Access token does not exist.\" } "
                     )
             )
         mockServer
@@ -46,8 +46,8 @@ open class TestMockServerBase {
                 HttpResponse.response()
                     .withStatusCode(200)
                     .withBody(
-                        " { \"name\": \"Error\", "
-                                + "\"message\": \"Access token does not exist.\" } "
+                        " { \"name\": \"Error\", " +
+                            "\"message\": \"Access token does not exist.\" } "
                     )
             )
     }

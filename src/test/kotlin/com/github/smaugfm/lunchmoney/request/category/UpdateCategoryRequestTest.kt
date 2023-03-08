@@ -21,9 +21,9 @@ internal class UpdateCategoryRequestTest : TestMockServerBase() {
                 .withBody("true")
         )
         val request = UpdateCategoryRequest(
-            id, CreateUpdateCategoryRequestParams("vasa")
+            id,
+            CreateUpdateCategoryRequestParams("vasa")
         )
         assertThat(api.execute(request).block()).isEqualTo(true)
-
     }
 }

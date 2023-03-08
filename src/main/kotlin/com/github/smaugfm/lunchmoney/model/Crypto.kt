@@ -27,5 +27,5 @@ data class Crypto(
     val currency: String,
     val status: String,
     val institutionName: String? = null,
-    val createdAt: Instant? = null,
+    val createdAt: Instant? = null
 )

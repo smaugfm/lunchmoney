@@ -15,6 +15,5 @@ data class Split(
     val date: LocalDate,
     val notes: String? = null,
     val categoryId: Long? = null,
-    val payee: String? = null,
+    val payee: String? = null
 )
-

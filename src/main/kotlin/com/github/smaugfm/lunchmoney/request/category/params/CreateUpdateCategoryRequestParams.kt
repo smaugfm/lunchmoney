@@ -12,4 +12,3 @@ class CreateUpdateCategoryRequestParams(
     val categoryIds: List<Long>? = null,
     val groupId: Long? = null
 )
-

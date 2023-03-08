@@ -69,7 +69,8 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     excludeFromTotals = false,
                     isGroup = true,
                     groupId = null,
-                    groupCategoryName = null, children = listOf(
+                    groupCategoryName = null,
+                    children = listOf(
                         CategoryChild(
                             427749L,
                             "Coffee Shops",

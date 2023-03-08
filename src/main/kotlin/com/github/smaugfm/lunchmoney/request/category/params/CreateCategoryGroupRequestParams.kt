@@ -10,5 +10,5 @@ data class CreateCategoryGroupRequestParams(
     val excludeFromBudget: Boolean? = null,
     val excludeFromTotals: Boolean? = null,
     val categoryIds: List<Long>? = null,
-    val newCategories: List<String>? = null,
+    val newCategories: List<String>? = null
 )

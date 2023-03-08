@@ -42,5 +42,5 @@ data class RecurringExpense(
     val plaidAccountId: Long? = null,
     val assetId: Long? = null,
     val transactionId: Long? = null,
-    val categoryId: Long? = null,
+    val categoryId: Long? = null
 )

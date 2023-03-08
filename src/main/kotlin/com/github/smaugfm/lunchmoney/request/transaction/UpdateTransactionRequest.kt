@@ -13,6 +13,6 @@ class UpdateTransactionRequest(
     PathAndQuery.segment("transactions").segment(transactionId),
     params
 ) {
-    constructor(transactionId: Long, params: UpdateTransactionParams)
-            : this(transactionId, Mono.just(params))
+    constructor(transactionId: Long, params: UpdateTransactionParams) :
+        this(transactionId, Mono.just(params))
 }

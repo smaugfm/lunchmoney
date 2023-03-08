@@ -60,7 +60,7 @@ class UpdateAssetRequestTest : TestMockServerBase() {
                     currency = Currency.getInstance("CAD"),
                     institutionName = "TD Bank",
                     excludeTransactions = null,
-                    createdAt = Instant.parse("2019-08-10T22:46:19.486Z"),
+                    createdAt = Instant.parse("2019-08-10T22:46:19.486Z")
                 )
             )
     }

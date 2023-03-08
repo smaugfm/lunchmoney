@@ -13,7 +13,6 @@ import java.time.LocalDate
 class CreateTransactionGroupRequestTest : TestMockServerBase() {
     @Test
     fun createTransactionGroupTest() {
-
         mockServer
             .`when`(
                 request("/transactions/group")

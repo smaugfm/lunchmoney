@@ -18,6 +18,6 @@ data class UpsertBudgetResponse(
         val categoryId: Long,
         val amount: Double,
         val currency: Currency,
-        val startDate: LocalDate,
+        val startDate: LocalDate
     )
 }

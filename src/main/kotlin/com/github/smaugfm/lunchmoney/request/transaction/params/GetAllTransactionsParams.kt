@@ -24,5 +24,5 @@ data class GetAllTransactionsParams(
     val startDate: LocalDate? = null,
     val endDate: LocalDate? = null,
     val debitAsNegative: Boolean? = null,
-    val pending: Boolean? = null,
+    val pending: Boolean? = null
 )

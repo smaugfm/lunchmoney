@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono
 
 abstract class PutRequest<TResponse, TBody : Any>(
     final override val pathAndQuery: PathAndQuery,
-    params: Mono<TBody>,
+    params: Mono<TBody>
 ) : BodyRequest<TResponse, TBody>(params, HttpMethod.PUT)

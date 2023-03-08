@@ -10,5 +10,5 @@ data class InsertTransactionRequestParams(
     val skipDuplicates: Boolean? = null,
     val checkForRecurring: Boolean? = null,
     val debitAsNegative: Boolean? = null,
-    val skipBalanceUpdate: Boolean? = null,
+    val skipBalanceUpdate: Boolean? = null
 )

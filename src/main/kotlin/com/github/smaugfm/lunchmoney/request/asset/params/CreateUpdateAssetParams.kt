@@ -32,5 +32,5 @@ data class CreateUpdateAssetParams(
     val currency: Currency? = null,
     val institutionName: String? = null,
     val closedOn: LocalDate? = null,
-    val excludeTransactions: Boolean? = null,
+    val excludeTransactions: Boolean? = null
 )

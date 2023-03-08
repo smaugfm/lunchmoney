@@ -35,6 +35,5 @@ internal class GetCurrentUserRequestTest : TestMockServerBase() {
                     null
                 )
             )
-
     }
 }

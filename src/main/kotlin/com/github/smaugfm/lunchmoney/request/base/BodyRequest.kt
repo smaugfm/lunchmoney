@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono
 
 abstract class BodyRequest<TResponse, TBody : Any>(
     protected val params: Mono<TBody>,
-    protected val method: HttpMethod,
+    protected val method: HttpMethod
 ) : ApiRequest<TResponse, TBody>() {
     constructor(params: TBody, method: HttpMethod) : this(Mono.just(params), method)
 

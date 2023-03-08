@@ -13,7 +13,6 @@ import java.time.LocalDate
 class RemoveBudgetRequestTest : TestMockServerBase() {
     @Test
     fun removeBudgetTest() {
-
         mockServer
             .`when`(
                 request("/budgets")
@@ -27,7 +26,7 @@ class RemoveBudgetRequestTest : TestMockServerBase() {
         val request = RemoveBudgetRequest(
             RemoveBudgetParams(
                 LocalDate.now(),
-                1234L,
+                1234L
             )
         )
 

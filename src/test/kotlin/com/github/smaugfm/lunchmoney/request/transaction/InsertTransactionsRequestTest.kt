@@ -28,7 +28,6 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
 
     @Test
     fun insertTransactionsRequest() {
-
         mockServer
             .`when`(
                 request("/transactions")
@@ -70,7 +69,6 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
 
     @Test
     fun insertTransactionsRequestError() {
-
         mockServer
             .`when`(
                 request("/transactions")

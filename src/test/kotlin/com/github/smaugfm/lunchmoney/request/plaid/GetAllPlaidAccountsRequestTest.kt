@@ -17,7 +17,6 @@ import java.util.Currency
 class GetAllPlaidAccountsRequestTest : TestMockServerBase() {
     @Test
     fun getAllPlaidAccountsTest() {
-
         mockServer.`when`(
             request("/plaid_accounts")
                 .withMethod("GET")
@@ -46,7 +45,7 @@ class GetAllPlaidAccountsRequestTest : TestMockServerBase() {
                             Instant.parse("2019-09-04T12:57:09.190Z"),
                             BigDecimal("12345.6700"),
                             Currency.getInstance("USD"),
-                            Instant.parse("2020-01-27T01:38:11.862Z"),
+                            Instant.parse("2020-01-27T01:38:11.862Z")
                         ),
                         PlaidAccount(
                             89,

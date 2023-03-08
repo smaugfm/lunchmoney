@@ -59,7 +59,7 @@ class UpdateTransactionRequestTest : TestMockServerBase() {
                 ),
                 true,
                 null
-            ),
+            )
         )
 
         assertThat(api.execute(request).block())

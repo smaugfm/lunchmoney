@@ -26,6 +26,5 @@ internal class ForceDeleteCategoryRequestTest : TestMockServerBase() {
         )
         assertThat(api.execute(request).block())
             .isEqualTo(true)
-
     }
 }

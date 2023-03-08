@@ -28,8 +28,9 @@ class PathAndQuery private constructor(
     }
 
     fun <T> query(serializer: KSerializer<T>, value: T?): PathAndQuery {
-        if (value != null)
+        if (value != null) {
             query = QueryParamsEncoder.encode(serializer, value)
+        }
         return this
     }
 

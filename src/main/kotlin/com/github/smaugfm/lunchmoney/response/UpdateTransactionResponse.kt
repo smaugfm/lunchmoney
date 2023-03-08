@@ -7,4 +7,3 @@ data class UpdateTransactionResponse(
     val updated: Boolean,
     val split: List<Long>? = null
 )
-

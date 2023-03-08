@@ -58,7 +58,7 @@ class CreateAssetRequestTest : TestMockServerBase() {
                     currency = Currency.getInstance("CAD"),
                     institutionName = null,
                     excludeTransactions = false,
-                    createdAt = Instant.parse("2022-05-29T21:35:36.564Z"),
+                    createdAt = Instant.parse("2022-05-29T21:35:36.564Z")
                 )
             )
     }

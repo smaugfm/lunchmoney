@@ -15,5 +15,5 @@ data class BudgetData(
     val budgetToBase: Double? = null,
     val budgetAmount: Double? = null,
     val budgetCurrency: Currency? = null,
-    val isAutomated: Boolean? = null,
+    val isAutomated: Boolean? = null
 )

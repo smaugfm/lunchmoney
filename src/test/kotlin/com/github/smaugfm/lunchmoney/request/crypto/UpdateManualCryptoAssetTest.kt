@@ -26,7 +26,8 @@ class UpdateManualCryptoAssetTest : TestMockServerBase() {
                 .withBody(getResourceAsString("response/updateManualCryptoAsset.json"))
         )
         val request = UpdateManualCryptoAsset(
-            id, UpdateManualCryptoParams(
+            id,
+            UpdateManualCryptoParams(
                 "vasa",
                 "vasa",
                 BigDecimal("12341234.1234123412342"),

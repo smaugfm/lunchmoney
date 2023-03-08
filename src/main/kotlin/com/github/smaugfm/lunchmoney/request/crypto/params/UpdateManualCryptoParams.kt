@@ -18,5 +18,5 @@ data class UpdateManualCryptoParams(
     val name: String? = null,
     val displayName: String? = null,
     val balance: BigDecimal? = null,
-    val currency: String? = null,
+    val currency: String? = null
 )

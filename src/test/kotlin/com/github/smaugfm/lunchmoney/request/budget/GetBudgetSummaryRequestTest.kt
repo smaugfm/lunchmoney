@@ -19,7 +19,6 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
 
     @Test
     fun getBudgetSummaryTest() {
-
         mockServer
             .`when`(
                 request("/budgets")
@@ -38,7 +37,6 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                 Currency.getInstance("USD")
             )
         )
-
 
         assertThat(api.execute(request).block())
             .isEqualTo(
@@ -59,7 +57,7 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                                 376.08,
                                 376.08,
                                 Currency.getInstance("USD"),
-                                true,
+                                true
                             ),
                             LocalDate.parse("2020-08-01") to BudgetData(
                                 23,
@@ -67,7 +65,7 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                                 300.0,
                                 300.0,
                                 Currency.getInstance("USD")
-                            ),
+                            )
                         ),
                         config = BudgetConfig(
                             9,
@@ -96,7 +94,7 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                             LocalDate.parse("2020-08-01") to BudgetData(
                                 8,
                                 79.53
-                            ),
+                            )
                         ),
                         order = 1
                     )

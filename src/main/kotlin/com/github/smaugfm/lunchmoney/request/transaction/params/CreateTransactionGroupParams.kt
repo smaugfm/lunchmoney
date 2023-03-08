@@ -15,5 +15,5 @@ data class CreateTransactionGroupParams(
     val transactions: List<Long>,
     val categoryId: Long? = null,
     val notes: String? = null,
-    val tags: List<Tag>? = null,
+    val tags: List<Tag>? = null
 )

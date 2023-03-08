@@ -32,7 +32,10 @@ internal class AuthorizationTest : TestMockServerBase() {
             .isNotNull()
             .isEqualTo(
                 ApiErrorResponse(
-                    "Error", "Access token does not exist.", null, null
+                    "Error",
+                    "Access token does not exist.",
+                    null,
+                    null
                 )
             )
     }

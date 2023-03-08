@@ -7,4 +7,3 @@ import kotlinx.serialization.Serializable
 data class GetAllCategoriesResponse(
     val categories: List<CategoryMultiple>
 )
-

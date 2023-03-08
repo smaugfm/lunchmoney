@@ -15,5 +15,5 @@ data class BudgetConfig(
     val amount: Double,
     val currency: Currency,
     val toBase: Double,
-    val autoSuggest: String,
+    val autoSuggest: String
 )

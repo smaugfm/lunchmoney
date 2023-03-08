@@ -36,7 +36,6 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
         )
         assertThat(api.execute(request).block())
             .isEqualTo(CreateCategoryResponse(1234L))
-
     }
 
     @Test

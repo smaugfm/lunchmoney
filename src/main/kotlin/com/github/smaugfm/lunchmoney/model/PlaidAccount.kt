@@ -31,5 +31,5 @@ data class PlaidAccount(
     val balance: BigDecimal,
     val currency: Currency,
     val balanceLastUpdate: Instant,
-    val limit: Long? = null,
+    val limit: Long? = null
 )

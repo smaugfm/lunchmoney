@@ -18,7 +18,6 @@ class GetAllCryptoRequestTest : TestMockServerBase() {
 
     @Test
     fun getAllCryptoTest() {
-
         mockServer.`when`(
             request("/crypto")
                 .withMethod("GET")
@@ -45,7 +44,7 @@ class GetAllCryptoRequestTest : TestMockServerBase() {
                             currency = "doge",
                             status = "active",
                             institutionName = "MetaMask",
-                            createdAt = Instant.parse("2020-07-27T11:53:02.722Z"),
+                            createdAt = Instant.parse("2020-07-27T11:53:02.722Z")
                         ),
                         Crypto(
                             id = 152,

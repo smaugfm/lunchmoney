@@ -9,5 +9,5 @@ data class UpdateTransactionParams(
     val transaction: InsertOrUpdateTransaction,
     val split: Split? = null,
     val debitAsNegative: Boolean? = null,
-    val skipBalanceUpdate: Boolean? = null,
+    val skipBalanceUpdate: Boolean? = null
 )

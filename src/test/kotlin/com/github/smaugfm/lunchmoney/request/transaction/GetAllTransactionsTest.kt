@@ -86,7 +86,8 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                             fees = null,
                             price = null,
                             quantity = null
-                        ), Transaction(
+                        ),
+                        Transaction(
                             id = 603L,
                             date = LocalDate.of(2020, 1, 2),
                             payee = "Walmart",

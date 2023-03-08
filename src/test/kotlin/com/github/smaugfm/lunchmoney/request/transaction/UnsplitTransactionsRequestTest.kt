@@ -12,7 +12,6 @@ import org.mockserver.model.MediaType
 class UnsplitTransactionsRequestTest : TestMockServerBase() {
     @Test
     fun unsplitTransactionsTest() {
-
         mockServer
             .`when`(
                 request("/transactions/unsplit")
