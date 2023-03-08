@@ -1,0 +1,12 @@
+complexity:
+  LongParameterList:
+    excludes:
+      - '**/*Params.kt'
+  LongMethod:
+    excludes:
+      - '**/*Test.kt'
+naming:
+  MemberNameEqualsClassName:
+    excludes:
+      - '**/*Test.kt'
+

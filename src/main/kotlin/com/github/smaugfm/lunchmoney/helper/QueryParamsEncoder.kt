@@ -61,7 +61,7 @@ class QueryParamsEncoder : NamedValueEncoder() {
 
             override fun hashCode(): Int = serialName.hashCode() + 31 * kind.hashCode()
             private fun error(): Nothing =
-                throw IllegalStateException("Descriptor for type `kotlin.Nothing` does not have elements")
+                error("Descriptor for type `kotlin.Nothing` does not have elements")
         }
     }
 }

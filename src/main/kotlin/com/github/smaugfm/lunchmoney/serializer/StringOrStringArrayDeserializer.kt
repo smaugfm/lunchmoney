@@ -15,6 +15,7 @@ class StringOrStringArrayDeserializer : KSerializer<List<String>> {
     private val serializer = ListSerializer(StringSerializer)
     override val descriptor = SerialDescriptor("PossibleStringArray", serializer.descriptor)
 
+    @Suppress("SwallowedException")
     override fun deserialize(decoder: Decoder): List<String> {
         return try {
             listOf(decoder.decodeString())

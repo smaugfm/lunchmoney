@@ -1,3 +1,5 @@
+import java.nio.file.Paths
+
 rootProject.name = "lunchmoney"
 
 plugins {
@@ -6,9 +8,9 @@ plugins {
 
 gitHooks {
     preCommit {
-        tasks("ktlintFormat", "ktlintCheck")
+        from(Paths.get("pre-commit.sh").toFile())
     }
-    hook("prePush") {
+    hook("pre-push") {
         tasks("clean", "build")
     }
     createHooks(true)

@@ -1,4 +1,4 @@
-package com.github.smaugfm.lunchmoney
+package com.github.smaugfm.lunchmoney.api
 
 import com.github.smaugfm.lunchmoney.exception.ApiRequestException
 import com.github.smaugfm.lunchmoney.exception.ApiResponseException
@@ -14,52 +14,28 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonBuilder
-import kotlinx.serialization.json.JsonNamingStrategy
 import kotlinx.serialization.json.encodeToStream
 import kotlinx.serialization.serializer
+import mu.KotlinLogging
 import reactor.core.publisher.Mono
 import reactor.netty.ByteBufMono
 import reactor.netty.http.client.HttpClient
 import reactor.netty.http.client.HttpClientResponse
-import reactor.netty.resources.ConnectionProvider
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
-@OptIn(ExperimentalSerializationApi::class)
-open class Lunchmoney protected constructor(
+val log = KotlinLogging.logger { }
+
+@ExperimentalSerializationApi
+class RequestExecutor(
     token: String,
-    baseUrl: String = "https://dev.lunchmoney.app/v1",
+    val json: Json,
     private val port: Int = 443,
-    jsonBuilderAction: JsonBuilder.() -> Unit = {
-        namingStrategy = JsonNamingStrategy.SnakeCase
-    },
-    reactorNettyConnectionProvider: ConnectionProvider? = null
-) {
     private val httpClient: HttpClient
+) {
     private val authorizationHeader = "Bearer $token"
-    val json = Json(builderAction = jsonBuilderAction)
 
-    init {
-        httpClient =
-            if (reactorNettyConnectionProvider != null) {
-                HttpClient.create(reactorNettyConnectionProvider).baseUrl(baseUrl)
-            } else {
-                HttpClient.create().baseUrl(baseUrl)
-            }
-    }
-
-    inline fun <reified R, reified T, A : ApiRequest<R, T>> execute(request: A): Mono<R> =
-        execute<R, T, A>(Mono.just(request))
-
-    inline fun <reified R, reified T, A : ApiRequest<R, T>> execute(requestMono: Mono<A>): Mono<R> =
-        execute(
-            requestMono,
-            json.serializersModule.serializer(),
-            json.serializersModule.serializer()
-        )
-
-    open fun <R, T, A : ApiRequest<R, T>> execute(
+    fun <R, T, A : ApiRequest<R, T>> execute(
         requestMono: Mono<A>,
         responseSerializer: KSerializer<R>,
         paramsSerializer: KSerializer<T>
@@ -154,20 +130,21 @@ open class Lunchmoney protected constructor(
             }
         }
 
-    open fun deserializeApiError(body: String): ApiErrorResponse? =
+    private fun deserializeApiError(body: String): ApiErrorResponse? =
         try {
             doDeserialize<ApiErrorResponse>(
                 json.serializersModule.serializer(),
                 body
             )
         } catch (other: SerializationException) {
+            log.warn(other) { "Unknown error response" }
             null
         }
 
     private fun <T> doDeserialize(serializer: KSerializer<T>, body: String): T =
         json.decodeFromString(serializer, body)
 
-    open fun <T> serializeRequestBody(serializer: KSerializer<T>, body: T): ByteArray {
+    private fun <T> serializeRequestBody(serializer: KSerializer<T>, body: T): ByteArray {
         val os = ByteArrayOutputStream()
         json.encodeToStream(serializer, body, os)
         return os.toByteArray()
@@ -175,7 +152,7 @@ open class Lunchmoney protected constructor(
 
     private fun <T> requestBodyToByteBuffer(serializer: KSerializer<T>, body: T): ByteBuf {
         return try {
-            val res: ByteArray = serializeRequestBody<T>(serializer, body)
+            val res: ByteArray = serializeRequestBody(serializer, body)
             Unpooled.wrappedBuffer(res)
         } catch (e: IOException) {
             throw ApiRequestException(e)
