@@ -1,11 +1,8 @@
 package com.github.smaugfm.lunchmoney.request.category
 
 import com.github.smaugfm.lunchmoney.helper.PathAndQuery
-import com.github.smaugfm.lunchmoney.request.ApiRequest
-import io.netty.handler.codec.http.HttpMethod
+import com.github.smaugfm.lunchmoney.request.base.DeleteRequest
 
-class DeleteCategoryRequest(categoryId: Long) : ApiRequest<Boolean, Unit>() {
-
-    override val pathAndQuery = PathAndQuery.segment("categories").segment(categoryId)
-    override fun method(): HttpMethod = HttpMethod.DELETE
-}
+class DeleteCategoryRequest(categoryId: Long) : DeleteRequest<Boolean>(
+    PathAndQuery.segment("categories").segment(categoryId)
+)

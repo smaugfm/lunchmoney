@@ -7,8 +7,9 @@ import com.github.smaugfm.lunchmoney.request.base.PostRequest
 import reactor.core.publisher.Mono
 
 class CreateAssetRequest(params: Mono<CreateAssetParams>) :
-    PostRequest<Asset, CreateAssetParams>(params) {
+    PostRequest<Asset, CreateAssetParams>(
+        PathAndQuery.segment("assets"),
+        params
+    ) {
     constructor(params: CreateAssetParams) : this(Mono.just(params))
-
-    override val pathAndQuery = PathAndQuery.segment("assets")
 }

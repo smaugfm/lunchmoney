@@ -23,13 +23,14 @@ class PathAndQuery private constructor(
     }
 
     inline fun <reified T> query(value: T?): PathAndQuery {
-        setQuery(Json.serializersModule.serializer(), value)
+        query(Json.serializersModule.serializer(), value)
         return this
     }
 
-    fun <T> setQuery(serializer: KSerializer<T>, value: T?) {
+    fun <T> query(serializer: KSerializer<T>, value: T?): PathAndQuery {
         if (value != null)
             query = QueryParamsEncoder.encode(serializer, value)
+        return this
     }
 
     override fun toString() =
@@ -43,9 +44,7 @@ class PathAndQuery private constructor(
             query(Json.serializersModule.serializer(), value)
 
         fun <T> query(serializer: KSerializer<T>, value: T?) =
-            PathAndQuery().also {
-                it.setQuery(serializer, value)
-            }
+            PathAndQuery().query(serializer, value)
 
         private fun checkBlank(folder: Any) =
             folder.toString().also {
