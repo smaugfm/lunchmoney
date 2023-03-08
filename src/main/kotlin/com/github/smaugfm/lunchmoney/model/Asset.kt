@@ -25,14 +25,14 @@ import java.util.Currency
 data class Asset(
     val id: Long,
     val typeName: AssetType,
-    val subtypeName: String,
+    val subtypeName: String? = null,
     val name: String,
     val displayName: String? = null,
     val balance: BigDecimal,
     val balanceAsOf: Instant,
     val closedOn: LocalDate? = null,
     val currency: Currency,
-    val institutionName: String,
+    val institutionName: String? = null,
     val excludeTransactions: Boolean,
     val createdAt: Instant
 )

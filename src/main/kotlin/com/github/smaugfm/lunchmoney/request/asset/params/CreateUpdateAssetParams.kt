@@ -22,7 +22,7 @@ import java.time.LocalDate
 import java.util.Currency
 
 @Serializable
-data class CreateAssetParams(
+data class CreateUpdateAssetParams(
     val typeName: AssetType,
     val subtypeName: String? = null,
     val name: String,

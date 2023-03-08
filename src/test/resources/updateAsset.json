@@ -1,0 +1,11 @@
+{
+  "id": 12,
+  "type_name": "cash",
+  "subtype_name": "savings",
+  "name": "TD Savings Account",
+  "balance": "28658.5300",
+  "balance_as_of": "2020-03-10T05:17:23.856Z",
+  "currency": "cad",
+  "institution_name": "TD Bank",
+  "created_at": "2019-08-10T22:46:19.486Z"
+}
