@@ -7,7 +7,7 @@ import kotlinx.serialization.json.JsonNamingStrategy
 import kotlinx.serialization.serializer
 
 @OptIn(ExperimentalSerializationApi::class)
-class PathAndQuery private constructor(
+open class PathAndQuery protected constructor(
     private val json: Json = Json {
         namingStrategy = JsonNamingStrategy.SnakeCase
     }

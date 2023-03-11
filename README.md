@@ -1,2 +1,2 @@
 # lunchmoney
-Non-blocking Java client for Lunchmoney developer API
+Non-blocking JVM client for Lunchmoney developer API

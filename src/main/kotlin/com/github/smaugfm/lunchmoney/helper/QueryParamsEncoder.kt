@@ -11,7 +11,7 @@ import kotlinx.serialization.json.JsonNamingStrategy
 import kotlinx.serialization.modules.EmptySerializersModule
 
 @OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
-class QueryParamsEncoder : NamedValueEncoder() {
+internal class QueryParamsEncoder : NamedValueEncoder() {
     private val sb = StringBuilder()
     private var empty = true
 

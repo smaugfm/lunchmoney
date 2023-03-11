@@ -6,7 +6,7 @@ import com.github.smaugfm.lunchmoney.TestMockServerBase
 import com.github.smaugfm.lunchmoney.Util.getResourceAsString
 import com.github.smaugfm.lunchmoney.model.Crypto
 import com.github.smaugfm.lunchmoney.model.enumeration.CryptoSource
-import com.github.smaugfm.lunchmoney.serializer.GetAllCryptoResponse
+import com.github.smaugfm.lunchmoney.response.GetAllCryptoResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response

@@ -1,4 +1,4 @@
-package com.github.smaugfm.lunchmoney.serializer
+package com.github.smaugfm.lunchmoney.response
 
 import com.github.smaugfm.lunchmoney.model.Crypto
 import kotlinx.serialization.Serializable

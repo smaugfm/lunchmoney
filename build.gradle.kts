@@ -8,6 +8,7 @@ plugins {
     kotlin("plugin.serialization") version "1.8.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.2.0"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
+    `maven-publish`
     application
 }
 
@@ -78,4 +79,21 @@ kotlin {
 
 application {
     mainClass.set("MainKt")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = rootProject.group.toString()
+            artifactId = rootProject.name
+            version = rootProject.version.toString()
+
+            from(components["java"])
+            pom {
+                name.set("Lunchmoney JVM")
+                description.set("Non-blocking JVM client for Lunchmoney developer API")
+                url.set("https://github.com/smaugfm/lunchmoney")
+            }
+        }
+    }
 }

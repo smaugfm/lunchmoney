@@ -7,7 +7,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.util.Currency
 
-object CurrencySerializer : KSerializer<Currency> {
+internal object CurrencySerializer : KSerializer<Currency> {
     override val descriptor =
         PrimitiveSerialDescriptor(Currency::class.qualifiedName!!, PrimitiveKind.STRING)
 
