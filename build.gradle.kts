@@ -15,7 +15,7 @@ plugins {
     application
 }
 
-group = "com.github.smaugfm"
+group = "io.github.smaugfm"
 version = "0.0.1-SNAPSHOT"
 
 repositories {
