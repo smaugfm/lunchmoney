@@ -2,7 +2,7 @@ package io.github.smaugfm.lunchmoney.exception
 
 import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
 
-class ApiResponseException : io.github.smaugfm.lunchmoney.exception.ApiException {
+class ApiResponseException : ApiException {
     val apiErrorResponse: ApiErrorResponse?
     val statusCode: Int
     val body: String

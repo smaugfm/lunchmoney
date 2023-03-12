@@ -1,6 +1,5 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
-import org.jetbrains.dokka.gradle.DokkaTask
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
@@ -8,11 +7,10 @@ plugins {
     kotlin("jvm") version "1.8.10"
     kotlin("plugin.serialization") version "1.8.10"
     id("org.jlleitschuh.gradle.ktlint") version "11.2.0"
-    id("org.jetbrains.dokka") version "1.8.10"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
     signing
+    `java-library`
     `maven-publish`
-    application
 }
 
 group = "io.github.smaugfm"
@@ -42,6 +40,11 @@ dependencies {
     testImplementation("ch.qos.logback:logback-core:$logback")
     testImplementation("ch.qos.logback:logback-classic:$logback")
     testImplementation(kotlin("test"))
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 configure<KtlintExtension> {
@@ -79,21 +82,8 @@ tasks {
         }
     }
 }
-val dokkaHtml by tasks.existing(DokkaTask::class)
-
-val javadocJar by tasks.registering(Jar::class) {
-    group = "build"
-    description = "Assembles a jar archive containing the Javadoc API documentation."
-    archiveClassifier.set("javadoc")
-    from(dokkaHtml)
-}
-
 kotlin {
     jvmToolchain(javaVersion.toInt())
-}
-
-application {
-    mainClass.set("MainKt")
 }
 
 publishing {
@@ -116,10 +106,18 @@ publishing {
     }
 
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("mavenJava") {
             groupId = project.group.toString()
             artifactId = project.name
             version = project.version.toString()
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("runtimeClasspath")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
+            }
 
             from(components["java"])
             pom {
@@ -130,7 +128,7 @@ publishing {
                 licenses {
                     license {
                         name.set("MIT License")
-                        url.set("http://www.opensource.org/licenses/mit-license.php")
+                        url.set("https://www.opensource.org/licenses/mit-license.php")
                     }
                 }
 

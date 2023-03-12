@@ -1,6 +1,5 @@
 package io.github.smaugfm.lunchmoney
 
-import io.github.smaugfm.lunchmoney.api.Lunchmoney
 import io.netty.handler.codec.http.HttpHeaderNames
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll

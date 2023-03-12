@@ -20,7 +20,7 @@ open class Lunchmoney(
     },
     reactorNettyConnectionProvider: ConnectionProvider? = null
 ) {
-    val requestExecutor = io.github.smaugfm.lunchmoney.api.RequestExecutor(
+    val requestExecutor = RequestExecutor(
         token,
         Json(builderAction = jsonBuilderAction),
         port,

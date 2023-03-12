@@ -35,7 +35,9 @@ rm $diff
 unset diff
 
 echo "Completed ktlintFormat hook."
-exit $gradle_command_exit_code
+if [ $gradle_command_exit_code -ne 0 ]; then
+  exit $gradle_command_exit_code
+fi
 ######## KTLINT-GRADLE HOOK END ########
 
 ######## KTLINT-GRADLE HOOK START ########
@@ -68,24 +70,10 @@ rm $diff
 unset diff
 
 echo "Completed ktlintCheck hook."
-exit $gradle_command_exit_code
+if [ $gradle_command_exit_code -ne 0 ]; then
+  exit $gradle_command_exit_code
+fi
 ######## KTLINT-GRADLE HOOK END ########
 
 echo "Running detekt check..."
-fileArray=($@)
-detektInput=$(
-  IFS=,
-  printf "%s" "${fileArray[*]}"
-)
-echo "Input files: $detektInput"
-
-OUTPUT=$(detekt --input "$detektInput" 2>&1)
-EXIT_CODE=$?
-if [ $EXIT_CODE -ne 0 ]; then
-  echo $OUTPUT
-  echo "***********************************************"
-  echo "                 Detekt failed                 "
-  echo " Please fix the above issues before committing "
-  echo "***********************************************"
-  exit $EXIT_CODE
-fi
+./gradlew detekt

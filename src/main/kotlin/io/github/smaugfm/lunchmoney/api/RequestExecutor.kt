@@ -137,7 +137,7 @@ class RequestExecutor(
                 body
             )
         } catch (other: SerializationException) {
-            io.github.smaugfm.lunchmoney.api.log.warn(other) { "Unknown error response" }
+            log.warn(other) { "Unknown error response" }
             null
         }
 
@@ -155,7 +155,7 @@ class RequestExecutor(
             val res: ByteArray = serializeRequestBody(serializer, body)
             Unpooled.wrappedBuffer(res)
         } catch (e: IOException) {
-            throw io.github.smaugfm.lunchmoney.exception.ApiRequestException(e)
+            throw ApiRequestException(e)
         }
     }
 
