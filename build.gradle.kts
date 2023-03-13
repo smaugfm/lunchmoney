@@ -125,8 +125,8 @@ publishing {
 
             from(components["java"])
             pom {
-                name.set("Lunchmoney JVM")
-                description.set("Non-blocking JVM client for Lunchmoney developer API")
+                name.set(project.name)
+                description.set("Non-blocking client for Lunchmoney developer API")
                 url.set("https://github.com/smaugfm/lunchmoney")
                 inceptionYear.set("2023")
                 licenses {
