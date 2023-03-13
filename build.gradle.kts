@@ -15,6 +15,7 @@ plugins {
 
 group = "io.github.smaugfm"
 version = "0.0.1-SNAPSHOT"
+val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
 
 repositories {
     mavenCentral()
@@ -92,10 +93,10 @@ kotlin {
 publishing {
     repositories {
         maven {
-            if (project.version.toString().endsWith("SNAPSHOT")) {
-                setUrl("https://oss.sonatype.org/content/repositories/snapshots")
+            if (isReleaseVersion) {
+                setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
             } else {
-                setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2")
+                setUrl("https://s01.oss.sonatype.org/content/repositories/snapshots")
             }
 
             val ossrhUsername: String? by project
@@ -154,11 +155,6 @@ publishing {
         }
 
         configure<SigningExtension> {
-            val signingKeyId: String? by project // must be the last 8 digits of the key
-            val signingKey: String? by project
-            val signingPassword: String? by project
-
-            useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
             sign(publications)
         }
     }
