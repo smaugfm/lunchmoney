@@ -11,18 +11,30 @@ import reactor.netty.http.client.HttpClient
 import reactor.netty.resources.ConnectionProvider
 
 @OptIn(ExperimentalSerializationApi::class)
-open class Lunchmoney(
+open class Lunchmoney internal constructor(
     token: String,
-    baseUrl: String = "https://dev.lunchmoney.app/v1",
-    port: Int = 443,
-    jsonBuilderAction: JsonBuilder.() -> Unit = {
-        namingStrategy = JsonNamingStrategy.SnakeCase
-    },
+    baseUrl: String,
+    port: Int,
+    jsonBuilderActions: List<JsonBuilder.() -> Unit> = listOf(DEFAULT_JSON_BUILDER),
     reactorNettyConnectionProvider: ConnectionProvider? = null
 ) {
+    constructor(
+        token: String,
+        jsonBuilderAction: JsonBuilder.() -> Unit = {},
+        reactorNettyConnectionProvider: ConnectionProvider? = null
+    ) : this(
+        token,
+        "https://dev.lunchmoney.app/v1",
+        DEFAULT_HTTP_PORT,
+        listOf(jsonBuilderAction, DEFAULT_JSON_BUILDER),
+        reactorNettyConnectionProvider
+    )
+
     val requestExecutor = RequestExecutor(
         token,
-        Json(builderAction = jsonBuilderAction),
+        Json(builderAction = {
+            jsonBuilderActions.forEach { this.it() }
+        }),
         port,
         if (reactorNettyConnectionProvider != null) {
             HttpClient.create(reactorNettyConnectionProvider).baseUrl(baseUrl)
@@ -40,4 +52,11 @@ open class Lunchmoney(
             requestExecutor.json.serializersModule.serializer(),
             requestExecutor.json.serializersModule.serializer()
         )
+
+    companion object {
+        private const val DEFAULT_HTTP_PORT = 443
+        private val DEFAULT_JSON_BUILDER: JsonBuilder.() -> Unit = {
+            namingStrategy = JsonNamingStrategy.SnakeCase
+        }
+    }
 }
