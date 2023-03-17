@@ -4,9 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.Crypto
-import io.github.smaugfm.lunchmoney.model.enumeration.CryptoSource
-import io.github.smaugfm.lunchmoney.response.GetAllCryptoResponse
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCrypto
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyCryptoSource
+import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllCryptoResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -28,15 +28,15 @@ class GetAllCryptoRequestTest : TestMockServerBase() {
                 .withBody(getResourceAsString("response/getAllCrypto.json"))
         )
 
-        val request = GetAllCryptoRequest()
+        val request = LunchmoneyGetAllCryptoRequest()
         assertThat(api.execute(request).block())
             .isEqualTo(
-                GetAllCryptoResponse(
+                LunchmoneyGetAllCryptoResponse(
                     listOf(
-                        Crypto(
+                        LunchmoneyCrypto(
                             id = null,
                             zaboAccountId = 544,
-                            source = CryptoSource.SYNCED,
+                            source = LunchmoneyCryptoSource.SYNCED,
                             name = "Dogecoin",
                             displayName = null,
                             balance = BigDecimal("1.902383849000000000"),
@@ -46,10 +46,10 @@ class GetAllCryptoRequestTest : TestMockServerBase() {
                             institutionName = "MetaMask",
                             createdAt = Instant.parse("2020-07-27T11:53:02.722Z")
                         ),
-                        Crypto(
+                        LunchmoneyCrypto(
                             id = 152,
                             zaboAccountId = null,
-                            source = CryptoSource.MANUAL,
+                            source = LunchmoneyCryptoSource.MANUAL,
                             name = "Ether",
                             displayName = "BlockFi - ETH",
                             balance = BigDecimal("5.391445130000000000"),

@@ -7,9 +7,9 @@ import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.prop
-import io.github.smaugfm.lunchmoney.exception.ApiResponseException
-import io.github.smaugfm.lunchmoney.request.user.GetCurrentUserRequest
-import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
+import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
+import io.github.smaugfm.lunchmoney.request.user.LunchmoneyGetCurrentUserRequest
+import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
 import org.junit.jupiter.api.Test
 
 internal class AuthorizationTest : TestMockServerBase() {
@@ -21,17 +21,17 @@ internal class AuthorizationTest : TestMockServerBase() {
             BASE_URL,
             PORT
         )
-        val request = GetCurrentUserRequest()
+        val request = LunchmoneyGetCurrentUserRequest()
         assertThat { api.execute(request).block() }
             .isFailure()
             .isInstanceOf(RuntimeException::class)
             .cause()
             .isNotNull()
-            .isInstanceOf(ApiResponseException::class)
-            .prop(ApiResponseException::apiErrorResponse)
+            .isInstanceOf(LunchmoneyApiResponseException::class)
+            .prop(LunchmoneyApiResponseException::apiErrorResponse)
             .isNotNull()
             .isEqualTo(
-                ApiErrorResponse(
+                LunchmoneyApiErrorResponse(
                     "Error",
                     "Access token does not exist.",
                     null,

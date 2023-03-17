@@ -9,12 +9,12 @@ import assertk.assertions.isNotNull
 import assertk.assertions.prop
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.exception.ApiResponseException
-import io.github.smaugfm.lunchmoney.model.InsertOrUpdateTransaction
-import io.github.smaugfm.lunchmoney.model.enumeration.TransactionStatus
-import io.github.smaugfm.lunchmoney.request.transaction.params.InsertTransactionRequestParams
-import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
-import io.github.smaugfm.lunchmoney.response.InsertTransactionsResponse
+import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
+import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertOrUpdateTransaction
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
+import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyInsertTransactionRequestParams
+import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
+import io.github.smaugfm.lunchmoney.response.LunchmoneyInsertTransactionsResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -39,10 +39,10 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/insertTransactions.json"))
             )
 
-        val request = InsertTransactionsRequest(
-            InsertTransactionRequestParams(
+        val request = LunchmoneyInsertTransactionsRequest(
+            LunchmoneyInsertTransactionRequestParams(
                 listOf(
-                    InsertOrUpdateTransaction(
+                    LunchmoneyInsertOrUpdateTransaction(
                         LocalDate.now(),
                         BigDecimal("4.2134"),
                         12342134L,
@@ -51,7 +51,7 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
                         1234L,
                         123412341234L,
                         "vasa",
-                        TransactionStatus.CLEARED,
+                        LunchmoneyTransactionStatus.CLEARED,
                         UUID.randomUUID().toString(),
                         null
                     )
@@ -61,7 +61,7 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                InsertTransactionsResponse(
+                LunchmoneyInsertTransactionsResponse(
                     listOf(54L)
                 )
             )
@@ -80,8 +80,8 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/insertTransactions-error.json"))
             )
 
-        val insertTransactionsRequest = InsertTransactionsRequest(
-            InsertTransactionRequestParams(listOf())
+        val insertTransactionsRequest = LunchmoneyInsertTransactionsRequest(
+            LunchmoneyInsertTransactionRequestParams(listOf())
         )
 
         assertThat { api.execute(insertTransactionsRequest).block() }
@@ -89,10 +89,10 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
             .isInstanceOf(RuntimeException::class)
             .cause()
             .isNotNull()
-            .isInstanceOf(ApiResponseException::class)
-            .prop(ApiResponseException::apiErrorResponse)
+            .isInstanceOf(LunchmoneyApiResponseException::class)
+            .prop(LunchmoneyApiResponseException::apiErrorResponse)
             .isNotNull()
-            .prop(ApiErrorResponse::error)
+            .prop(LunchmoneyApiErrorResponse::error)
             .isEqualTo(
                 listOf(
                     "Transaction 0 is missing date.",

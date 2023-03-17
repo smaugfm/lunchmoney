@@ -4,10 +4,10 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.Budget
-import io.github.smaugfm.lunchmoney.model.BudgetConfig
-import io.github.smaugfm.lunchmoney.model.BudgetData
-import io.github.smaugfm.lunchmoney.request.budget.params.GetBudgetSummaryParams
+import io.github.smaugfm.lunchmoney.model.LunchmoneyBudget
+import io.github.smaugfm.lunchmoney.model.LunchmoneyBudgetConfig
+import io.github.smaugfm.lunchmoney.model.LunchmoneyBudgetData
+import io.github.smaugfm.lunchmoney.request.budget.params.LunchmoneyGetBudgetSummaryParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -30,8 +30,8 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/getBudgetSummary.json"))
             )
 
-        val request = GetBudgetSummaryRequest(
-            GetBudgetSummaryParams(
+        val request = LunchmoneyGetBudgetSummaryRequest(
+            LunchmoneyGetBudgetSummaryParams(
                 LocalDate.now(),
                 LocalDate.now().plusDays(1),
                 Currency.getInstance("USD")
@@ -41,7 +41,7 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
         assertThat(api.execute(request).block())
             .isEqualTo(
                 listOf(
-                    Budget(
+                    LunchmoneyBudget(
                         categoryName = "Food",
                         categoryId = 34476,
                         categoryGroupName = null,
@@ -51,7 +51,7 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                         excludeFromBudget = false,
                         excludeFromTotals = false,
                         data = mapOf(
-                            LocalDate.parse("2020-09-01") to BudgetData(
+                            LocalDate.parse("2020-09-01") to LunchmoneyBudgetData(
                                 23,
                                 373.51,
                                 376.08,
@@ -59,7 +59,7 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                                 Currency.getInstance("USD"),
                                 true
                             ),
-                            LocalDate.parse("2020-08-01") to BudgetData(
+                            LocalDate.parse("2020-08-01") to LunchmoneyBudgetData(
                                 23,
                                 123.92,
                                 300.0,
@@ -67,7 +67,7 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                                 Currency.getInstance("USD")
                             )
                         ),
-                        config = BudgetConfig(
+                        config = LunchmoneyBudgetConfig(
                             9,
                             "monthly",
                             300.0,
@@ -77,7 +77,7 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                         ),
                         order = 0
                     ),
-                    Budget(
+                    LunchmoneyBudget(
                         categoryName = "Alcohol & Bars",
                         categoryId = 26,
                         categoryGroupName = "Food",
@@ -87,11 +87,11 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                         excludeFromBudget = false,
                         excludeFromTotals = false,
                         data = mapOf(
-                            LocalDate.parse("2020-09-01") to BudgetData(
+                            LocalDate.parse("2020-09-01") to LunchmoneyBudgetData(
                                 14,
                                 270.86
                             ),
-                            LocalDate.parse("2020-08-01") to BudgetData(
+                            LocalDate.parse("2020-08-01") to LunchmoneyBudgetData(
                                 8,
                                 79.53
                             )

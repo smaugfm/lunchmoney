@@ -1,9 +1,9 @@
 package io.github.smaugfm.lunchmoney.serializer
 
-import io.github.smaugfm.lunchmoney.model.enumeration.RecurringExpenseSource
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyRecurringExpenseSource
 
 internal object RecurringExpenseSourceSerializer :
-    LowercaseEnumSerializer<RecurringExpenseSource>(
+    LowercaseEnumSerializer<LunchmoneyRecurringExpenseSource>(
         "RecurringExpenseSource",
-        RecurringExpenseSource.values()
+        LunchmoneyRecurringExpenseSource.values()
     )

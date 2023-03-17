@@ -4,9 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.Asset
-import io.github.smaugfm.lunchmoney.model.enumeration.AssetType
-import io.github.smaugfm.lunchmoney.request.asset.params.CreateUpdateAssetParams
+import io.github.smaugfm.lunchmoney.model.LunchmoneyAsset
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyAssetType
+import io.github.smaugfm.lunchmoney.request.asset.params.LunchmoneyCreateUpdateAssetParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -29,9 +29,9 @@ class CreateAssetRequestTest : TestMockServerBase() {
                 .withBody(getResourceAsString("response/createAsset.json"))
         )
 
-        val request = CreateAssetRequest(
-            CreateUpdateAssetParams(
-                typeName = AssetType.CASH,
+        val request = LunchmoneyCreateAssetRequest(
+            LunchmoneyCreateUpdateAssetParams(
+                typeName = LunchmoneyAssetType.CASH,
                 subtypeName = "vasa",
                 name = "vasa",
                 balance = BigDecimal.ZERO,
@@ -46,9 +46,9 @@ class CreateAssetRequestTest : TestMockServerBase() {
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                Asset(
+                LunchmoneyAsset(
                     id = 34061,
-                    typeName = AssetType.CASH,
+                    typeName = LunchmoneyAssetType.CASH,
                     subtypeName = null,
                     name = "My Test Asset",
                     displayName = null,

@@ -1,8 +1,8 @@
 package io.github.smaugfm.lunchmoney.serializer
 
-import io.github.smaugfm.lunchmoney.model.enumeration.AssetType
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyAssetType
 
-internal object AssetTypeSerializer : LowercaseEnumSerializer<AssetType>(
+internal object AssetTypeSerializer : LowercaseEnumSerializer<LunchmoneyAssetType>(
     "AssetType",
-    AssetType.values()
+    LunchmoneyAssetType.values()
 )

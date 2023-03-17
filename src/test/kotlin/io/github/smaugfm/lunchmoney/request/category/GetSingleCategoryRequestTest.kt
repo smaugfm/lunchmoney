@@ -4,8 +4,8 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.CategoryChild
-import io.github.smaugfm.lunchmoney.model.CategorySingle
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryChild
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategorySingle
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -26,10 +26,10 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleCategory-simple.json"))
             )
-        val request = GetSingleCategoryRequest(id)
+        val request = LunchmoneyGetSingleCategoryRequest(id)
         assertThat(api.execute(request).block())
             .isEqualTo(
-                CategorySingle(
+                LunchmoneyCategorySingle(
                     id = id,
                     name = "Shopping",
                     description = null,
@@ -57,10 +57,10 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleCategory-group.json"))
             )
-        val getSingleCategoryRequest = GetSingleCategoryRequest(id)
+        val getSingleCategoryRequest = LunchmoneyGetSingleCategoryRequest(id)
         assertThat(api.execute(getSingleCategoryRequest).block())
             .isEqualTo(
-                CategorySingle(
+                LunchmoneyCategorySingle(
                     id = id,
                     name = "Food",
                     description = "Consumables",
@@ -71,13 +71,13 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     groupId = null,
                     groupCategoryName = null,
                     children = listOf(
-                        CategoryChild(
+                        LunchmoneyCategoryChild(
                             427749L,
                             "Coffee Shops",
                             null,
                             Instant.parse("2023-02-02T14:57:43.459Z")
                         ),
-                        CategoryChild(
+                        LunchmoneyCategoryChild(
                             427749L,
                             "Coffee Shops",
                             null,
@@ -101,10 +101,10 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleCategory-subgroup.json"))
             )
-        val getSingleCategoryRequest = GetSingleCategoryRequest(id)
+        val getSingleCategoryRequest = LunchmoneyGetSingleCategoryRequest(id)
         assertThat(api.execute(getSingleCategoryRequest).block())
             .isEqualTo(
-                CategorySingle(
+                LunchmoneyCategorySingle(
                     id,
                     "Coffee Shops",
                     null,

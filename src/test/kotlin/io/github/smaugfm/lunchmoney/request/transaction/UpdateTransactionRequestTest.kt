@@ -4,11 +4,11 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.InsertOrUpdateTransaction
-import io.github.smaugfm.lunchmoney.model.Split
-import io.github.smaugfm.lunchmoney.model.enumeration.TransactionStatus
-import io.github.smaugfm.lunchmoney.request.transaction.params.UpdateTransactionParams
-import io.github.smaugfm.lunchmoney.response.UpdateTransactionResponse
+import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertOrUpdateTransaction
+import io.github.smaugfm.lunchmoney.model.LunchmoneyTransactionSplit
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
+import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyUpdateTransactionParams
+import io.github.smaugfm.lunchmoney.response.LunchmoneyUpdateTransactionResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -34,10 +34,10 @@ class UpdateTransactionRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/updateTransaction.json"))
             )
 
-        val request = UpdateTransactionRequest(
+        val request = LunchmoneyUpdateTransactionRequest(
             id,
-            UpdateTransactionParams(
-                InsertOrUpdateTransaction(
+            LunchmoneyUpdateTransactionParams(
+                LunchmoneyInsertOrUpdateTransaction(
                     LocalDate.now(),
                     BigDecimal("4.2134"),
                     12342134L,
@@ -46,11 +46,11 @@ class UpdateTransactionRequestTest : TestMockServerBase() {
                     1234L,
                     123412341234L,
                     "vasa",
-                    TransactionStatus.CLEARED,
+                    LunchmoneyTransactionStatus.CLEARED,
                     UUID.randomUUID().toString(),
                     null
                 ),
-                Split(
+                LunchmoneyTransactionSplit(
                     BigDecimal("1234.1234"),
                     LocalDate.now(),
                     null,
@@ -64,7 +64,7 @@ class UpdateTransactionRequestTest : TestMockServerBase() {
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                UpdateTransactionResponse(
+                LunchmoneyUpdateTransactionResponse(
                     true,
                     listOf(58, 59)
                 )

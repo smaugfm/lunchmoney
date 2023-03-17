@@ -5,7 +5,7 @@ import assertk.assertions.containsExactlyInAnyOrder
 import assertk.assertions.isNotNull
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.Tag
+import io.github.smaugfm.lunchmoney.model.LunchmoneyTransactionTag
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -24,12 +24,12 @@ internal class GetAllTagsRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getAllTags.json"))
             )
-        val request = GetAllTagsRequest()
+        val request = LunchmoneyGetAllTagsRequest()
         assertThat(api.execute(request).block())
             .isNotNull()
             .containsExactlyInAnyOrder(
-                Tag(1807L, "Wedding", "All wedding-related expenses"),
-                Tag(1808L, "Honeymoon", "All honeymoon-related expenses")
+                LunchmoneyTransactionTag(1807L, "Wedding", "All wedding-related expenses"),
+                LunchmoneyTransactionTag(1808L, "Honeymoon", "All honeymoon-related expenses")
             )
     }
 }

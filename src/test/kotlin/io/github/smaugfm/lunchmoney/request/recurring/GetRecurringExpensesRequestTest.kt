@@ -4,11 +4,11 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.RecurringExpense
-import io.github.smaugfm.lunchmoney.model.enumeration.RecurringExpenseSource
-import io.github.smaugfm.lunchmoney.model.enumeration.RecurringExpenseType
-import io.github.smaugfm.lunchmoney.request.recurring.params.GetRecurringExpensesParams
-import io.github.smaugfm.lunchmoney.response.GetRecurringExpensesResponse
+import io.github.smaugfm.lunchmoney.model.LunchmoneyRecurringExpense
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyRecurringExpenseSource
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyRecurringExpenseType
+import io.github.smaugfm.lunchmoney.request.recurring.params.LunchmoneyGetRecurringExpensesParams
+import io.github.smaugfm.lunchmoney.response.LunchmoneyGetRecurringExpensesResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -30,15 +30,15 @@ class GetRecurringExpensesRequestTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getRecurringExpenses.json"))
         )
-        val request = GetRecurringExpensesRequest(
-            GetRecurringExpensesParams(LocalDate.now(), true)
+        val request = LunchmoneyGetRecurringExpensesRequest(
+            LunchmoneyGetRecurringExpensesParams(LocalDate.now(), true)
         )
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                GetRecurringExpensesResponse(
+                LunchmoneyGetRecurringExpensesResponse(
                     listOf(
-                        RecurringExpense(
+                        LunchmoneyRecurringExpense(
                             264,
                             LocalDate.parse("2020-01-01"),
                             null,
@@ -49,14 +49,14 @@ class GetRecurringExpensesRequestTest : TestMockServerBase() {
                             Instant.parse("2020-01-30T07:58:43.944Z"),
                             null,
                             LocalDate.parse("2020-01-01"),
-                            RecurringExpenseType.CLEARED,
+                            LunchmoneyRecurringExpenseType.CLEARED,
                             null,
-                            RecurringExpenseSource.MANUAL,
+                            LunchmoneyRecurringExpenseSource.MANUAL,
                             null,
                             null,
                             null
                         ),
-                        RecurringExpense(
+                        LunchmoneyRecurringExpense(
                             262,
                             LocalDate.parse("2020-01-01"),
                             null,
@@ -67,9 +67,9 @@ class GetRecurringExpensesRequestTest : TestMockServerBase() {
                             Instant.parse("2020-01-30T07:58:43.921Z"),
                             "Test description 2",
                             LocalDate.parse("2020-01-03"),
-                            RecurringExpenseType.CLEARED,
+                            LunchmoneyRecurringExpenseType.CLEARED,
                             null,
-                            RecurringExpenseSource.MANUAL,
+                            LunchmoneyRecurringExpenseSource.MANUAL,
                             null,
                             null,
                             null

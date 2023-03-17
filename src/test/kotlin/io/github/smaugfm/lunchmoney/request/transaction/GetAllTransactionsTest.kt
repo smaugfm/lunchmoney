@@ -4,10 +4,10 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.Transaction
-import io.github.smaugfm.lunchmoney.model.enumeration.TransactionStatus
-import io.github.smaugfm.lunchmoney.request.transaction.params.GetAllTransactionsParams
-import io.github.smaugfm.lunchmoney.response.GetAllTransactionsResponse
+import io.github.smaugfm.lunchmoney.model.LunchmoneyTransaction
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
+import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyGetAllTransactionsParams
+import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllTransactionsResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -40,8 +40,8 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllTransactions.json"))
         )
-        val request = GetAllTransactionsRequest(
-            GetAllTransactionsParams(
+        val request = LunchmoneyGetAllTransactionsRequest(
+            LunchmoneyGetAllTransactionsParams(
                 tagId = 1234L,
                 recurringId = 1234L,
                 plaidAccountId = 1234L,
@@ -49,7 +49,7 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                 assetId = 1234L,
                 groupId = 1234L,
                 isGroup = false,
-                status = TransactionStatus.RECURRING,
+                status = LunchmoneyTransactionStatus.RECURRING,
                 offset = 1234L,
                 limit = 1234L,
                 startDate = LocalDate.of(2020, 12, 20),
@@ -60,9 +60,9 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
         )
         assertThat(api.execute(request).block())
             .isEqualTo(
-                GetAllTransactionsResponse(
+                LunchmoneyGetAllTransactionsResponse(
                     listOf(
-                        Transaction(
+                        LunchmoneyTransaction(
                             id = 602L,
                             date = LocalDate.of(2020, 1, 1),
                             payee = "Starbucks",
@@ -74,7 +74,7 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                             assetId = null,
                             recurringId = null,
                             plaidAccountId = null,
-                            status = TransactionStatus.CLEARED,
+                            status = LunchmoneyTransactionStatus.CLEARED,
                             parentId = null,
                             isGroup = false,
                             groupId = null,
@@ -87,7 +87,7 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                             price = null,
                             quantity = null
                         ),
-                        Transaction(
+                        LunchmoneyTransaction(
                             id = 603L,
                             date = LocalDate.of(2020, 1, 2),
                             payee = "Walmart",
@@ -99,7 +99,7 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                             assetId = 153L,
                             recurringId = null,
                             plaidAccountId = null,
-                            status = TransactionStatus.UNCLEARED,
+                            status = LunchmoneyTransactionStatus.UNCLEARED,
                             parentId = null,
                             isGroup = false,
                             groupId = null,

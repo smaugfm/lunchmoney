@@ -4,7 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.User
+import io.github.smaugfm.lunchmoney.model.LunchmoneyUser
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -23,10 +23,10 @@ internal class GetCurrentUserRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getCurrentUser.json"))
             )
-        val request = GetCurrentUserRequest()
+        val request = LunchmoneyGetCurrentUserRequest()
         assertThat(api.execute(request).block())
             .isEqualTo(
-                User(
+                LunchmoneyUser(
                     1234L,
                     "Dummy Vasa",
                     "dummy@vasa.com",

@@ -1,9 +1,9 @@
 package io.github.smaugfm.lunchmoney.serializer
 
-import io.github.smaugfm.lunchmoney.model.enumeration.TransactionStatus
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
 
 internal object TransactionStatusSerializer :
-    LowercaseEnumSerializer<TransactionStatus>(
+    LowercaseEnumSerializer<LunchmoneyTransactionStatus>(
         "TransactionStatus",
-        TransactionStatus.values()
+        LunchmoneyTransactionStatus.values()
     )

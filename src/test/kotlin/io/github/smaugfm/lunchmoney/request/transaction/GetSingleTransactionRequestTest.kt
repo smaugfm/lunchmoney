@@ -4,9 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.Transaction
-import io.github.smaugfm.lunchmoney.model.enumeration.TransactionStatus
-import io.github.smaugfm.lunchmoney.request.transaction.params.GetSingleTransactionParams
+import io.github.smaugfm.lunchmoney.model.LunchmoneyTransaction
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
+import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyGetSingleTransactionParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -29,10 +29,10 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleTransaction.json"))
             )
-        val request = GetSingleTransactionRequest(id)
+        val request = LunchmoneyGetSingleTransactionRequest(id)
         assertThat(api.execute(request).block())
             .isEqualTo(
-                Transaction(
+                LunchmoneyTransaction(
                     id = 602L,
                     date = LocalDate.of(2020, 1, 1),
                     payee = "Starbucks",
@@ -44,7 +44,7 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     assetId = null,
                     recurringId = null,
                     plaidAccountId = null,
-                    status = TransactionStatus.CLEARED,
+                    status = LunchmoneyTransactionStatus.CLEARED,
                     parentId = null,
                     isGroup = false,
                     groupId = null,
@@ -74,13 +74,13 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleTransaction.json"))
             )
-        val getSingleTransactionRequest = GetSingleTransactionRequest(
+        val getSingleTransactionRequest = LunchmoneyGetSingleTransactionRequest(
             id,
-            GetSingleTransactionParams(false)
+            LunchmoneyGetSingleTransactionParams(false)
         )
         assertThat(api.execute(getSingleTransactionRequest).block())
             .isEqualTo(
-                Transaction(
+                LunchmoneyTransaction(
                     id = 602L,
                     date = LocalDate.of(2020, 1, 1),
                     payee = "Starbucks",
@@ -92,7 +92,7 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     assetId = null,
                     recurringId = null,
                     plaidAccountId = null,
-                    status = TransactionStatus.CLEARED,
+                    status = LunchmoneyTransactionStatus.CLEARED,
                     parentId = null,
                     isGroup = false,
                     groupId = null,

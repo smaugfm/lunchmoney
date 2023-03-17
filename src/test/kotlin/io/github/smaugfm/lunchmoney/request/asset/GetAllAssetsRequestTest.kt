@@ -4,9 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.Asset
-import io.github.smaugfm.lunchmoney.model.enumeration.AssetType
-import io.github.smaugfm.lunchmoney.response.GetAllAssetsResponse
+import io.github.smaugfm.lunchmoney.model.LunchmoneyAsset
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyAssetType
+import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllAssetsResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -28,14 +28,14 @@ class GetAllAssetsRequestTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllAssets.json"))
         )
-        val request = GetAllAssetsRequest()
+        val request = LunchmoneyGetAllAssetsRequest()
         assertThat(api.execute(request).block())
             .isEqualTo(
-                GetAllAssetsResponse(
+                LunchmoneyGetAllAssetsResponse(
                     listOf(
-                        Asset(
+                        LunchmoneyAsset(
                             47653,
-                            AssetType.INVESTMENT,
+                            LunchmoneyAssetType.INVESTMENT,
                             "brokerage",
                             "Individual Brokerage",
                             null,

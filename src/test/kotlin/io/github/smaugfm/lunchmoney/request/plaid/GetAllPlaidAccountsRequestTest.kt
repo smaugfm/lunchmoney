@@ -4,8 +4,8 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.PlaidAccount
-import io.github.smaugfm.lunchmoney.response.GetAllPlaidAccountsResponse
+import io.github.smaugfm.lunchmoney.model.LunchmoneyPlaidAccount
+import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllPlaidAccountsResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -27,13 +27,13 @@ class GetAllPlaidAccountsRequestTest : TestMockServerBase() {
                 .withBody(getResourceAsString("response/getAllPlaidAccounts.json"))
         )
 
-        val request = GetAllPlaidAccountsRequest()
+        val request = LunchmoneyGetAllPlaidAccountsRequest()
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                GetAllPlaidAccountsResponse(
+                LunchmoneyGetAllPlaidAccountsResponse(
                     listOf(
-                        PlaidAccount(
+                        LunchmoneyPlaidAccount(
                             91,
                             Instant.parse("2020-01-28T14:15:09.111Z"),
                             "401k",
@@ -47,7 +47,7 @@ class GetAllPlaidAccountsRequestTest : TestMockServerBase() {
                             Currency.getInstance("USD"),
                             Instant.parse("2020-01-27T01:38:11.862Z")
                         ),
-                        PlaidAccount(
+                        LunchmoneyPlaidAccount(
                             89,
                             Instant.parse("2020-01-28T14:15:09.111Z"),
                             "Freedom",

@@ -9,9 +9,9 @@ import assertk.assertions.isNotNull
 import assertk.assertions.prop
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.exception.ApiResponseException
-import io.github.smaugfm.lunchmoney.model.CategoryDeletionDependency
-import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
+import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryDeletionDependency
+import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -30,7 +30,7 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
                     .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                     .withBody("true")
             )
-        val request = DeleteCategoryRequest(
+        val request = LunchmoneyDeleteCategoryRequest(
             id
         )
         assertThat(api.execute(request).block())
@@ -49,7 +49,7 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
                 .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/deleteCategory-dependents.json"))
         )
-        val deleteCategoryRequest = DeleteCategoryRequest(
+        val deleteCategoryRequest = LunchmoneyDeleteCategoryRequest(
             id
         )
         assertThat { api.execute(deleteCategoryRequest).block() }
@@ -57,12 +57,12 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
             .isInstanceOf(RuntimeException::class)
             .cause()
             .isNotNull()
-            .isInstanceOf(ApiResponseException::class.java)
-            .prop(ApiResponseException::apiErrorResponse)
+            .isInstanceOf(LunchmoneyApiResponseException::class.java)
+            .prop(LunchmoneyApiResponseException::apiErrorResponse)
             .isNotNull()
-            .prop(ApiErrorResponse::dependents)
+            .prop(LunchmoneyApiErrorResponse::dependents)
             .isEqualTo(
-                CategoryDeletionDependency(
+                LunchmoneyCategoryDeletionDependency(
                     "Food & Drink",
                     4L,
                     0L,

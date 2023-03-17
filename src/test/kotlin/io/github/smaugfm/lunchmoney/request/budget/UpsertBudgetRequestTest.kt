@@ -4,8 +4,8 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.request.budget.params.UpsertBudgetRequestParams
-import io.github.smaugfm.lunchmoney.response.UpsertBudgetResponse
+import io.github.smaugfm.lunchmoney.request.budget.params.LunchmoneyUpsertBudgetRequestParams
+import io.github.smaugfm.lunchmoney.response.LunchmoneyUpsertBudgetResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -27,8 +27,8 @@ class UpsertBudgetRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/upsertBudget.json"))
             )
 
-        val request = UpsertBudgetRequest(
-            UpsertBudgetRequestParams(
+        val request = LunchmoneyUpsertBudgetRequest(
+            LunchmoneyUpsertBudgetRequestParams(
                 LocalDate.now(),
                 1234L,
                 1234.234,
@@ -38,8 +38,8 @@ class UpsertBudgetRequestTest : TestMockServerBase() {
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                UpsertBudgetResponse(
-                    UpsertBudgetResponse.UpsertBudgetCategoryGroupResponse(
+                LunchmoneyUpsertBudgetResponse(
+                    LunchmoneyUpsertBudgetResponse.UpsertBudgetCategoryGroupResponse(
                         34476L,
                         100.0,
                         Currency.getInstance("USD"),

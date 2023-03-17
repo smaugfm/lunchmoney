@@ -10,10 +10,10 @@ import assertk.assertions.isSuccess
 import assertk.assertions.prop
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.exception.ApiResponseException
-import io.github.smaugfm.lunchmoney.request.category.params.CreateCategoryGroupRequestParams
-import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
-import io.github.smaugfm.lunchmoney.response.CreateCategoryResponse
+import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
+import io.github.smaugfm.lunchmoney.request.category.params.LunchmoneyCreateCategoryGroupRequestParams
+import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
+import io.github.smaugfm.lunchmoney.response.LunchmoneyCreateCategoryResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -32,13 +32,13 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/createCategory.json"))
         )
-        val request = CreateCategoryGroupRequest(
-            CreateCategoryGroupRequestParams("vasa")
+        val request = LunchmoneyCreateCategoryGroupRequest(
+            LunchmoneyCreateCategoryGroupRequestParams("vasa")
         )
 
         assertThat { api.execute(request).block() }
             .isSuccess().isEqualTo(
-                CreateCategoryResponse(1234L)
+                LunchmoneyCreateCategoryResponse(1234L)
             )
     }
 
@@ -54,18 +54,18 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/createCategory-errorAlreadyExists.json"))
         )
-        val createCategoryRequest = CreateCategoryGroupRequest(
-            CreateCategoryGroupRequestParams("vasa")
+        val createCategoryRequest = LunchmoneyCreateCategoryGroupRequest(
+            LunchmoneyCreateCategoryGroupRequestParams("vasa")
         )
         assertThat { api.execute(createCategoryRequest).block() }
             .isFailure()
             .isInstanceOf(RuntimeException::class)
             .cause()
             .isNotNull()
-            .isInstanceOf(ApiResponseException::class)
-            .prop(ApiResponseException::apiErrorResponse)
+            .isInstanceOf(LunchmoneyApiResponseException::class)
+            .prop(LunchmoneyApiResponseException::apiErrorResponse)
             .isNotNull()
-            .prop(ApiErrorResponse::error)
+            .prop(LunchmoneyApiErrorResponse::error)
             .isEqualTo(listOf("A category with the same name (vasa) already exists."))
     }
 }

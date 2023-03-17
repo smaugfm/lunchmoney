@@ -21,7 +21,7 @@ internal class ForceDeleteCategoryRequestTest : TestMockServerBase() {
                     .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                     .withBody("true")
             )
-        val request = ForceDeleteCategoryRequest(
+        val request = LunchmoneyForceDeleteCategoryRequest(
             id
         )
         assertThat(api.execute(request).block())

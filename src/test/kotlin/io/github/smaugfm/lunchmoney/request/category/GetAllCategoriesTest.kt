@@ -4,8 +4,8 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.CategoryMultiple
-import io.github.smaugfm.lunchmoney.response.GetAllCategoriesResponse
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryMultiple
+import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllCategoriesResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -24,12 +24,12 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllCategories.json"))
         )
-        val request = GetAllCategoriesRequest()
+        val request = LunchmoneyGetAllCategoriesRequest()
         assertThat(api.execute(request).block())
             .isEqualTo(
-                GetAllCategoriesResponse(
+                LunchmoneyGetAllCategoriesResponse(
                     listOf(
-                        CategoryMultiple(
+                        LunchmoneyCategoryMultiple(
                             id = 427748L,
                             name = "Alcohol, Bars",
                             description = null,
@@ -41,7 +41,7 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                             isGroup = false,
                             groupId = null
                         ),
-                        CategoryMultiple(
+                        LunchmoneyCategoryMultiple(
                             id = 427749L,
                             name = "Coffee Shops",
                             description = null,
@@ -69,8 +69,8 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllCategories-empty.json"))
         )
-        val getAllCategoriesRequest = GetAllCategoriesRequest()
+        val getAllCategoriesRequest = LunchmoneyGetAllCategoriesRequest()
         assertThat(api.execute(getAllCategoriesRequest).block())
-            .isEqualTo(GetAllCategoriesResponse(listOf()))
+            .isEqualTo(LunchmoneyGetAllCategoriesResponse(listOf()))
     }
 }

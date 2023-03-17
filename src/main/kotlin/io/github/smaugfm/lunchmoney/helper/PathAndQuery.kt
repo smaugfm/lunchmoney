@@ -1,17 +1,10 @@
 package io.github.smaugfm.lunchmoney.helper
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonNamingStrategy
 import kotlinx.serialization.serializer
 
-@OptIn(ExperimentalSerializationApi::class)
-open class PathAndQuery protected constructor(
-    private val json: Json = Json {
-        namingStrategy = JsonNamingStrategy.SnakeCase
-    }
-) {
+open class PathAndQuery protected constructor() {
     private val segments = StringBuilder()
     private var query = String()
 

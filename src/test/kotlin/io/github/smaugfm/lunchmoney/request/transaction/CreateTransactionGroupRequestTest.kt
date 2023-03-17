@@ -3,7 +3,7 @@ package io.github.smaugfm.lunchmoney.request.transaction
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
-import io.github.smaugfm.lunchmoney.request.transaction.params.CreateTransactionGroupParams
+import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyLunchmoneyCreateTransactionGroupParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -24,8 +24,8 @@ class CreateTransactionGroupRequestTest : TestMockServerBase() {
                     .withBody("84389")
             )
 
-        val request = CreateTransactionGroupRequest(
-            CreateTransactionGroupParams(
+        val request = LunchmoneyCreateTransactionGroupRequest(
+            LunchmoneyLunchmoneyCreateTransactionGroupParams(
                 LocalDate.now(),
                 "vasa",
                 listOf(1234L, 1234L, 12343L)

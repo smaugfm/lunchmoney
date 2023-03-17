@@ -1,9 +1,9 @@
 package io.github.smaugfm.lunchmoney.api
 
-import io.github.smaugfm.lunchmoney.exception.ApiRequestException
-import io.github.smaugfm.lunchmoney.exception.ApiResponseException
-import io.github.smaugfm.lunchmoney.request.ApiRequest
-import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
+import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiRequestException
+import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
+import io.github.smaugfm.lunchmoney.request.LunchmoneyAbstractApiRequest
+import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.Unpooled
 import io.netty.handler.codec.http.HttpHeaderNames
@@ -35,7 +35,7 @@ class RequestExecutor(
 ) {
     private val authorizationHeader = "Bearer $token"
 
-    fun <R, T, A : ApiRequest<R, T>> execute(
+    fun <R, T, A : LunchmoneyAbstractApiRequest<R, T>> execute(
         requestMono: Mono<A>,
         responseSerializer: KSerializer<R>,
         paramsSerializer: KSerializer<T>
@@ -44,7 +44,7 @@ class RequestExecutor(
             request.body()
                 .map { this.requestBodyToByteBuffer(paramsSerializer, it) }
                 .defaultIfEmpty(Unpooled.EMPTY_BUFFER)
-                .onErrorMap(::ApiRequestException)
+                .onErrorMap(::LunchmoneyApiRequestException)
                 .flatMap { body: ByteBuf ->
                     httpClient
                         .port(port)
@@ -92,7 +92,7 @@ class RequestExecutor(
                             Mono.empty()
                         } else {
                             Mono.error(
-                                ApiResponseException(
+                                LunchmoneyApiResponseException(
                                     body,
                                     null,
                                     statusCode
@@ -100,11 +100,11 @@ class RequestExecutor(
                             )
                         }
                     )
-                } catch (e: ApiResponseException) {
+                } catch (e: LunchmoneyApiResponseException) {
                     Mono.error(e)
                 } catch (error: IOException) {
                     Mono.error(
-                        ApiResponseException(
+                        LunchmoneyApiResponseException(
                             body,
                             error,
                             statusCode
@@ -130,9 +130,9 @@ class RequestExecutor(
             }
         }
 
-    private fun deserializeApiError(body: String): ApiErrorResponse? =
+    private fun deserializeApiError(body: String): LunchmoneyApiErrorResponse? =
         try {
-            doDeserialize<ApiErrorResponse>(
+            doDeserialize<LunchmoneyApiErrorResponse>(
                 json.serializersModule.serializer(),
                 body
             )
@@ -155,7 +155,7 @@ class RequestExecutor(
             val res: ByteArray = serializeRequestBody(serializer, body)
             Unpooled.wrappedBuffer(res)
         } catch (e: IOException) {
-            throw ApiRequestException(e)
+            throw LunchmoneyApiRequestException(e)
         }
     }
 

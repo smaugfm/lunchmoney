@@ -4,9 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.Crypto
-import io.github.smaugfm.lunchmoney.model.enumeration.CryptoSource
-import io.github.smaugfm.lunchmoney.request.crypto.params.UpdateManualCryptoParams
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCrypto
+import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyCryptoSource
+import io.github.smaugfm.lunchmoney.request.crypto.params.LunchmoneyUpdateManualCryptoParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -25,9 +25,9 @@ class UpdateManualCryptoAssetTest : TestMockServerBase() {
                 .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/updateManualCryptoAsset.json"))
         )
-        val request = UpdateManualCryptoAsset(
+        val request = LunchmoneyUpdateManualCryptoAsset(
             id,
-            UpdateManualCryptoParams(
+            LunchmoneyUpdateManualCryptoParams(
                 "vasa",
                 "vasa",
                 BigDecimal("12341234.1234123412342"),
@@ -36,9 +36,9 @@ class UpdateManualCryptoAssetTest : TestMockServerBase() {
         )
         assertThat(api.execute(request).block())
             .isEqualTo(
-                Crypto(
+                LunchmoneyCrypto(
                     id = 1,
-                    source = CryptoSource.MANUAL,
+                    source = LunchmoneyCryptoSource.MANUAL,
                     createdAt = Instant.parse("2021-02-10T05:57:34.305Z"),
                     name = "Shiba Token",
                     displayName = "SHIB",

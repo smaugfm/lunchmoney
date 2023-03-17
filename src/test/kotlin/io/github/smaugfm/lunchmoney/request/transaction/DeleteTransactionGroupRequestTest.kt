@@ -3,7 +3,7 @@ package io.github.smaugfm.lunchmoney.request.transaction
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
-import io.github.smaugfm.lunchmoney.response.DeleteTransactionGroupResponse
+import io.github.smaugfm.lunchmoney.response.LunchmoneyDeleteTransactionGroupResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -25,11 +25,11 @@ class DeleteTransactionGroupRequestTest : TestMockServerBase() {
                     .withBody("{ \"transactions\": [121232, 324324, 545455] }")
             )
 
-        val request = DeleteTransactionGroupRequest(id)
+        val request = LunchmoneyDeleteTransactionGroupRequest(id)
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                DeleteTransactionGroupResponse(
+                LunchmoneyDeleteTransactionGroupResponse(
                     listOf(121232, 324324, 545455)
                 )
             )
