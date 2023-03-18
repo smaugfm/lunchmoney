@@ -9,7 +9,7 @@ import kotlinx.serialization.UseSerializers
 import java.time.LocalDate
 
 @Serializable
-data class LunchmoneyLunchmoneyCreateTransactionGroupParams(
+data class LunchmoneyCreateTransactionGroupParams(
     val date: LocalDate,
     val payee: String,
     val transactions: List<Long>,
