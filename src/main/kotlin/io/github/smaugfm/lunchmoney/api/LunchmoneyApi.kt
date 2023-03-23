@@ -57,6 +57,7 @@ open class LunchmoneyApi internal constructor(
         private const val DEFAULT_HTTP_PORT = 443
         private val DEFAULT_JSON_BUILDER: JsonBuilder.() -> Unit = {
             namingStrategy = JsonNamingStrategy.SnakeCase
+            ignoreUnknownKeys = true
         }
     }
 }
