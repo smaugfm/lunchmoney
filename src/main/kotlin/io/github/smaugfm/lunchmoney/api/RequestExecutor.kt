@@ -3,7 +3,7 @@ package io.github.smaugfm.lunchmoney.api
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiRequestException
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
 import io.github.smaugfm.lunchmoney.request.LunchmoneyAbstractApiRequest
-import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
+import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.Unpooled
 import io.netty.handler.codec.http.HttpHeaderNames
@@ -26,8 +26,7 @@ import java.io.IOException
 
 val log = KotlinLogging.logger { }
 
-@ExperimentalSerializationApi
-class RequestExecutor(
+internal class RequestExecutor(
     token: String,
     val json: Json,
     private val port: Int = 443,
@@ -41,20 +40,15 @@ class RequestExecutor(
         paramsSerializer: KSerializer<T>
     ): Mono<R> = requestMono
         .flatMap { request: A ->
-            request.body()
-                .map { this.requestBodyToByteBuffer(paramsSerializer, it) }
-                .defaultIfEmpty(Unpooled.EMPTY_BUFFER)
-                .onErrorMap(::LunchmoneyApiRequestException)
-                .flatMap { body: ByteBuf ->
-                    httpClient
-                        .port(port)
-                        .headers { addHeaders(request.method(), it) }
-                        .request(request.method())
-                        .uri(request.pathAndQuery())
-                        .send(Mono.just(body))
-                        .responseSingle { resp, byteBufMono ->
-                            processResponse(resp, byteBufMono, responseSerializer)
-                        }
+            val body = requestBodyToByteBuffer(paramsSerializer, request.body())
+            httpClient
+                .port(port)
+                .headers { addHeaders(request.method(), it) }
+                .request(request.method())
+                .uri(request.pathAndQuery())
+                .send(Mono.just(body))
+                .responseSingle { resp, byteBufMono ->
+                    processResponse(resp, byteBufMono, responseSerializer)
                 }
         }
 
@@ -130,9 +124,9 @@ class RequestExecutor(
             }
         }
 
-    private fun deserializeApiError(body: String): LunchmoneyApiErrorResponse? =
+    private fun deserializeApiError(body: String): ApiErrorResponse? =
         try {
-            doDeserialize<LunchmoneyApiErrorResponse>(
+            doDeserialize<ApiErrorResponse>(
                 json.serializersModule.serializer(),
                 body
             )
@@ -150,7 +144,9 @@ class RequestExecutor(
         return os.toByteArray()
     }
 
-    private fun <T> requestBodyToByteBuffer(serializer: KSerializer<T>, body: T): ByteBuf {
+    private fun <T> requestBodyToByteBuffer(serializer: KSerializer<T>, body: T?): ByteBuf {
+        if (body == null)
+            return Unpooled.EMPTY_BUFFER
         return try {
             val res: ByteArray = serializeRequestBody(serializer, body)
             Unpooled.wrappedBuffer(res)

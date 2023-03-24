@@ -4,7 +4,7 @@ import io.github.smaugfm.lunchmoney.helper.PathAndQuery
 import io.netty.handler.codec.http.HttpMethod
 import reactor.core.publisher.Mono
 
-abstract class LunchmoneyAbstractPutRequest<TResponse, TBody : Any>(
+internal abstract class LunchmoneyAbstractPutRequest<TResponse, TBody : Any>(
     final override val pathAndQuery: PathAndQuery,
-    params: Mono<TBody>
+    params: TBody
 ) : LunchmoneyAbstractBodyRequest<TResponse, TBody>(params, HttpMethod.PUT)

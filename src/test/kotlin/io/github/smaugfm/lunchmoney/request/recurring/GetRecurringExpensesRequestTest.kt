@@ -7,8 +7,8 @@ import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyRecurringExpense
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyRecurringExpenseSource
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyRecurringExpenseType
-import io.github.smaugfm.lunchmoney.request.recurring.params.LunchmoneyGetRecurringExpensesParams
-import io.github.smaugfm.lunchmoney.response.LunchmoneyGetRecurringExpensesResponse
+import io.github.smaugfm.lunchmoney.request.recurring.params.GetRecurringExpensesParams
+import io.github.smaugfm.lunchmoney.response.GetRecurringExpensesResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -30,13 +30,13 @@ class GetRecurringExpensesRequestTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getRecurringExpenses.json"))
         )
-        val request = LunchmoneyGetRecurringExpensesRequest(
-            LunchmoneyGetRecurringExpensesParams(LocalDate.now(), true)
+        val request = GetRecurringExpensesRequest(
+            GetRecurringExpensesParams(LocalDate.now(), true)
         )
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                LunchmoneyGetRecurringExpensesResponse(
+                GetRecurringExpensesResponse(
                     listOf(
                         LunchmoneyRecurringExpense(
                             264,

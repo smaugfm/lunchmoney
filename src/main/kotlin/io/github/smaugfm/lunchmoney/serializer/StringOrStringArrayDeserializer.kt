@@ -10,7 +10,6 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-@OptIn(ExperimentalSerializationApi::class)
 internal class StringOrStringArrayDeserializer : KSerializer<List<String>> {
     private val serializer = ListSerializer(StringSerializer)
     override val descriptor = SerialDescriptor("PossibleStringArray", serializer.descriptor)

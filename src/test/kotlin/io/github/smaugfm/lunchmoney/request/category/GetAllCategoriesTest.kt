@@ -5,7 +5,7 @@ import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryMultiple
-import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllCategoriesResponse
+import io.github.smaugfm.lunchmoney.response.GetAllCategoriesResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -24,10 +24,10 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllCategories.json"))
         )
-        val request = LunchmoneyGetAllCategoriesRequest()
+        val request = GetAllCategoriesRequest()
         assertThat(api.execute(request).block())
             .isEqualTo(
-                LunchmoneyGetAllCategoriesResponse(
+                GetAllCategoriesResponse(
                     listOf(
                         LunchmoneyCategoryMultiple(
                             id = 427748L,
@@ -69,8 +69,8 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllCategories-empty.json"))
         )
-        val getAllCategoriesRequest = LunchmoneyGetAllCategoriesRequest()
+        val getAllCategoriesRequest = GetAllCategoriesRequest()
         assertThat(api.execute(getAllCategoriesRequest).block())
-            .isEqualTo(LunchmoneyGetAllCategoriesResponse(listOf()))
+            .isEqualTo(GetAllCategoriesResponse(listOf()))
     }
 }

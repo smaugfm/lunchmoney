@@ -26,7 +26,7 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleCategory-simple.json"))
             )
-        val request = LunchmoneyGetSingleCategoryRequest(id)
+        val request = GetSingleCategoryRequest(id)
         assertThat(api.execute(request).block())
             .isEqualTo(
                 LunchmoneyCategorySingle(
@@ -57,7 +57,7 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleCategory-group.json"))
             )
-        val getSingleCategoryRequest = LunchmoneyGetSingleCategoryRequest(id)
+        val getSingleCategoryRequest = GetSingleCategoryRequest(id)
         assertThat(api.execute(getSingleCategoryRequest).block())
             .isEqualTo(
                 LunchmoneyCategorySingle(
@@ -101,7 +101,7 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleCategory-subgroup.json"))
             )
-        val getSingleCategoryRequest = LunchmoneyGetSingleCategoryRequest(id)
+        val getSingleCategoryRequest = GetSingleCategoryRequest(id)
         assertThat(api.execute(getSingleCategoryRequest).block())
             .isEqualTo(
                 LunchmoneyCategorySingle(

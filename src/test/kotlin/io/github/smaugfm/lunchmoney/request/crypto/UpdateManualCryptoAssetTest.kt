@@ -6,7 +6,7 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCrypto
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyCryptoSource
-import io.github.smaugfm.lunchmoney.request.crypto.params.LunchmoneyUpdateManualCryptoParams
+import io.github.smaugfm.lunchmoney.request.crypto.params.UpdateManualCryptoParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -25,9 +25,10 @@ class UpdateManualCryptoAssetTest : TestMockServerBase() {
                 .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/updateManualCryptoAsset.json"))
         )
-        val request = LunchmoneyUpdateManualCryptoAsset(
+        val request = UpdateManualCryptoAsset(
             id,
-            LunchmoneyUpdateManualCryptoParams(
+            UpdateManualCryptoParams(
+                "vasa",
                 "vasa",
                 "vasa",
                 BigDecimal("12341234.1234123412342"),

@@ -4,11 +4,10 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertTransaction
 import io.github.smaugfm.lunchmoney.model.LunchmoneyTransactionSplit
 import io.github.smaugfm.lunchmoney.model.LunchmoneyUpdateTransaction
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
-import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyUpdateTransactionParams
+import io.github.smaugfm.lunchmoney.request.transaction.params.UpdateTransactionParams
 import io.github.smaugfm.lunchmoney.response.LunchmoneyUpdateTransactionResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
@@ -35,9 +34,9 @@ class UpdateTransactionRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/updateTransaction.json"))
             )
 
-        val request = LunchmoneyUpdateTransactionRequest(
+        val request = UpdateTransactionRequest(
             id,
-            LunchmoneyUpdateTransactionParams(
+            UpdateTransactionParams(
                 LunchmoneyUpdateTransaction(
                     LocalDate.now(),
                     BigDecimal("4.2134"),

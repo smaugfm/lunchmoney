@@ -1,5 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
@@ -76,6 +77,7 @@ tasks {
             txt.required.set(false)
             sarif.required.set(false)
         }
+        baseline.set(file("$rootDir/detekt-baseline.yml"))
     }
     withType<Jar> {
         from(rootDir.resolve("LICENSE")) {
@@ -84,6 +86,11 @@ tasks {
     }
     named<Jar>("javadocJar") {
         from(named("dokkaJavadoc"))
+    }
+    named<KotlinCompilationTask<*>>("compileKotlin") {
+        compilerOptions.freeCompilerArgs.add(
+            "-opt-in=kotlinx.serialization.ExperimentalSerializationApi"
+        )
     }
 }
 kotlin {

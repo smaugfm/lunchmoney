@@ -6,7 +6,7 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCrypto
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyCryptoSource
-import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllCryptoResponse
+import io.github.smaugfm.lunchmoney.response.GetAllCryptoResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -28,10 +28,10 @@ class GetAllCryptoRequestTest : TestMockServerBase() {
                 .withBody(getResourceAsString("response/getAllCrypto.json"))
         )
 
-        val request = LunchmoneyGetAllCryptoRequest()
+        val request = GetAllCryptoRequest()
         assertThat(api.execute(request).block())
             .isEqualTo(
-                LunchmoneyGetAllCryptoResponse(
+                GetAllCryptoResponse(
                     listOf(
                         LunchmoneyCrypto(
                             id = null,

@@ -4,7 +4,7 @@ import io.github.smaugfm.lunchmoney.helper.PathAndQuery
 import io.github.smaugfm.lunchmoney.request.LunchmoneyAbstractApiRequest
 import io.netty.handler.codec.http.HttpMethod
 
-abstract class LunchmoneyAbstractDeleteRequest<TResponse>(
+internal abstract class LunchmoneyAbstractDeleteRequest<TResponse>(
     final override val pathAndQuery: PathAndQuery
 ) : LunchmoneyAbstractApiRequest<TResponse, Unit>() {
 

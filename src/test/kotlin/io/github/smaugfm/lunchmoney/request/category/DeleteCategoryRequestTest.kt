@@ -11,7 +11,7 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryDeletionDependency
-import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
+import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -30,7 +30,7 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
                     .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                     .withBody("true")
             )
-        val request = LunchmoneyDeleteCategoryRequest(
+        val request = DeleteCategoryRequest(
             id
         )
         assertThat(api.execute(request).block())
@@ -49,7 +49,7 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
                 .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/deleteCategory-dependents.json"))
         )
-        val deleteCategoryRequest = LunchmoneyDeleteCategoryRequest(
+        val deleteCategoryRequest = DeleteCategoryRequest(
             id
         )
         assertThat { api.execute(deleteCategoryRequest).block() }
@@ -60,7 +60,7 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
             .isInstanceOf(LunchmoneyApiResponseException::class.java)
             .prop(LunchmoneyApiResponseException::apiErrorResponse)
             .isNotNull()
-            .prop(LunchmoneyApiErrorResponse::dependents)
+            .prop(ApiErrorResponse::dependents)
             .isEqualTo(
                 LunchmoneyCategoryDeletionDependency(
                     "Food & Drink",

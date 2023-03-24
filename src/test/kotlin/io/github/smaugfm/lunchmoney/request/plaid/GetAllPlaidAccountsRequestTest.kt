@@ -5,7 +5,7 @@ import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyPlaidAccount
-import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllPlaidAccountsResponse
+import io.github.smaugfm.lunchmoney.response.GetAllPlaidAccountsResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -27,11 +27,11 @@ class GetAllPlaidAccountsRequestTest : TestMockServerBase() {
                 .withBody(getResourceAsString("response/getAllPlaidAccounts.json"))
         )
 
-        val request = LunchmoneyGetAllPlaidAccountsRequest()
+        val request = GetAllPlaidAccountsRequest()
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                LunchmoneyGetAllPlaidAccountsResponse(
+                GetAllPlaidAccountsResponse(
                     listOf(
                         LunchmoneyPlaidAccount(
                             91,

@@ -6,8 +6,8 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyTransaction
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
-import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyGetAllTransactionsParams
-import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllTransactionsResponse
+import io.github.smaugfm.lunchmoney.request.transaction.params.GetAllTransactionsParams
+import io.github.smaugfm.lunchmoney.response.GetAllTransactionsResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -40,8 +40,8 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllTransactions.json"))
         )
-        val request = LunchmoneyGetAllTransactionsRequest(
-            LunchmoneyGetAllTransactionsParams(
+        val request = GetAllTransactionsRequest(
+            GetAllTransactionsParams(
                 tagId = 1234L,
                 recurringId = 1234L,
                 plaidAccountId = 1234L,
@@ -60,7 +60,7 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
         )
         assertThat(api.execute(request).block())
             .isEqualTo(
-                LunchmoneyGetAllTransactionsResponse(
+                GetAllTransactionsResponse(
                     listOf(
                         LunchmoneyTransaction(
                             id = 602L,

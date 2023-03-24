@@ -6,7 +6,7 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyAsset
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyAssetType
-import io.github.smaugfm.lunchmoney.response.LunchmoneyGetAllAssetsResponse
+import io.github.smaugfm.lunchmoney.response.GetAllAssetsResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -28,10 +28,10 @@ class GetAllAssetsRequestTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllAssets.json"))
         )
-        val request = LunchmoneyGetAllAssetsRequest()
+        val request = GetAllAssetsRequest()
         assertThat(api.execute(request).block())
             .isEqualTo(
-                LunchmoneyGetAllAssetsResponse(
+                GetAllAssetsResponse(
                     listOf(
                         LunchmoneyAsset(
                             47653,

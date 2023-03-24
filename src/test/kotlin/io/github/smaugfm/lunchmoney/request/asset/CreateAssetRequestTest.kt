@@ -6,7 +6,7 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyAsset
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyAssetType
-import io.github.smaugfm.lunchmoney.request.asset.params.LunchmoneyCreateUpdateAssetParams
+import io.github.smaugfm.lunchmoney.request.asset.params.CreateUpdateAssetParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -29,8 +29,8 @@ class CreateAssetRequestTest : TestMockServerBase() {
                 .withBody(getResourceAsString("response/createAsset.json"))
         )
 
-        val request = LunchmoneyCreateAssetRequest(
-            LunchmoneyCreateUpdateAssetParams(
+        val request = CreateAssetRequest(
+            CreateUpdateAssetParams(
                 typeName = LunchmoneyAssetType.CASH,
                 subtypeName = "vasa",
                 name = "vasa",

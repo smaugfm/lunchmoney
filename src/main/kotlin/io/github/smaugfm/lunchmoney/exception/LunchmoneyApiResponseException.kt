@@ -1,10 +1,10 @@
 package io.github.smaugfm.lunchmoney.exception
 
-import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
+import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
 
 @Suppress("MemberVisibilityCanBePrivate")
 class LunchmoneyApiResponseException : LunchmoneyApiException {
-    val apiErrorResponse: LunchmoneyApiErrorResponse?
+    val apiErrorResponse: ApiErrorResponse?
     val statusCode: Int
     val body: String
 
@@ -15,7 +15,7 @@ class LunchmoneyApiResponseException : LunchmoneyApiException {
     }
 
     constructor(
-        apiErrorResponse: LunchmoneyApiErrorResponse?,
+        apiErrorResponse: ApiErrorResponse?,
         body: String,
         statusCode: Int
     ) : super(apiErrorResponse?.message ?: "Received erroneous response from Lunchmoney API") {

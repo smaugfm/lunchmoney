@@ -4,10 +4,10 @@ import io.github.smaugfm.lunchmoney.helper.PathAndQuery
 import io.netty.handler.codec.http.HttpMethod
 import reactor.core.publisher.Mono
 
-abstract class LunchmoneyAbstractApiRequest<TResponse, TBody : Any> {
+internal abstract class LunchmoneyAbstractApiRequest<TResponse, TBody : Any> {
     abstract val pathAndQuery: PathAndQuery
     abstract fun method(): HttpMethod
 
     fun pathAndQuery() = pathAndQuery.toString()
-    open fun body(): Mono<TBody> = Mono.empty()
+    open fun body(): TBody? = null
 }

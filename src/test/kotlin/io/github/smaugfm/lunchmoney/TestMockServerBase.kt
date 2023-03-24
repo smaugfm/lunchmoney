@@ -1,6 +1,6 @@
 package io.github.smaugfm.lunchmoney
 
-import io.github.smaugfm.lunchmoney.api.LunchmoneyApi
+import io.github.smaugfm.lunchmoney.api.LunchmoneyApiInternal
 import io.netty.handler.codec.http.HttpHeaderNames
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -13,7 +13,7 @@ import org.mockserver.model.NottableString
 import org.slf4j.event.Level
 
 open class TestMockServerBase {
-    protected val api: LunchmoneyApi = LunchmoneyTest(
+    protected val api: LunchmoneyApiInternal = LunchmoneyTest(
         TOKEN,
         BASE_URL,
         PORT
@@ -57,7 +57,7 @@ open class TestMockServerBase {
         token: String,
         baseUrl: String,
         port: Int
-    ) : LunchmoneyApi(token, baseUrl, port)
+    ) : LunchmoneyApiInternal(token, baseUrl, port)
 
     companion object {
         const val TOKEN = "validToken"

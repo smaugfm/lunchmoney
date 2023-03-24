@@ -6,7 +6,7 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyTransaction
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
-import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyGetSingleTransactionParams
+import io.github.smaugfm.lunchmoney.request.transaction.params.GetSingleTransactionParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -29,7 +29,7 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleTransaction.json"))
             )
-        val request = LunchmoneyGetSingleTransactionRequest(id)
+        val request = GetSingleTransactionRequest(id)
         assertThat(api.execute(request).block())
             .isEqualTo(
                 LunchmoneyTransaction(
@@ -74,9 +74,9 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getSingleTransaction.json"))
             )
-        val getSingleTransactionRequest = LunchmoneyGetSingleTransactionRequest(
+        val getSingleTransactionRequest = GetSingleTransactionRequest(
             id,
-            LunchmoneyGetSingleTransactionParams(false)
+            GetSingleTransactionParams(false)
         )
         assertThat(api.execute(getSingleTransactionRequest).block())
             .isEqualTo(

@@ -3,7 +3,7 @@ package io.github.smaugfm.lunchmoney.request.category
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
-import io.github.smaugfm.lunchmoney.request.category.params.LunchmoneyCreateUpdateCategoryRequestParams
+import io.github.smaugfm.lunchmoney.request.category.params.CreateUpdateCategoryRequestParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -20,9 +20,17 @@ internal class UpdateCategoryRequestTest : TestMockServerBase() {
                 .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                 .withBody("true")
         )
-        val request = LunchmoneyUpdateCategoryRequest(
+        val request = UpdateCategoryRequest(
             id,
-            LunchmoneyCreateUpdateCategoryRequestParams("vasa")
+            CreateUpdateCategoryRequestParams(
+                "vasa",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            )
         )
         assertThat(api.execute(request).block()).isEqualTo(true)
     }

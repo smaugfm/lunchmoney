@@ -4,7 +4,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 
-open class PathAndQuery protected constructor() {
+class PathAndQuery private constructor() {
     private val segments = StringBuilder()
     private var query = String()
 

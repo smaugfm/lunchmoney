@@ -12,9 +12,9 @@ import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
 import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertTransaction
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
-import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyInsertTransactionRequestParams
-import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
-import io.github.smaugfm.lunchmoney.response.LunchmoneyInsertTransactionsResponse
+import io.github.smaugfm.lunchmoney.request.transaction.params.InsertTransactionRequestParams
+import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
+import io.github.smaugfm.lunchmoney.response.InsertTransactionsResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -39,8 +39,8 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/insertTransactions.json"))
             )
 
-        val request = LunchmoneyInsertTransactionsRequest(
-            LunchmoneyInsertTransactionRequestParams(
+        val request = InsertTransactionsRequest(
+            InsertTransactionRequestParams(
                 listOf(
                     LunchmoneyInsertTransaction(
                         LocalDate.now(),
@@ -55,13 +55,18 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
                         UUID.randomUUID().toString(),
                         null
                     )
-                )
+                ),
+                null,
+                null,
+                null,
+                null,
+                null
             )
         )
 
         assertThat(api.execute(request).block())
             .isEqualTo(
-                LunchmoneyInsertTransactionsResponse(
+                InsertTransactionsResponse(
                     listOf(54L)
                 )
             )
@@ -80,8 +85,15 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/insertTransactions-error.json"))
             )
 
-        val insertTransactionsRequest = LunchmoneyInsertTransactionsRequest(
-            LunchmoneyInsertTransactionRequestParams(listOf())
+        val insertTransactionsRequest = InsertTransactionsRequest(
+            InsertTransactionRequestParams(
+                listOf(),
+                null,
+                null,
+                null,
+                null,
+                null
+            )
         )
 
         assertThat { api.execute(insertTransactionsRequest).block() }
@@ -92,7 +104,7 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
             .isInstanceOf(LunchmoneyApiResponseException::class)
             .prop(LunchmoneyApiResponseException::apiErrorResponse)
             .isNotNull()
-            .prop(LunchmoneyApiErrorResponse::error)
+            .prop(ApiErrorResponse::error)
             .isEqualTo(
                 listOf(
                     "Transaction 0 is missing date.",

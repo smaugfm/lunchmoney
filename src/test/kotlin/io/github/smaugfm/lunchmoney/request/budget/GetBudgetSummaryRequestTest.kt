@@ -7,7 +7,7 @@ import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyBudget
 import io.github.smaugfm.lunchmoney.model.LunchmoneyBudgetConfig
 import io.github.smaugfm.lunchmoney.model.LunchmoneyBudgetData
-import io.github.smaugfm.lunchmoney.request.budget.params.LunchmoneyGetBudgetSummaryParams
+import io.github.smaugfm.lunchmoney.request.budget.params.GetBudgetSummaryParams
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -30,8 +30,8 @@ class GetBudgetSummaryRequestTest : TestMockServerBase() {
                     .withBody(getResourceAsString("response/getBudgetSummary.json"))
             )
 
-        val request = LunchmoneyGetBudgetSummaryRequest(
-            LunchmoneyGetBudgetSummaryParams(
+        val request = GetBudgetSummaryRequest(
+            GetBudgetSummaryParams(
                 LocalDate.now(),
                 LocalDate.now().plusDays(1),
                 Currency.getInstance("USD")

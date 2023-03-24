@@ -23,7 +23,7 @@ internal class GetCurrentUserRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getCurrentUser.json"))
             )
-        val request = LunchmoneyGetCurrentUserRequest()
+        val request = GetCurrentUserRequest()
         assertThat(api.execute(request).block())
             .isEqualTo(
                 LunchmoneyUser(

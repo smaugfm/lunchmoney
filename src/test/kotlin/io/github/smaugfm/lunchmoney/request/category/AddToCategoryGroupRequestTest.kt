@@ -6,7 +6,7 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryChild
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategorySingle
-import io.github.smaugfm.lunchmoney.request.category.params.LunchmoneyAddToCategoryGroupsParams
+import io.github.smaugfm.lunchmoney.request.category.params.AddToCategoryGroupsParams
 import org.junit.jupiter.api.Test
 import java.time.Instant
 
@@ -25,10 +25,11 @@ internal class AddToCategoryGroupRequestTest : TestMockServerBase() {
                     .withContentType(org.mockserver.model.MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/addToGroup.json"))
             )
-        val request = LunchmoneyAddToCategoryGroupRequest(
+        val request = AddToCategoryGroupRequest(
             groupId,
-            LunchmoneyAddToCategoryGroupsParams(
-                listOf(315162L, 315164L, 315169L, 315172L)
+            AddToCategoryGroupsParams(
+                listOf(315162L, 315164L, 315169L, 315172L),
+                null
             )
         )
         assertThat(api.execute(request).block())

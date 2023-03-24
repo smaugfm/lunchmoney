@@ -24,7 +24,7 @@ internal class GetAllTagsRequestTest : TestMockServerBase() {
                     .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                     .withBody(getResourceAsString("response/getAllTags.json"))
             )
-        val request = LunchmoneyGetAllTagsRequest()
+        val request = GetAllTagsRequest()
         assertThat(api.execute(request).block())
             .isNotNull()
             .containsExactlyInAnyOrder(
