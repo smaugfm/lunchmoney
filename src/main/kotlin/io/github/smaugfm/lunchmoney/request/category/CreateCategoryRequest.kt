@@ -8,11 +8,8 @@ import io.github.smaugfm.lunchmoney.response.CreateCategoryResponse
 internal class CreateCategoryRequest(
     params: CreateUpdateCategoryRequestParams
 ) :
-    LunchmoneyAbstractPostRequest<
-            CreateCategoryResponse,
-            CreateUpdateCategoryRequestParams
-            >
-        (
+    LunchmoneyAbstractPostRequest<CreateCategoryResponse,
+        CreateUpdateCategoryRequestParams>(
         PathAndQuery.segment("categories"),
         params
     )

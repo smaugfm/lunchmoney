@@ -2,7 +2,6 @@ package io.github.smaugfm.lunchmoney.request
 
 import io.github.smaugfm.lunchmoney.helper.PathAndQuery
 import io.netty.handler.codec.http.HttpMethod
-import reactor.core.publisher.Mono
 
 internal abstract class LunchmoneyAbstractApiRequest<TResponse, TBody : Any> {
     abstract val pathAndQuery: PathAndQuery

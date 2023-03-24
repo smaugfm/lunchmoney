@@ -6,5 +6,5 @@ import io.github.smaugfm.lunchmoney.response.GetAllAssetsResponse
 
 internal class GetAllAssetsRequest :
     LunchmoneyAbstractGetRequest<GetAllAssetsResponse>(
-    PathAndQuery.segment("assets")
-)
+        PathAndQuery.segment("assets")
+    )

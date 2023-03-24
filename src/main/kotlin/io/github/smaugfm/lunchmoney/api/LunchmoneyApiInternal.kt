@@ -1,7 +1,6 @@
 package io.github.smaugfm.lunchmoney.api
 
 import io.github.smaugfm.lunchmoney.request.LunchmoneyAbstractApiRequest
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonBuilder
 import kotlinx.serialization.json.JsonNamingStrategy
@@ -15,7 +14,7 @@ sealed class LunchmoneyApiInternal(
     baseUrl: String,
     port: Int,
     jsonBuilderActions: List<JsonBuilder.() -> Unit>,
-    reactorNettyConnectionProvider: ConnectionProvider?,
+    reactorNettyConnectionProvider: ConnectionProvider?
 ) {
     constructor(
         token: String,

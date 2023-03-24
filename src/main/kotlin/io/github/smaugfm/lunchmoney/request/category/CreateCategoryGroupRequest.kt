@@ -7,10 +7,8 @@ import io.github.smaugfm.lunchmoney.response.CreateCategoryResponse
 
 internal class CreateCategoryGroupRequest(
     params: CreateCategoryGroupRequestParams
-) : LunchmoneyAbstractPostRequest<
-        CreateCategoryResponse,
-        CreateCategoryGroupRequestParams
-        >(
+) : LunchmoneyAbstractPostRequest<CreateCategoryResponse,
+    CreateCategoryGroupRequestParams>(
     PathAndQuery.segment("categories").segment("group"),
     params
 )

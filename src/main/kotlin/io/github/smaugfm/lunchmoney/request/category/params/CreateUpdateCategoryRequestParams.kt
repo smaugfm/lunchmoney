@@ -10,5 +10,5 @@ internal class CreateUpdateCategoryRequestParams(
     val excludeFromBudget: Boolean?,
     val excludeFromTotals: Boolean?,
     val categoryIds: List<Long>?,
-    val groupId: Long?,
+    val groupId: Long?
 )

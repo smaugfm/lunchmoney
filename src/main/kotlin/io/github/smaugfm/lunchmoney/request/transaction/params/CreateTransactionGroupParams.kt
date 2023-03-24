@@ -15,5 +15,5 @@ internal data class CreateTransactionGroupParams(
     val transactions: List<Long>,
     val categoryId: Long?,
     val notes: String?,
-    val tags: List<LunchmoneyTransactionTag>?,
+    val tags: List<LunchmoneyTransactionTag>?
 )

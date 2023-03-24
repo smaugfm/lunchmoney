@@ -10,7 +10,6 @@ import io.netty.handler.codec.http.HttpHeaderNames
 import io.netty.handler.codec.http.HttpHeaderValues
 import io.netty.handler.codec.http.HttpHeaders
 import io.netty.handler.codec.http.HttpMethod
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
@@ -145,8 +144,9 @@ internal class RequestExecutor(
     }
 
     private fun <T> requestBodyToByteBuffer(serializer: KSerializer<T>, body: T?): ByteBuf {
-        if (body == null)
+        if (body == null) {
             return Unpooled.EMPTY_BUFFER
+        }
         return try {
             val res: ByteArray = serializeRequestBody(serializer, body)
             Unpooled.wrappedBuffer(res)

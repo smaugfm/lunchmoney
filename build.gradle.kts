@@ -77,7 +77,7 @@ tasks {
             txt.required.set(false)
             sarif.required.set(false)
         }
-        baseline.set(file("$rootDir/detekt-baseline.yml"))
+        baseline.set(file("$rootDir/detekt-baseline.xml"))
     }
     withType<Jar> {
         from(rootDir.resolve("LICENSE")) {

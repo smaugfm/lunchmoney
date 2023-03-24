@@ -2,7 +2,6 @@ package io.github.smaugfm.lunchmoney.request.base
 
 import io.github.smaugfm.lunchmoney.request.LunchmoneyAbstractApiRequest
 import io.netty.handler.codec.http.HttpMethod
-import reactor.core.publisher.Mono
 
 internal abstract class LunchmoneyAbstractBodyRequest<TResponse, TBody : Any>(
     protected val params: TBody,

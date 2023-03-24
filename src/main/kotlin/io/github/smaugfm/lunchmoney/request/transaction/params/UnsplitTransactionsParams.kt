@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data class UnsplitTransactionsParams(
     val parentIds: List<Long>,
-    val removeParents: Boolean?,
+    val removeParents: Boolean?
 )

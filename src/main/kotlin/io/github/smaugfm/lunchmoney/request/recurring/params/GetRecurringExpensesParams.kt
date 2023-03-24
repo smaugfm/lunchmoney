@@ -10,5 +10,5 @@ import java.time.LocalDate
 @Serializable
 internal data class GetRecurringExpensesParams(
     val startDate: LocalDate?,
-    val debitAsNegative: Boolean?,
+    val debitAsNegative: Boolean?
 )

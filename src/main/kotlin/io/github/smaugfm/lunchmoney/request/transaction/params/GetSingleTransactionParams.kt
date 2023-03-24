@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class GetSingleTransactionParams(
-    val debitAsNegative: Boolean?,
+    val debitAsNegative: Boolean?
 )

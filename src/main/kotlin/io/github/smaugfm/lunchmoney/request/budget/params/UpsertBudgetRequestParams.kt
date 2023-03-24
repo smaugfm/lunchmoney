@@ -14,5 +14,5 @@ internal data class UpsertBudgetRequestParams(
     val startDate: LocalDate,
     val categoryId: Long,
     val amount: Double,
-    val currency: Currency?,
+    val currency: Currency?
 )

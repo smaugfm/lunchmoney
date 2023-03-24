@@ -3,7 +3,6 @@ package io.github.smaugfm.lunchmoney.response
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryDeletionDependency
 import io.github.smaugfm.lunchmoney.serializer.StringOrStringArrayDeserializer
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 
 @Serializable

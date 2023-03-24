@@ -9,5 +9,5 @@ internal data class UpdateTransactionParams(
     val transaction: LunchmoneyUpdateTransaction,
     val split: LunchmoneyTransactionSplit?,
     val debitAsNegative: Boolean?,
-    val skipBalanceUpdate: Boolean?,
+    val skipBalanceUpdate: Boolean?
 )

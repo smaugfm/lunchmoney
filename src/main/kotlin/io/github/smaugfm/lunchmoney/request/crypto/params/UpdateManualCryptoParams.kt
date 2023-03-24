@@ -19,5 +19,5 @@ internal data class UpdateManualCryptoParams(
     val displayName: String?,
     val institutionName: String?,
     val balance: BigDecimal?,
-    val currency: String?,
+    val currency: String?
 )

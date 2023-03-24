@@ -13,5 +13,5 @@ import java.util.Currency
 internal data class GetBudgetSummaryParams(
     val startDate: LocalDate,
     val endDate: LocalDate,
-    val currency: Currency?,
+    val currency: Currency?
 )

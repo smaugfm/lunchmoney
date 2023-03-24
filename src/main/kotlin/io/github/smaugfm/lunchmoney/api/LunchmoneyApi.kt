@@ -80,7 +80,7 @@ class LunchmoneyApi(
     baseUrl,
     port,
     jsonBuilderActions,
-    reactorNettyConnectionProvider,
+    reactorNettyConnectionProvider
 ) {
     fun createAsset(
         name: String,
@@ -105,7 +105,7 @@ class LunchmoneyApi(
                 currency = currency,
                 institutionName = institutionName,
                 closedOn = closedOn,
-                excludeTransactions = excludeTransactions,
+                excludeTransactions = excludeTransactions
             )
         )
     )
@@ -124,7 +124,7 @@ class LunchmoneyApi(
         currency: Currency? = null,
         institutionName: String? = null,
         closedOn: LocalDate? = null,
-        excludeTransactions: Boolean? = null,
+        excludeTransactions: Boolean? = null
     ): Mono<LunchmoneyAsset> = execute(
         UpdateAssetRequest(
             assetId,
@@ -138,7 +138,7 @@ class LunchmoneyApi(
                 currency = currency,
                 institutionName = institutionName,
                 closedOn = closedOn,
-                excludeTransactions = excludeTransactions,
+                excludeTransactions = excludeTransactions
             )
         )
     )
@@ -152,7 +152,7 @@ class LunchmoneyApi(
             GetBudgetSummaryParams(
                 startDate = startDate,
                 endDate = endDate,
-                currency = currency,
+                currency = currency
             )
         )
     )
@@ -180,7 +180,7 @@ class LunchmoneyApi(
                 startDate = startDate,
                 categoryId = categoryId,
                 amount = amount,
-                currency = currency,
+                currency = currency
             )
         )
     ).mapNotNull { it.categoryGroup }
@@ -216,7 +216,7 @@ class LunchmoneyApi(
                 excludeFromBudget = excludeFromBudget,
                 excludeFromTotals = excludeFromTotals,
                 categoryIds = categoryIds,
-                newCategories = newCategories,
+                newCategories = newCategories
             )
         )
     ).map { it.categoryId }
@@ -238,7 +238,7 @@ class LunchmoneyApi(
                 excludeFromBudget = excludeFromBudget,
                 excludeFromTotals = excludeFromTotals,
                 categoryIds = categoryIds,
-                groupId = groupId,
+                groupId = groupId
             )
         )
     ).map { it.categoryId }
@@ -267,7 +267,7 @@ class LunchmoneyApi(
         excludeFromBudget: Boolean? = null,
         excludeFromTotals: Boolean? = null,
         categoryIds: List<Long>? = null,
-        groupId: Long? = null,
+        groupId: Long? = null
     ): Mono<Boolean> = execute(
         UpdateCategoryRequest(
             categoryId,
@@ -278,7 +278,7 @@ class LunchmoneyApi(
                 excludeFromBudget = excludeFromBudget,
                 excludeFromTotals = excludeFromTotals,
                 categoryIds = categoryIds,
-                groupId = groupId,
+                groupId = groupId
             )
         )
     )
@@ -289,7 +289,7 @@ class LunchmoneyApi(
         displayName: String? = null,
         institutionName: String? = null,
         currency: String? = null,
-        balance: BigDecimal? = null,
+        balance: BigDecimal? = null
     ): Mono<LunchmoneyCrypto> = execute(
         UpdateManualCryptoAsset(
             cryptoAssetId,
@@ -298,7 +298,7 @@ class LunchmoneyApi(
                 displayName = displayName,
                 institutionName = institutionName,
                 balance = balance,
-                currency = currency,
+                currency = currency
             )
         )
     )
@@ -318,7 +318,7 @@ class LunchmoneyApi(
         GetRecurringExpensesRequest(
             GetRecurringExpensesParams(
                 startDate = startDate,
-                debitAsNegative = debitAsNegative,
+                debitAsNegative = debitAsNegative
             )
         )
     ).map { it.recurringExpenses }
@@ -342,7 +342,7 @@ class LunchmoneyApi(
                 transactions = transactions,
                 categoryId = categoryId,
                 notes = notes,
-                tags = tags,
+                tags = tags
             )
         )
     )
@@ -382,7 +382,7 @@ class LunchmoneyApi(
                 startDate = startDate,
                 endDate = endDate,
                 debitAsNegative = debitAsNegative,
-                pending = pending,
+                pending = pending
             )
         )
     ).map { it.transactions }
@@ -414,7 +414,7 @@ class LunchmoneyApi(
                 skipDuplicates = skipDuplicates,
                 checkForRecurring = checkForRecurring,
                 debitAsNegative = debitAsNegative,
-                skipBalanceUpdate = skipBalanceUpdate,
+                skipBalanceUpdate = skipBalanceUpdate
             )
         )
     ).map { it.ids }
@@ -426,7 +426,7 @@ class LunchmoneyApi(
         UnsplitTransactionsRequest(
             UnsplitTransactionsParams(
                 parentIds = parentIds,
-                removeParents = removeParents,
+                removeParents = removeParents
             )
         )
     )
@@ -444,7 +444,7 @@ class LunchmoneyApi(
                 transaction = transaction,
                 split = split,
                 debitAsNegative = debitAsNegative,
-                skipBalanceUpdate = skipBalanceUpdate,
+                skipBalanceUpdate = skipBalanceUpdate
             )
         )
     )

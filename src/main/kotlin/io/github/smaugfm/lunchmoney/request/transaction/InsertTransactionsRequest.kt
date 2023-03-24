@@ -8,10 +8,8 @@ import io.github.smaugfm.lunchmoney.response.InsertTransactionsResponse
 internal class InsertTransactionsRequest(
     params: InsertTransactionRequestParams
 ) :
-    LunchmoneyAbstractPostRequest<
-            InsertTransactionsResponse,
-            InsertTransactionRequestParams>
-        (
+    LunchmoneyAbstractPostRequest<InsertTransactionsResponse,
+        InsertTransactionRequestParams>(
         PathAndQuery.segment("transactions"),
         params
     )

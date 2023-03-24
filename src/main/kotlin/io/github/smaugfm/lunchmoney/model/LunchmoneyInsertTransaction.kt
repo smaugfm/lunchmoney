@@ -32,4 +32,3 @@ data class LunchmoneyInsertTransaction(
     val externalId: String? = null,
     val tags: List<LunchmoneyTransactionTag>? = null
 )
-
