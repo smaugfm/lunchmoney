@@ -9,14 +9,14 @@ import reactor.core.publisher.Mono
 import reactor.netty.http.client.HttpClient
 import reactor.netty.resources.ConnectionProvider
 
-sealed class LunchmoneyApiInternal(
+open class LunchmoneyApiInternal internal constructor(
     token: String,
     baseUrl: String,
     port: Int,
     jsonBuilderActions: List<JsonBuilder.() -> Unit>,
     reactorNettyConnectionProvider: ConnectionProvider?
 ) {
-    constructor(
+    internal constructor(
         token: String,
         jsonBuilderAction: JsonBuilder.() -> Unit = {},
         reactorNettyConnectionProvider: ConnectionProvider? = null

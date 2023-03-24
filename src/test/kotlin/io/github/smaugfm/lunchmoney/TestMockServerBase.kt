@@ -57,7 +57,13 @@ open class TestMockServerBase {
         token: String,
         baseUrl: String,
         port: Int
-    ) : LunchmoneyApiInternal(token, baseUrl, port)
+    ) : LunchmoneyApiInternal(
+        token,
+        baseUrl,
+        port,
+        listOf(DEFAULT_JSON_BUILDER),
+        null
+    )
 
     companion object {
         const val TOKEN = "validToken"
