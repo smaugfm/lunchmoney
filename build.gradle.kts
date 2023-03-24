@@ -29,10 +29,10 @@ val logback = "1.4.5"
 val javaVersion = "11"
 
 dependencies {
+    api("io.projectreactor:reactor-core:$reactorCore")
+    api("io.projectreactor.netty:reactor-netty-http:$reactorNetty")
+    api("io.projectreactor.netty:reactor-netty-core:$reactorNetty")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
-    implementation("io.projectreactor:reactor-core:$reactorCore")
-    implementation("io.projectreactor.netty:reactor-netty-http:$reactorNetty")
-    implementation("io.projectreactor.netty:reactor-netty-core:$reactorNetty")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     testImplementation("org.mock-server:mockserver-netty:$mockserver")
     testImplementation("org.mock-server:mockserver-client-java:$mockserver")
