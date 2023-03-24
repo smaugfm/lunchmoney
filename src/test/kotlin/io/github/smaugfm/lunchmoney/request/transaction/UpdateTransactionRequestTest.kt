@@ -4,8 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertOrUpdateTransaction
+import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertTransaction
 import io.github.smaugfm.lunchmoney.model.LunchmoneyTransactionSplit
+import io.github.smaugfm.lunchmoney.model.LunchmoneyUpdateTransaction
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
 import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyUpdateTransactionParams
 import io.github.smaugfm.lunchmoney.response.LunchmoneyUpdateTransactionResponse
@@ -37,7 +38,7 @@ class UpdateTransactionRequestTest : TestMockServerBase() {
         val request = LunchmoneyUpdateTransactionRequest(
             id,
             LunchmoneyUpdateTransactionParams(
-                LunchmoneyInsertOrUpdateTransaction(
+                LunchmoneyUpdateTransaction(
                     LocalDate.now(),
                     BigDecimal("4.2134"),
                     12342134L,

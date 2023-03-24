@@ -10,7 +10,7 @@ import assertk.assertions.prop
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
-import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertOrUpdateTransaction
+import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertTransaction
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
 import io.github.smaugfm.lunchmoney.request.transaction.params.LunchmoneyInsertTransactionRequestParams
 import io.github.smaugfm.lunchmoney.response.LunchmoneyApiErrorResponse
@@ -42,7 +42,7 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
         val request = LunchmoneyInsertTransactionsRequest(
             LunchmoneyInsertTransactionRequestParams(
                 listOf(
-                    LunchmoneyInsertOrUpdateTransaction(
+                    LunchmoneyInsertTransaction(
                         LocalDate.now(),
                         BigDecimal("4.2134"),
                         12342134L,

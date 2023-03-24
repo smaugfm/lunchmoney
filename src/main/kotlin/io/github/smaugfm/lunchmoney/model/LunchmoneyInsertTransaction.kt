@@ -19,7 +19,7 @@ import java.time.LocalDate
 import java.util.Currency
 
 @Serializable
-data class LunchmoneyInsertOrUpdateTransaction(
+data class LunchmoneyInsertTransaction(
     val date: LocalDate,
     val amount: BigDecimal,
     val categoryId: Long? = null,
@@ -32,3 +32,4 @@ data class LunchmoneyInsertOrUpdateTransaction(
     val externalId: String? = null,
     val tags: List<LunchmoneyTransactionTag>? = null
 )
+
