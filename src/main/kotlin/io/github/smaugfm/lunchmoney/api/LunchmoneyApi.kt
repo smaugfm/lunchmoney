@@ -82,6 +82,18 @@ class LunchmoneyApi(
     jsonBuilderActions,
     reactorNettyConnectionProvider
 ) {
+    constructor(
+        token: String,
+        jsonBuilderAction: JsonBuilder.() -> Unit = {},
+        reactorNettyConnectionProvider: ConnectionProvider? = null
+    ) : this(
+        token,
+        "https://dev.lunchmoney.app/v1",
+        DEFAULT_HTTP_PORT,
+        listOf(jsonBuilderAction, DEFAULT_JSON_BUILDER),
+        reactorNettyConnectionProvider
+    )
+
     fun createAsset(
         name: String,
         typeName: LunchmoneyAssetType,

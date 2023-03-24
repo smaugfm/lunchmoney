@@ -16,18 +16,6 @@ open class LunchmoneyApiInternal internal constructor(
     jsonBuilderActions: List<JsonBuilder.() -> Unit>,
     reactorNettyConnectionProvider: ConnectionProvider?
 ) {
-    internal constructor(
-        token: String,
-        jsonBuilderAction: JsonBuilder.() -> Unit = {},
-        reactorNettyConnectionProvider: ConnectionProvider? = null
-    ) : this(
-        token,
-        "https://dev.lunchmoney.app/v1",
-        DEFAULT_HTTP_PORT,
-        listOf(jsonBuilderAction, DEFAULT_JSON_BUILDER),
-        reactorNettyConnectionProvider
-    )
-
     internal val requestExecutor = RequestExecutor(
         token,
         Json(builderAction = {
