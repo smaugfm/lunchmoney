@@ -88,7 +88,7 @@ class LunchmoneyApi(
         reactorNettyConnectionProvider: ConnectionProvider? = null
     ) : this(
         token,
-        "https://dev.lunchmoney.app/v1",
+        LUNCHMONEY_DEV_BASE_URL,
         DEFAULT_HTTP_PORT,
         listOf(jsonBuilderAction, DEFAULT_JSON_BUILDER),
         reactorNettyConnectionProvider
@@ -464,4 +464,9 @@ class LunchmoneyApi(
     fun getCurrentUser(): Mono<LunchmoneyUser> = execute(
         GetCurrentUserRequest()
     )
+
+    companion object {
+        const val LUNCHMONEY_DEV_BASE_URL = "https://dev.lunchmoney.app/v1"
+        const val LUNCHMONEY_APP_BASE_URL = "https://my.lunchmoney.app"
+    }
 }
