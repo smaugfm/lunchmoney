@@ -68,8 +68,13 @@ import java.time.Instant
 import java.time.LocalDate
 import java.util.Currency
 
+/**
+ * Non-blocking Reactor-based Lunchmoney API
+ *
+ * Documentation on specific parameters or endpoints is available at [lunchmoney.dev](https://lunchmoney.dev)
+ */
 @ExperimentalSerializationApi
-class LunchmoneyApi(
+class LunchmoneyApi internal constructor(
     token: String,
     baseUrl: String,
     port: Int,
@@ -82,6 +87,11 @@ class LunchmoneyApi(
     jsonBuilderActions,
     reactorNettyConnectionProvider
 ) {
+    /**
+     * @param token developer [token](https://lunchmoney.dev/#authentication)
+     * @param jsonBuilderAction customize internal [kotlinx.serialization.json.Json] instance
+     * @param reactorNettyConnectionProvider customize internal netty [reactor.netty.http.client.HttpClient]
+     */
     constructor(
         token: String,
         jsonBuilderAction: JsonBuilder.() -> Unit = {},
