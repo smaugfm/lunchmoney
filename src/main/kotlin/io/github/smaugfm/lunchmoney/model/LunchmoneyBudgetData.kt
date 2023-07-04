@@ -10,8 +10,8 @@ import java.util.Currency
 
 @Serializable
 data class LunchmoneyBudgetData(
-    val numTransactions: Long,
-    val spendingToBase: Double,
+    val numTransactions: Long? = null,
+    val spendingToBase: Double? = null,
     val budgetToBase: Double? = null,
     val budgetAmount: Double? = null,
     val budgetCurrency: Currency? = null,

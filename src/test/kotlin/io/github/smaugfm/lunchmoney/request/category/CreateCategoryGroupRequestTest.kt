@@ -12,7 +12,6 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
 import io.github.smaugfm.lunchmoney.request.category.params.CreateCategoryGroupRequestParams
-import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
 import io.github.smaugfm.lunchmoney.response.CreateCategoryResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
@@ -64,6 +63,6 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
             .isNotNull()
             .isInstanceOf(LunchmoneyApiResponseException::class)
             .prop(LunchmoneyApiResponseException::message)
-            .isEqualTo(listOf("A category with the same name (vasa) already exists."))
+            .isEqualTo("A category with the same name (vasa) already exists.")
     }
 }

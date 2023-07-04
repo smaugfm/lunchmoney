@@ -1,10 +1,9 @@
-name: Push to DockerHub
+name: Test against real Lunchmoney API
 on: [ push ]
 env:
-  DOCKER_USER: ${{secrets.DOCKER_USER}}
-  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+  LUNCHMONEY_TEST_TOKEN: ${{secrets.LUNCHMONEY_TEST_TOKEN}}
 jobs:
-  push-to-docker-hub:
+  test-against-lunchmoney-api:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, '#test') }}
     steps:
@@ -14,5 +13,5 @@ jobs:
           distribution: temurin
           java-version: 11
           cache: gradle
-      - name: Code build
-        run: ./gradlew build --no-daemon -x test -x check
+      - name: Test against real Lunchmoney API
+        run: ./gradlew test --no-daemon

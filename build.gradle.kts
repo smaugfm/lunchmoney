@@ -1,5 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompilerOptions
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
@@ -17,7 +18,7 @@ plugins {
 }
 
 group = "io.github.smaugfm"
-version = "0.0.2"
+version = "1.0.0"
 val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
 
 repositories {
@@ -66,6 +67,9 @@ detekt {
 
 tasks {
     test {
+        testLogging {
+            events = setOf(TestLogEvent.PASSED, TestLogEvent.FAILED, TestLogEvent.SKIPPED)
+        }
         useJUnitPlatform()
     }
     withType<DetektCreateBaselineTask> {

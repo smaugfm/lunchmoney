@@ -13,7 +13,7 @@ data class LunchmoneyBudget(
     val categoryId: Long? = null,
     val categoryGroupName: String? = null,
     val groupId: Long? = null,
-    val isGroup: Boolean,
+    val isGroup: Boolean? = null,
     val isIncome: Boolean,
     val excludeFromBudget: Boolean,
     val excludeFromTotals: Boolean,

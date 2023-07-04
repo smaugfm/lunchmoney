@@ -27,7 +27,7 @@ import java.util.Currency
 @Serializable
 data class LunchmoneyRecurringExpense(
     val id: Long,
-    val startDate: LocalDate,
+    val startDate: LocalDate? = null,
     val endDate: LocalDate? = null,
     val cadence: String,
     val payee: String,
