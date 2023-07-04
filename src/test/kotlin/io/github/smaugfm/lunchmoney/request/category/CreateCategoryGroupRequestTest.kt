@@ -63,9 +63,7 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
             .cause()
             .isNotNull()
             .isInstanceOf(LunchmoneyApiResponseException::class)
-            .prop(LunchmoneyApiResponseException::apiErrorResponse)
-            .isNotNull()
-            .prop(ApiErrorResponse::error)
+            .prop(LunchmoneyApiResponseException::message)
             .isEqualTo(listOf("A category with the same name (vasa) already exists."))
     }
 }

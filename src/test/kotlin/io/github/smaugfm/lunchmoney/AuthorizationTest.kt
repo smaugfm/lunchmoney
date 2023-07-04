@@ -9,7 +9,6 @@ import assertk.assertions.isNotNull
 import assertk.assertions.prop
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
 import io.github.smaugfm.lunchmoney.request.user.GetCurrentUserRequest
-import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
 import org.junit.jupiter.api.Test
 
 internal class AuthorizationTest : TestMockServerBase() {
@@ -28,15 +27,7 @@ internal class AuthorizationTest : TestMockServerBase() {
             .cause()
             .isNotNull()
             .isInstanceOf(LunchmoneyApiResponseException::class)
-            .prop(LunchmoneyApiResponseException::apiErrorResponse)
-            .isNotNull()
-            .isEqualTo(
-                ApiErrorResponse(
-                    "Error",
-                    "Access token does not exist.",
-                    null,
-                    null
-                )
-            )
+            .prop(LunchmoneyApiResponseException::message)
+            .isEqualTo("Access token does not exist.")
     }
 }

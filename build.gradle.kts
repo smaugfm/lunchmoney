@@ -43,6 +43,7 @@ dependencies {
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
     testImplementation("ch.qos.logback:logback-core:$logback")
     testImplementation("ch.qos.logback:logback-classic:$logback")
+    testImplementation("io.projectreactor:reactor-tools:3.5.7")
     testImplementation(kotlin("test"))
 }
 

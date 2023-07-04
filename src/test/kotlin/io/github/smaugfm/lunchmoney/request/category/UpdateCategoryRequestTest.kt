@@ -24,9 +24,9 @@ internal class UpdateCategoryRequestTest : TestMockServerBase() {
             id,
             CreateUpdateCategoryRequestParams(
                 "vasa",
-                null,
-                null,
-                null,
+                true,
+                true,
+                true,
                 null,
                 null,
                 null

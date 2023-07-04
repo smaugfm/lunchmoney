@@ -48,6 +48,11 @@ internal class RequestExecutor(
                 .send(Mono.just(body))
                 .responseSingle { resp, byteBufMono ->
                     processResponse(resp, byteBufMono, responseSerializer)
+                        .doOnNext { model ->
+                            log.debug { "Response (${resp.status()}): $model" }
+                        }
+                }.doOnSubscribe {
+                    log.debug { "Performing Lunchmoney API request $request" }
                 }
         }
 

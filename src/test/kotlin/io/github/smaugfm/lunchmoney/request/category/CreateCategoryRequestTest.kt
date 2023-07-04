@@ -11,7 +11,6 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
 import io.github.smaugfm.lunchmoney.request.category.params.CreateUpdateCategoryRequestParams
-import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
 import io.github.smaugfm.lunchmoney.response.CreateCategoryResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
@@ -34,9 +33,9 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
         val request = CreateCategoryRequest(
             CreateUpdateCategoryRequestParams(
                 "vasa",
-                null,
-                null,
-                null,
+                false,
+                false,
+                false,
                 null,
                 null,
                 null
@@ -61,9 +60,9 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
         val createCategoryRequest = CreateCategoryRequest(
             CreateUpdateCategoryRequestParams(
                 "vasa",
-                null,
-                null,
-                null,
+                false,
+                false,
+                false,
                 null,
                 null,
                 null
@@ -75,9 +74,7 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
             .cause()
             .isNotNull()
             .isInstanceOf(LunchmoneyApiResponseException::class)
-            .prop(LunchmoneyApiResponseException::apiErrorResponse)
-            .isNotNull()
-            .prop(ApiErrorResponse::error)
-            .isEqualTo(listOf("A category with the same name (vasa) already exists."))
+            .prop(LunchmoneyApiResponseException::message)
+            .isEqualTo("A category with the same name (vasa) already exists.")
     }
 }

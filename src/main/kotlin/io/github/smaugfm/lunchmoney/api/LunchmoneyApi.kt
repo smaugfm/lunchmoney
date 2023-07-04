@@ -245,10 +245,10 @@ class LunchmoneyApi internal constructor(
 
     fun createCategory(
         name: String,
+        isIncome: Boolean,
+        excludeFromBudget: Boolean,
+        excludeFromTotals: Boolean,
         description: String? = null,
-        isIncome: Boolean? = null,
-        excludeFromBudget: Boolean? = null,
-        excludeFromTotals: Boolean? = null,
         categoryIds: List<Long>? = null,
         groupId: Long? = null
     ): Mono<Long> = execute(
@@ -283,11 +283,11 @@ class LunchmoneyApi internal constructor(
 
     fun updateCategory(
         categoryId: Long,
+        isIncome: Boolean,
+        excludeFromBudget: Boolean,
+        excludeFromTotals: Boolean,
         name: String? = null,
         description: String? = null,
-        isIncome: Boolean? = null,
-        excludeFromBudget: Boolean? = null,
-        excludeFromTotals: Boolean? = null,
         categoryIds: List<Long>? = null,
         groupId: Long? = null
     ): Mono<Boolean> = execute(
@@ -295,8 +295,8 @@ class LunchmoneyApi internal constructor(
             categoryId,
             CreateUpdateCategoryRequestParams(
                 name = name,
-                description = description,
                 isIncome = isIncome,
+                description = description,
                 excludeFromBudget = excludeFromBudget,
                 excludeFromTotals = excludeFromTotals,
                 categoryIds = categoryIds,
@@ -477,6 +477,5 @@ class LunchmoneyApi internal constructor(
 
     companion object {
         const val LUNCHMONEY_DEV_BASE_URL = "https://dev.lunchmoney.app/v1"
-        const val LUNCHMONEY_APP_BASE_URL = "https://my.lunchmoney.app"
     }
 }

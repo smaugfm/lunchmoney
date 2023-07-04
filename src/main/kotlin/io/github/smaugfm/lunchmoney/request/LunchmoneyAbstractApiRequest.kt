@@ -9,4 +9,7 @@ internal abstract class LunchmoneyAbstractApiRequest<TResponse, TBody : Any> {
 
     fun pathAndQuery() = pathAndQuery.toString()
     open fun body(): TBody? = null
+
+    override fun toString(): String =
+        "${method()} $pathAndQuery${body()?.let { ": $it" } ?: ""}"
 }

@@ -8,17 +8,24 @@ class LunchmoneyApiResponseException : LunchmoneyApiException {
     val statusCode: Int
     val body: String
 
-    constructor(body: String, cause: Throwable?, statusCode: Int) : super(cause!!) {
-        apiErrorResponse = null
+    constructor(
+        body: String,
+        cause: Throwable?,
+        statusCode: Int
+    ) : super(cause!!) {
+        this.apiErrorResponse = null
         this.body = body
         this.statusCode = statusCode
     }
 
     constructor(
-        apiErrorResponse: ApiErrorResponse?,
         body: String,
+        apiErrorResponse: ApiErrorResponse,
         statusCode: Int
-    ) : super(apiErrorResponse?.message ?: "Received erroneous response from Lunchmoney API") {
+    ) : super(
+        apiErrorResponse.message ?: apiErrorResponse.error?.joinToString(", ")
+        ?: "Received erroneous response from Lunchmoney API"
+    ) {
         this.apiErrorResponse = apiErrorResponse
         this.body = body
         this.statusCode = statusCode

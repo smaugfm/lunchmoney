@@ -14,6 +14,6 @@ data class ApiErrorResponse(
     var dependents: LunchmoneyCategoryDeletionDependency? = null
 ) {
     fun toException(body: String, statusCode: Int): LunchmoneyApiResponseException {
-        return LunchmoneyApiResponseException(this, body, statusCode)
+        return LunchmoneyApiResponseException(body, this, statusCode)
     }
 }
