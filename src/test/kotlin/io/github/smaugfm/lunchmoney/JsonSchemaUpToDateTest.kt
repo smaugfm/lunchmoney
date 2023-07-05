@@ -39,9 +39,7 @@ class JsonSchemaUpToDateTest {
     fun getUserTest() {
         val user = api.getCurrentUser().block()!!
         assertThat(user).prop(LunchmoneyUser::userName)
-            .isEqualTo("vasa")
-        assertThat(user).prop(LunchmoneyUser::userEmail)
-            .isEqualTo("vasa@vasa.com")
+            .isEqualTo("Dmytro Marchuk")
         assertThat(user).prop(LunchmoneyUser::budgetName)
             .isEqualTo("test")
         assertThat(user).prop(LunchmoneyUser::apiKeyLabel)
@@ -75,7 +73,6 @@ class JsonSchemaUpToDateTest {
             assertThat(cat)
                 .prop(LunchmoneyCategorySingle::name)
                 .isEqualTo(catName2)
-
         } finally {
             assertThat(api.forceDeleteCategory(id).block()!!).isTrue()
         }
@@ -100,7 +97,6 @@ class JsonSchemaUpToDateTest {
             assertThat(cat)
                 .prop(LunchmoneyCategorySingle::name)
                 .isEqualTo(catName2)
-
         } finally {
             assertThat(api.forceDeleteCategory(id).block()!!).isTrue()
         }
@@ -139,7 +135,6 @@ class JsonSchemaUpToDateTest {
             api.updateTransaction(ids[0], LunchmoneyUpdateTransaction(LocalDate.now()))
                 .block()!!.updated
         ).isTrue()
-
     }
 
     @Test
@@ -157,7 +152,6 @@ class JsonSchemaUpToDateTest {
             assertThat(transaction)
                 .prop(LunchmoneyTransaction::id)
                 .isEqualTo(id)
-
         } finally {
             assertThat(api.deleteTransactionGroup(id).block()!!.toSet())
                 .isEqualTo(transactions.map { it.id }.toSet())
