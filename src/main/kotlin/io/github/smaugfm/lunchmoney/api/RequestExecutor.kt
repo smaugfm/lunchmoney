@@ -48,8 +48,8 @@ internal class RequestExecutor(
                 .send(Mono.just(body))
                 .responseSingle { resp, byteBufMono ->
                     processResponse(resp, byteBufMono, responseSerializer)
-                        .doOnNext { model ->
-                            log.debug { "Response (${resp.status()}): $model" }
+                        .doOnNext {
+                            log.debug { "Response (${resp.status()}): $it" }
                         }
                 }.doOnSubscribe {
                     log.debug { "Performing Lunchmoney API request $request" }
@@ -100,7 +100,7 @@ internal class RequestExecutor(
                     )
                 } catch (e: LunchmoneyApiResponseException) {
                     Mono.error(e)
-                } catch (error: IOException) {
+                } catch (error: Throwable) {
                     Mono.error(
                         LunchmoneyApiResponseException(
                             body,

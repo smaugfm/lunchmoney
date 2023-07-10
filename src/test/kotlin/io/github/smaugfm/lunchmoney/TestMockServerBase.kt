@@ -12,7 +12,7 @@ import org.mockserver.model.HttpResponse
 import org.mockserver.model.NottableString
 import org.slf4j.event.Level
 
-open class TestMockServerBase {
+abstract class TestMockServerBase : TestBase() {
     protected val api: LunchmoneyApiInternal = LunchmoneyTest(
         TOKEN,
         BASE_URL,

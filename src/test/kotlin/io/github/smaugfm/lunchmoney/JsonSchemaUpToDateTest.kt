@@ -15,23 +15,13 @@ import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertTransaction
 import io.github.smaugfm.lunchmoney.model.LunchmoneyTransaction
 import io.github.smaugfm.lunchmoney.model.LunchmoneyUpdateTransaction
 import io.github.smaugfm.lunchmoney.model.LunchmoneyUser
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
-import reactor.tools.agent.ReactorDebugAgent
 import java.math.BigDecimal
 import java.time.LocalDate
 
 @EnabledIfEnvironmentVariable(named = "LUNCHMONEY_TEST_TOKEN", matches = "\\w+")
-class JsonSchemaUpToDateTest {
-
-    companion object {
-        @JvmStatic
-        @BeforeAll
-        fun initReactor() {
-            ReactorDebugAgent.init()
-        }
-    }
+class JsonSchemaUpToDateTest : TestBase() {
 
     private val api = LunchmoneyApi(System.getenv("LUNCHMONEY_TEST_TOKEN"))
 

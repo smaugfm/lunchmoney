@@ -23,11 +23,22 @@ class LunchmoneyApiResponseException : LunchmoneyApiException {
         apiErrorResponse: ApiErrorResponse,
         statusCode: Int
     ) : super(
-        apiErrorResponse.message ?: apiErrorResponse.error?.joinToString(", ")
-        ?: "Received erroneous response from Lunchmoney API"
+        errorMessage(apiErrorResponse)
     ) {
         this.apiErrorResponse = apiErrorResponse
         this.body = body
         this.statusCode = statusCode
+    }
+
+    companion object {
+        private fun errorMessage(apiErrorResponse: ApiErrorResponse): String {
+            val msg = apiErrorResponse.message
+            if (msg != null) {
+                return msg
+            }
+
+            return apiErrorResponse.error?.joinToString(", ")
+                ?: "Received erroneous response from Lunchmoney API"
+        }
     }
 }
