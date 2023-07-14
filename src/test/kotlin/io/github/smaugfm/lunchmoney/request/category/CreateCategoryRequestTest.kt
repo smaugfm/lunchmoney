@@ -2,6 +2,7 @@ package io.github.smaugfm.lunchmoney.request.category
 
 import assertk.assertThat
 import assertk.assertions.cause
+import assertk.assertions.contains
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
@@ -75,6 +76,7 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
             .isNotNull()
             .isInstanceOf(LunchmoneyApiResponseException::class)
             .prop(LunchmoneyApiResponseException::message)
-            .isEqualTo("A category with the same name (vasa) already exists.")
+            .isNotNull()
+            .contains("A category with the same name (vasa) already exists.")
     }
 }

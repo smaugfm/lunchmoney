@@ -10,7 +10,10 @@ import org.mockserver.integration.ClientAndServer
 import org.mockserver.model.HttpRequest
 import org.mockserver.model.HttpResponse
 import org.mockserver.model.NottableString
+import org.reactivestreams.Publisher
 import org.slf4j.event.Level
+import reactor.netty.resources.ConnectionProvider
+import java.util.function.Function
 
 abstract class TestMockServerBase : TestBase() {
     protected val api: LunchmoneyApiInternal = LunchmoneyTest(
@@ -32,8 +35,7 @@ abstract class TestMockServerBase : TestBase() {
                 HttpResponse.response()
                     .withStatusCode(200)
                     .withBody(
-                        " { \"name\": \"Error\", " +
-                            "\"message\": \"Access token does not exist.\" } "
+                        " { \"name\": \"Error\", \"message\": \"Access token does not exist.\" } "
                     )
             )
         mockServer
@@ -47,8 +49,7 @@ abstract class TestMockServerBase : TestBase() {
                 HttpResponse.response()
                     .withStatusCode(200)
                     .withBody(
-                        " { \"name\": \"Error\", " +
-                            "\"message\": \"Access token does not exist.\" } "
+                        " { \"name\": \"Error\", \"message\": \"Access token does not exist.\" } "
                     )
             )
     }
@@ -56,13 +57,16 @@ abstract class TestMockServerBase : TestBase() {
     class LunchmoneyTest(
         token: String,
         baseUrl: String,
-        port: Int
+        port: Int,
+        reactorNettyConnectionProvider: ConnectionProvider? = null,
+        requestTransformer: Function<Publisher<Any>, Publisher<Any>>? = null
     ) : LunchmoneyApiInternal(
         token,
         baseUrl,
         port,
         listOf(DEFAULT_JSON_BUILDER),
-        null
+        reactorNettyConnectionProvider,
+        requestTransformer
     )
 
     companion object {

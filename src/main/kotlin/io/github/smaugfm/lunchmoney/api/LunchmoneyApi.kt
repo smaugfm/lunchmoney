@@ -61,12 +61,14 @@ import io.github.smaugfm.lunchmoney.response.LunchmoneyUpdateTransactionResponse
 import io.github.smaugfm.lunchmoney.response.UpsertBudgetCategoryGroupResponse
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.JsonBuilder
+import org.reactivestreams.Publisher
 import reactor.core.publisher.Mono
 import reactor.netty.resources.ConnectionProvider
 import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate
 import java.util.Currency
+import java.util.function.Function
 
 /**
  * Non-blocking Reactor-based Lunchmoney API
@@ -78,30 +80,35 @@ class LunchmoneyApi internal constructor(
     token: String,
     baseUrl: String,
     port: Int,
-    jsonBuilderActions: List<JsonBuilder.() -> Unit> = listOf(DEFAULT_JSON_BUILDER),
-    reactorNettyConnectionProvider: ConnectionProvider? = null
+    jsonBuilderCustomizer: List<JsonBuilder.() -> Unit> = listOf(DEFAULT_JSON_BUILDER),
+    reactorNettyConnectionProvider: ConnectionProvider? = null,
+    requestTransformer: Function<Publisher<Any>, Publisher<Any>>? = null
 ) : LunchmoneyApiInternal(
     token,
     baseUrl,
     port,
-    jsonBuilderActions,
-    reactorNettyConnectionProvider
+    jsonBuilderCustomizer,
+    reactorNettyConnectionProvider,
+    requestTransformer
 ) {
     /**
      * @param token developer [token](https://lunchmoney.dev/#authentication)
-     * @param jsonBuilderAction customize internal [kotlinx.serialization.json.Json] instance
+     * @param jsonBuilderCustomizer customize internal [kotlinx.serialization.json.Json] instance
      * @param reactorNettyConnectionProvider customize internal netty [reactor.netty.http.client.HttpClient]
+     * @param requestTransformer applies through [Mono.transformDeferred] to all resulting [Mono]'s
      */
     constructor(
         token: String,
-        jsonBuilderAction: JsonBuilder.() -> Unit = {},
-        reactorNettyConnectionProvider: ConnectionProvider? = null
+        jsonBuilderCustomizer: JsonBuilder.() -> Unit = {},
+        reactorNettyConnectionProvider: ConnectionProvider? = null,
+        requestTransformer: Function<Publisher<Any>, Publisher<Any>>? = null
     ) : this(
         token,
         LUNCHMONEY_DEV_BASE_URL,
         DEFAULT_HTTP_PORT,
-        listOf(jsonBuilderAction, DEFAULT_JSON_BUILDER),
-        reactorNettyConnectionProvider
+        listOf(jsonBuilderCustomizer, DEFAULT_JSON_BUILDER),
+        reactorNettyConnectionProvider,
+        requestTransformer
     )
 
     fun createAsset(

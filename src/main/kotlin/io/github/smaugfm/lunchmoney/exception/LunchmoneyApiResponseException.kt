@@ -1,6 +1,7 @@
 package io.github.smaugfm.lunchmoney.exception
 
 import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
+import io.netty.handler.codec.http.HttpResponseStatus
 
 @Suppress("MemberVisibilityCanBePrivate")
 class LunchmoneyApiResponseException : LunchmoneyApiException {
@@ -10,23 +11,32 @@ class LunchmoneyApiResponseException : LunchmoneyApiException {
 
     constructor(
         body: String,
-        cause: Throwable?,
+        cause: ApiErrorResponse,
         statusCode: Int
-    ) : super(cause!!) {
-        this.apiErrorResponse = null
+    ) : super(errorMessage(cause)) {
         this.body = body
+        this.apiErrorResponse = cause
         this.statusCode = statusCode
     }
 
     constructor(
         body: String,
-        apiErrorResponse: ApiErrorResponse,
+        cause: Throwable,
+        statusCode: Int
+    ) : super(cause) {
+        this.body = body
+        this.apiErrorResponse = null
+        this.statusCode = statusCode
+    }
+
+    constructor(
         statusCode: Int
     ) : super(
-        errorMessage(apiErrorResponse)
+        "Response body is empty but status is $statusCode " +
+            HttpResponseStatus.valueOf(statusCode).reasonPhrase()
     ) {
-        this.apiErrorResponse = apiErrorResponse
-        this.body = body
+        this.body = ""
+        this.apiErrorResponse = null
         this.statusCode = statusCode
     }
 

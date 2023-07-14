@@ -16,20 +16,22 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
 import kotlinx.serialization.serializer
 import mu.KotlinLogging
+import org.reactivestreams.Publisher
 import reactor.core.publisher.Mono
 import reactor.netty.ByteBufMono
 import reactor.netty.http.client.HttpClient
 import reactor.netty.http.client.HttpClientResponse
 import java.io.ByteArrayOutputStream
-import java.io.IOException
+import java.util.function.Function
 
 val log = KotlinLogging.logger { }
 
 internal class RequestExecutor(
     token: String,
     val json: Json,
+    private val httpClient: HttpClient,
     private val port: Int = 443,
-    private val httpClient: HttpClient
+    private val requestTransformer: Function<Publisher<Any>, Publisher<Any>>?
 ) {
     private val authorizationHeader = "Bearer $token"
 
@@ -39,20 +41,26 @@ internal class RequestExecutor(
         paramsSerializer: KSerializer<T>
     ): Mono<R> = requestMono
         .flatMap { request: A ->
-            val body = requestBodyToByteBuffer(paramsSerializer, request.body())
             httpClient
                 .port(port)
                 .headers { addHeaders(request.method(), it) }
                 .request(request.method())
                 .uri(request.pathAndQuery())
-                .send(Mono.just(body))
+                .send(requestBodyToByteBuffer(paramsSerializer, request.body()))
                 .responseSingle { resp, byteBufMono ->
                     processResponse(resp, byteBufMono, responseSerializer)
-                        .doOnNext {
-                            log.debug { "Response (${resp.status()}): $it" }
-                        }
+                        .doOnNext { log.debug { "Response (${resp.status()}): $it" } }
                 }.doOnSubscribe {
                     log.debug { "Performing Lunchmoney API request $request" }
+                }.let {
+                    @Suppress("UNCHECKED_CAST")
+                    if (requestTransformer != null) {
+                        it.transformDeferred(
+                            requestTransformer as Function<in Publisher<R>, out Publisher<R>>
+                        )
+                    } else {
+                        it
+                    }
                 }
         }
 
@@ -73,74 +81,48 @@ internal class RequestExecutor(
         resp: HttpClientResponse,
         byteBufMono: ByteBufMono,
         serializer: KSerializer<R>
-    ): Mono<R> {
-        val statusCode = resp.status().code()
-        return byteBufMono
+    ): Mono<R> =
+        byteBufMono
             .asString()
             .flatMap { body: String ->
-                try {
-                    Mono.justOrEmpty(
-                        deserializeResponseBody(
-                            serializer,
-                            statusCode,
-                            body
-                        )
-                    ).switchIfEmpty(
-                        if (isOkResponse(resp)) {
-                            Mono.empty()
-                        } else {
-                            Mono.error(
-                                LunchmoneyApiResponseException(
-                                    body,
-                                    null,
-                                    statusCode
-                                )
-                            )
-                        }
-                    )
-                } catch (e: LunchmoneyApiResponseException) {
-                    Mono.error(e)
-                } catch (error: Throwable) {
-                    Mono.error(
-                        LunchmoneyApiResponseException(
-                            body,
-                            error,
-                            statusCode
-                        )
-                    )
-                }
+                deserializeResponseBody(serializer, resp.status().code(), body)
+                    .transformDeferred { mapUnknownError(it, body, resp.status().code()) }
+            }.transformDeferred { errorOnEmptyResponse(it, resp) }
+
+    private fun <R> errorOnEmptyResponse(mono: Mono<R>, resp: HttpClientResponse): Mono<R> =
+        mono.switchIfEmpty(
+            if (isOkResponse(resp)) {
+                Mono.empty()
+            } else {
+                Mono.error(LunchmoneyApiResponseException(resp.status().code()))
             }
-    }
+        )
+
+    private fun <R> mapUnknownError(mono: Mono<R>, body: String, statusCode: Int): Mono<R> =
+        mono.onErrorMap({ it !is LunchmoneyApiResponseException }) {
+            LunchmoneyApiResponseException(
+                body,
+                it,
+                statusCode
+            )
+        }
 
     private fun <R> deserializeResponseBody(
         serializer: KSerializer<R>,
         status: Int,
         body: String
-    ): R? =
-        try {
-            doDeserialize(serializer, body)
-        } catch (e: SerializationException) {
-            val error = deserializeApiError(body)
-            if (error != null) {
-                throw error.toException(body, status)
-            } else {
-                throw e
+    ): Mono<R> =
+        doDeserialize(serializer, body)
+            .onErrorResume(SerializationException::class.java) {
+                deserializeApiError(body)
+                    .flatMap { Mono.error(it.toException(body, status)) }
             }
-        }
 
-    private fun deserializeApiError(body: String): ApiErrorResponse? =
-        try {
-            doDeserialize<ApiErrorResponse>(
-                json.serializersModule.serializer(),
-                body
-            )
-        } catch (other: SerializationException) {
-            log.warn(other) { "Unknown error response" }
-            null
-        }
+    private fun deserializeApiError(body: String) =
+        doDeserialize<ApiErrorResponse>(json.serializersModule.serializer(), body)
 
-    private fun <T> doDeserialize(serializer: KSerializer<T>, body: String): T =
-        json.decodeFromString(serializer, body)
+    private fun <T> doDeserialize(serializer: KSerializer<T>, body: String): Mono<T> =
+        Mono.fromCallable { json.decodeFromString(serializer, body) }
 
     private fun <T> serializeRequestBody(serializer: KSerializer<T>, body: T): ByteArray {
         val os = ByteArrayOutputStream()
@@ -148,17 +130,13 @@ internal class RequestExecutor(
         return os.toByteArray()
     }
 
-    private fun <T> requestBodyToByteBuffer(serializer: KSerializer<T>, body: T?): ByteBuf {
-        if (body == null) {
-            return Unpooled.EMPTY_BUFFER
-        }
-        return try {
-            val res: ByteArray = serializeRequestBody(serializer, body)
-            Unpooled.wrappedBuffer(res)
-        } catch (e: IOException) {
-            throw LunchmoneyApiRequestException(e)
-        }
-    }
+    private fun <T> requestBodyToByteBuffer(
+        serializer: KSerializer<T>,
+        body: T?
+    ): Mono<ByteBuf> =
+        Mono.justOrEmpty(body)
+            .mapNotNull { Unpooled.wrappedBuffer(serializeRequestBody(serializer, it!!)) }
+            .onErrorMap { LunchmoneyApiRequestException(it) }
 
     private fun isOkResponse(response: HttpClientResponse) =
         response.status().codeAsText().startsWith("2")

@@ -2,7 +2,7 @@ package io.github.smaugfm.lunchmoney
 
 import assertk.assertThat
 import assertk.assertions.cause
-import assertk.assertions.isEqualTo
+import assertk.assertions.contains
 import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
@@ -28,6 +28,7 @@ internal class AuthorizationTest : TestMockServerBase() {
             .isNotNull()
             .isInstanceOf(LunchmoneyApiResponseException::class)
             .prop(LunchmoneyApiResponseException::message)
-            .isEqualTo("Access token does not exist.")
+            .isNotNull()
+            .contains("Access token does not exist.")
     }
 }

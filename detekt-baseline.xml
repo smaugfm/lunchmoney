@@ -10,8 +10,8 @@
     <ID>LongParameterList:LunchmoneyApi.kt$LunchmoneyApi$( name: String, typeName: LunchmoneyAssetType, balance: BigDecimal, subtypeName: String? = null, displayName: String? = null, balanceAsOf: Instant? = null, currency: Currency? = null, institutionName: String? = null, closedOn: LocalDate? = null, excludeTransactions: Boolean? = null )</ID>
     <ID>LongParameterList:LunchmoneyApi.kt$LunchmoneyApi$( tagId: Long? = null, recurringId: Long? = null, plaidAccountId: Long? = null, categoryId: Long? = null, assetId: Long? = null, groupId: Long? = null, isGroup: Boolean? = null, status: LunchmoneyTransactionStatus? = null, offset: Long? = null, limit: Long? = null, startDate: LocalDate? = null, endDate: LocalDate? = null, debitAsNegative: Boolean? = null, pending: Boolean? = null )</ID>
     <ID>LongParameterList:LunchmoneyApi.kt$LunchmoneyApi$( transactions: List&lt;LunchmoneyInsertTransaction>, applyRules: Boolean? = null, skipDuplicates: Boolean? = null, checkForRecurring: Boolean? = null, debitAsNegative: Boolean? = null, skipBalanceUpdate: Boolean? = null )</ID>
-    <ID>TooGenericExceptionCaught:RequestExecutor.kt$RequestExecutor$error: Throwable</ID>
     <ID>TooManyFunctions:LunchmoneyApi.kt$LunchmoneyApi : LunchmoneyApiInternal</ID>
+    <ID>TooManyFunctions:RequestExecutor.kt$RequestExecutor</ID>
     <ID>UtilityClassWithPublicConstructor:TestBase.kt$TestBase</ID>
   </ManuallySuppressedIssues>
 </SmellBaseline>

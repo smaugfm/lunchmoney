@@ -18,7 +18,7 @@ plugins {
 }
 
 group = "io.github.smaugfm"
-version = "1.0.1"
+version = "1.0.2"
 val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
 
 repositories {
@@ -30,6 +30,7 @@ val reactorNetty = "1.1.2"
 val mockserver = "5.15.0"
 val logback = "1.4.5"
 val javaVersion = "11"
+val resilience4jVersion = "1.7.0"
 
 dependencies {
     api("io.projectreactor:reactor-core:$reactorCore")
@@ -39,6 +40,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     testImplementation("org.mock-server:mockserver-netty:$mockserver")
     testImplementation("org.mock-server:mockserver-client-java:$mockserver")
+    testImplementation("io.github.resilience4j:resilience4j-retry:$resilience4jVersion")
+    testImplementation("io.github.resilience4j:resilience4j-reactor:$resilience4jVersion")
+    testImplementation("io.github.resilience4j:resilience4j-kotlin:$resilience4jVersion")
     testImplementation("io.projectreactor:reactor-test:$reactorCore")
     testImplementation("io.mockk:mockk:1.13.4")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")

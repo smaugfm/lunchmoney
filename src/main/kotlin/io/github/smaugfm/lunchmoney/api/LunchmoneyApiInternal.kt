@@ -5,28 +5,32 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonBuilder
 import kotlinx.serialization.json.JsonNamingStrategy
 import kotlinx.serialization.serializer
+import org.reactivestreams.Publisher
 import reactor.core.publisher.Mono
 import reactor.netty.http.client.HttpClient
 import reactor.netty.resources.ConnectionProvider
+import java.util.function.Function
 
 open class LunchmoneyApiInternal internal constructor(
     token: String,
     baseUrl: String,
     port: Int,
-    jsonBuilderActions: List<JsonBuilder.() -> Unit>,
-    reactorNettyConnectionProvider: ConnectionProvider?
+    jsonBuilderCustomizer: List<JsonBuilder.() -> Unit>,
+    reactorNettyConnectionProvider: ConnectionProvider?,
+    requestTransformer: Function<Publisher<Any>, Publisher<Any>>?
 ) {
     internal val requestExecutor = RequestExecutor(
         token,
         Json(builderAction = {
-            jsonBuilderActions.forEach { this.it() }
+            jsonBuilderCustomizer.forEach { this.it() }
         }),
-        port,
         if (reactorNettyConnectionProvider != null) {
             HttpClient.create(reactorNettyConnectionProvider).baseUrl(baseUrl)
         } else {
             HttpClient.create().baseUrl(baseUrl)
-        }
+        },
+        port,
+        requestTransformer
     )
 
     internal inline fun <reified R, reified T, A : LunchmoneyAbstractApiRequest<R, T>> execute(
