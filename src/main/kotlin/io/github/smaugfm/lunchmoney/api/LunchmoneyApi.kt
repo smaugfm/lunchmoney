@@ -2,8 +2,8 @@ package io.github.smaugfm.lunchmoney.api
 
 import io.github.smaugfm.lunchmoney.model.LunchmoneyAsset
 import io.github.smaugfm.lunchmoney.model.LunchmoneyBudget
-import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryMultiple
-import io.github.smaugfm.lunchmoney.model.LunchmoneyCategorySingle
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategory
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryOld
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCrypto
 import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertTransaction
 import io.github.smaugfm.lunchmoney.model.LunchmoneyPlaidAccount
@@ -218,7 +218,7 @@ class LunchmoneyApi internal constructor(
         groupId: Long,
         categoryIds: List<Long>? = null,
         newCategories: List<String>? = null
-    ): Mono<LunchmoneyCategorySingle> = execute(
+    ): Mono<LunchmoneyCategoryOld> = execute(
         AddToCategoryGroupRequest(
             groupId,
             AddToCategoryGroupsParams(
@@ -266,7 +266,6 @@ class LunchmoneyApi internal constructor(
                 isIncome = isIncome,
                 excludeFromBudget = excludeFromBudget,
                 excludeFromTotals = excludeFromTotals,
-                categoryIds = categoryIds,
                 groupId = groupId
             )
         )
@@ -280,11 +279,11 @@ class LunchmoneyApi internal constructor(
         ForceDeleteCategoryRequest(categoryId)
     )
 
-    fun getAllCategories(): Mono<List<LunchmoneyCategoryMultiple>> = execute(
+    fun getAllCategories(): Mono<List<LunchmoneyCategory>> = execute(
         GetAllCategoriesRequest()
     ).map { it.categories }
 
-    fun getSingleCategory(categoryId: Long): Mono<LunchmoneyCategorySingle> = execute(
+    fun getSingleCategory(categoryId: Long): Mono<LunchmoneyCategory> = execute(
         GetSingleCategoryRequest(categoryId)
     )
 
@@ -302,11 +301,10 @@ class LunchmoneyApi internal constructor(
             categoryId,
             CreateUpdateCategoryRequestParams(
                 name = name,
-                isIncome = isIncome,
                 description = description,
+                isIncome = isIncome,
                 excludeFromBudget = excludeFromBudget,
                 excludeFromTotals = excludeFromTotals,
-                categoryIds = categoryIds,
                 groupId = groupId
             )
         )

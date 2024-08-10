@@ -5,7 +5,7 @@ import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryChild
-import io.github.smaugfm.lunchmoney.model.LunchmoneyCategorySingle
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryOld
 import io.github.smaugfm.lunchmoney.request.category.params.AddToCategoryGroupsParams
 import org.junit.jupiter.api.Test
 import java.time.Instant
@@ -34,7 +34,7 @@ internal class AddToCategoryGroupRequestTest : TestMockServerBase() {
         )
         assertThat(api.execute(request).block())
             .isEqualTo(
-                LunchmoneyCategorySingle(
+                LunchmoneyCategoryOld(
                     315358L,
                     "Food & Drink",
                     null,

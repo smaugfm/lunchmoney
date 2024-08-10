@@ -1,10 +1,10 @@
 package io.github.smaugfm.lunchmoney.request.category
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.cause
 import assertk.assertions.contains
 import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.prop
@@ -34,12 +34,11 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
         val request = CreateCategoryRequest(
             CreateUpdateCategoryRequestParams(
                 "vasa",
-                false,
-                false,
-                false,
                 null,
-                null,
-                null
+                isIncome = false,
+                excludeFromBudget = false,
+                excludeFromTotals = false,
+                archived = null
             )
         )
         assertThat(api.execute(request).block())
@@ -61,16 +60,14 @@ internal class CreateCategoryRequestTest : TestMockServerBase() {
         val createCategoryRequest = CreateCategoryRequest(
             CreateUpdateCategoryRequestParams(
                 "vasa",
-                false,
-                false,
-                false,
                 null,
-                null,
-                null
+                false,
+                excludeFromBudget = false,
+                excludeFromTotals = false,
+                archived = null
             )
         )
-        assertThat { api.execute(createCategoryRequest).block() }
-            .isFailure()
+        assertFailure { api.execute(createCategoryRequest).block() }
             .isInstanceOf(RuntimeException::class)
             .cause()
             .isNotNull()

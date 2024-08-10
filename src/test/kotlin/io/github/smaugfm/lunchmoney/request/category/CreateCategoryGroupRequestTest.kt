@@ -1,5 +1,6 @@
 package io.github.smaugfm.lunchmoney.request.category
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.cause
 import assertk.assertions.contains
@@ -7,7 +8,6 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
-import assertk.assertions.isSuccess
 import assertk.assertions.prop
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
@@ -36,8 +36,8 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
             CreateCategoryGroupRequestParams("vasa")
         )
 
-        assertThat { api.execute(request).block() }
-            .isSuccess().isEqualTo(
+        assertThat(api.execute(request).block())
+            .isEqualTo(
                 CreateCategoryResponse(1234L)
             )
     }
@@ -57,8 +57,7 @@ internal class CreateCategoryGroupRequestTest : TestMockServerBase() {
         val createCategoryRequest = CreateCategoryGroupRequest(
             CreateCategoryGroupRequestParams("vasa")
         )
-        assertThat { api.execute(createCategoryRequest).block() }
-            .isFailure()
+        assertFailure { api.execute(createCategoryRequest).block() }
             .isInstanceOf(RuntimeException::class)
             .cause()
             .isNotNull()

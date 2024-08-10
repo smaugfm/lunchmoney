@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class LunchmoneyTransactionTag(
     val id: Long,
     val name: String,
-    val description: String? = null
+    val description: String? = null,
+    val archived: Boolean? = null,
 )

@@ -1,5 +1,6 @@
 package io.github.smaugfm.lunchmoney.request.category
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.cause
 import assertk.assertions.isEqualTo
@@ -52,8 +53,7 @@ internal class DeleteCategoryRequestTest : TestMockServerBase() {
         val deleteCategoryRequest = DeleteCategoryRequest(
             id
         )
-        assertThat { api.execute(deleteCategoryRequest).block() }
-            .isFailure()
+        assertFailure { api.execute(deleteCategoryRequest).block() }
             .isInstanceOf(RuntimeException::class)
             .cause()
             .isNotNull()

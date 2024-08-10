@@ -5,5 +5,5 @@ import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyRecurringExpense
 internal object RecurringExpenseSourceSerializer :
     LowercaseEnumSerializer<LunchmoneyRecurringExpenseSource>(
         "RecurringExpenseSource",
-        LunchmoneyRecurringExpenseSource.values()
+        LunchmoneyRecurringExpenseSource.entries.toTypedArray()
     )

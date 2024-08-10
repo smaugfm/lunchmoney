@@ -1,5 +1,6 @@
 package io.github.smaugfm.lunchmoney
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.cause
 import assertk.assertions.contains
@@ -8,6 +9,7 @@ import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.prop
 import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
+import io.github.smaugfm.lunchmoney.model.LunchmoneyUser
 import io.github.smaugfm.lunchmoney.request.user.GetCurrentUserRequest
 import org.junit.jupiter.api.Test
 
@@ -21,8 +23,7 @@ internal class AuthorizationTest : TestMockServerBase() {
             PORT
         )
         val request = GetCurrentUserRequest()
-        assertThat { api.execute(request).block() }
-            .isFailure()
+        assertFailure { api.execute(request).block() }
             .isInstanceOf(RuntimeException::class)
             .cause()
             .isNotNull()

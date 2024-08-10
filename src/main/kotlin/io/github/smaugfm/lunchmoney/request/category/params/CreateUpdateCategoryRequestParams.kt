@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal class CreateUpdateCategoryRequestParams(
     val name: String?,
-    val isIncome: Boolean,
-    val excludeFromBudget: Boolean,
-    val excludeFromTotals: Boolean,
-    val description: String?,
-    val categoryIds: List<Long>?,
-    val groupId: Long?
+    val description: String? = null,
+    val isIncome: Boolean? = null,
+    val excludeFromBudget: Boolean? = null,
+    val excludeFromTotals: Boolean? = null,
+    val archived: Boolean? = null,
+    val groupId: Long? = null
 )

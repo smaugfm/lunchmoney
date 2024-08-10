@@ -4,8 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategory
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryChild
-import io.github.smaugfm.lunchmoney.model.LunchmoneyCategorySingle
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryOld
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -29,7 +30,7 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
         val request = GetSingleCategoryRequest(id)
         assertThat(api.execute(request).block())
             .isEqualTo(
-                LunchmoneyCategorySingle(
+                LunchmoneyCategory(
                     id = id,
                     name = "Shopping",
                     description = null,
@@ -60,7 +61,7 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
         val getSingleCategoryRequest = GetSingleCategoryRequest(id)
         assertThat(api.execute(getSingleCategoryRequest).block())
             .isEqualTo(
-                LunchmoneyCategorySingle(
+                LunchmoneyCategory(
                     id = id,
                     name = "Food",
                     description = "Consumables",
@@ -104,7 +105,7 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
         val getSingleCategoryRequest = GetSingleCategoryRequest(id)
         assertThat(api.execute(getSingleCategoryRequest).block())
             .isEqualTo(
-                LunchmoneyCategorySingle(
+                LunchmoneyCategory(
                     id,
                     "Coffee Shops",
                     null,

@@ -28,8 +28,8 @@ internal class GetAllTagsRequestTest : TestMockServerBase() {
         assertThat(api.execute(request).block())
             .isNotNull()
             .containsExactlyInAnyOrder(
-                LunchmoneyTransactionTag(1807L, "Wedding", "All wedding-related expenses"),
-                LunchmoneyTransactionTag(1808L, "Honeymoon", "All honeymoon-related expenses")
+                LunchmoneyTransactionTag(1807L, "Wedding", "All wedding-related expenses", false),
+                LunchmoneyTransactionTag(1808L, "Honeymoon", "All honeymoon-related expenses", false)
             )
     }
 }

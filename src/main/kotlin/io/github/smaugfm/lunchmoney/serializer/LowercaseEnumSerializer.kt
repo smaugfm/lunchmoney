@@ -7,7 +7,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-internal open class LowercaseEnumSerializer<T : Enum<T>>(
+open class LowercaseEnumSerializer<T : Enum<T>>(
     private val descriptorName: String,
     private val values: Array<T>
 ) : KSerializer<T> {

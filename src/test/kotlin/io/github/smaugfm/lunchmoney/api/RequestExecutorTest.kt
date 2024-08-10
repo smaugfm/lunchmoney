@@ -1,6 +1,7 @@
 package io.github.smaugfm.lunchmoney.api
 
 import assertk.all
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
@@ -51,8 +52,7 @@ class RequestExecutorTest : TestMockServerBase() {
                     .withStatusCode(500)
             )
         val request = GetCurrentUserRequest()
-        assertThat { api.execute(request).block() }
-            .isFailure()
+        assertFailure { api.execute(request).block() }
             .isInstanceOf(RuntimeException::class)
             .prop(Throwable::cause)
             .isNotNull()
@@ -90,8 +90,7 @@ class RequestExecutorTest : TestMockServerBase() {
                     .withStatusCode(500)
                     .withBody(body)
             )
-        assertThat { api.execute(GetCurrentUserRequest()).block() }
-            .isFailure()
+        assertFailure { api.execute(GetCurrentUserRequest()).block() }
             .isInstanceOf(RuntimeException::class)
             .prop(Throwable::cause)
             .transform { it as LunchmoneyApiResponseException }

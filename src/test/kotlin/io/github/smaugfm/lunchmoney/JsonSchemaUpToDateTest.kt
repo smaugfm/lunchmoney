@@ -10,7 +10,7 @@ import assertk.assertions.isTrue
 import assertk.assertions.prop
 import assertk.assertions.size
 import io.github.smaugfm.lunchmoney.api.LunchmoneyApi
-import io.github.smaugfm.lunchmoney.model.LunchmoneyCategorySingle
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategory
 import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertTransaction
 import io.github.smaugfm.lunchmoney.model.LunchmoneyTransaction
 import io.github.smaugfm.lunchmoney.model.LunchmoneyUpdateTransaction
@@ -52,16 +52,16 @@ class JsonSchemaUpToDateTest : TestBase() {
         try {
             var cat = api.getSingleCategory(id).block()!!
             assertThat(cat)
-                .prop(LunchmoneyCategorySingle::id)
+                .prop(LunchmoneyCategory::id)
                 .isEqualTo(id)
             assertThat(cat)
-                .prop(LunchmoneyCategorySingle::name)
+                .prop(LunchmoneyCategory::name)
                 .isEqualTo(catName)
 
             assertThat(api.updateCategory(id, true, false, false, catName2).block()!!).isTrue()
             cat = api.getSingleCategory(id).block()!!
             assertThat(cat)
-                .prop(LunchmoneyCategorySingle::name)
+                .prop(LunchmoneyCategory::name)
                 .isEqualTo(catName2)
         } finally {
             assertThat(api.forceDeleteCategory(id).block()!!).isTrue()
@@ -76,16 +76,16 @@ class JsonSchemaUpToDateTest : TestBase() {
         try {
             var cat = api.getSingleCategory(id).block()!!
             assertThat(cat)
-                .prop(LunchmoneyCategorySingle::id)
+                .prop(LunchmoneyCategory::id)
                 .isEqualTo(id)
             assertThat(cat)
-                .prop(LunchmoneyCategorySingle::name)
+                .prop(LunchmoneyCategory::name)
                 .isEqualTo(catName)
 
             assertThat(api.updateCategory(id, true, false, false, catName2).block()!!).isTrue()
             cat = api.getSingleCategory(id).block()!!
             assertThat(cat)
-                .prop(LunchmoneyCategorySingle::name)
+                .prop(LunchmoneyCategory::name)
                 .isEqualTo(catName2)
         } finally {
             assertThat(api.forceDeleteCategory(id).block()!!).isTrue()

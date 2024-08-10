@@ -4,5 +4,5 @@ import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyAssetType
 
 internal object AssetTypeSerializer : LowercaseEnumSerializer<LunchmoneyAssetType>(
     "AssetType",
-    LunchmoneyAssetType.values()
+    LunchmoneyAssetType.entries.toTypedArray()
 )

@@ -1,5 +1,6 @@
 package io.github.smaugfm.lunchmoney.request.transaction
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.cause
 import assertk.assertions.isEqualTo
@@ -96,8 +97,7 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
             )
         )
 
-        assertThat { api.execute(insertTransactionsRequest).block() }
-            .isFailure()
+        assertFailure { api.execute(insertTransactionsRequest).block() }
             .isInstanceOf(RuntimeException::class)
             .cause()
             .isNotNull()

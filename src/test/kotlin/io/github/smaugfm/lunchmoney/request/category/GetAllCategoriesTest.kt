@@ -4,7 +4,9 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
-import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryMultiple
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategory
+import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryChild
+import io.github.smaugfm.lunchmoney.request.category.params.GetAllCategoriesParams
 import io.github.smaugfm.lunchmoney.response.GetAllCategoriesResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
@@ -24,12 +26,15 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                 .withContentType(MediaType.APPLICATION_JSON_UTF_8)
                 .withBody(getResourceAsString("response/getAllCategories.json"))
         )
-        val request = GetAllCategoriesRequest()
+        val request =
+            GetAllCategoriesRequest(
+                GetAllCategoriesParams(format = GetAllCategoriesParams.Format.Flattened)
+            )
         assertThat(api.execute(request).block())
             .isEqualTo(
                 GetAllCategoriesResponse(
                     listOf(
-                        LunchmoneyCategoryMultiple(
+                        LunchmoneyCategory(
                             id = 427748L,
                             name = "Alcohol, Bars",
                             description = null,
@@ -39,9 +44,10 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                             updatedAt = Instant.parse("2023-02-02T14:57:43.447Z"),
                             createdAt = Instant.parse("2023-02-02T14:57:43.447Z"),
                             isGroup = false,
-                            groupId = null
+                            groupId = null,
+                            order = 0
                         ),
-                        LunchmoneyCategoryMultiple(
+                        LunchmoneyCategory(
                             id = 427749L,
                             name = "Coffee Shops",
                             description = null,
@@ -51,7 +57,16 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                             updatedAt = Instant.parse("2023-02-02T14:57:43.459Z"),
                             createdAt = Instant.parse("2023-02-02T14:57:43.459Z"),
                             isGroup = false,
-                            groupId = 427758L
+                            groupId = 427758L,
+                            order = 0,
+                            children = listOf(
+                                LunchmoneyCategoryChild(
+                                    id = 315162,
+                                    name = "Alcohol, Bars",
+                                    description = null,
+                                    createdAt = Instant.parse("2022-03-06T20:11:36.066Z"),
+                                )
+                            )
                         )
                     )
                 )

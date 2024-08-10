@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
 import org.mockserver.model.MediaType
+import java.util.Currency
 
 internal class GetCurrentUserRequestTest : TestMockServerBase() {
     @Test
@@ -32,6 +33,7 @@ internal class GetCurrentUserRequestTest : TestMockServerBase() {
                     "dummy@vasa.com",
                     12345L,
                     "My New Budget - Jan 1",
+                    Currency.getInstance("USD"),
                     null
                 )
             )

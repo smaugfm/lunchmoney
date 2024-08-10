@@ -7,11 +7,11 @@ import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
-    kotlin("jvm") version "1.8.10"
-    kotlin("plugin.serialization") version "1.8.10"
+    kotlin("jvm") version "2.0.0"
+    kotlin("plugin.serialization") version "2.0.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.2.0"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
-    id("org.jetbrains.dokka") version "1.8.10"
+    id("org.jetbrains.dokka") version "1.9.20"
     id("com.github.breadmoirai.github-release") version "2.4.1"
     signing
     `maven-publish`
@@ -25,30 +25,30 @@ repositories {
     mavenCentral()
 }
 
-val reactorCore = "3.5.2"
-val reactorNetty = "1.1.2"
+val reactor= "3.6.8"
+val reactorNetty = "1.1.21"
 val mockserver = "5.15.0"
-val logback = "1.4.5"
+val logback = "1.5.6"
 val javaVersion = "11"
 val resilience4jVersion = "1.7.0"
 
 dependencies {
-    api("io.projectreactor:reactor-core:$reactorCore")
+    api("io.projectreactor:reactor-core:$reactor")
     api("io.projectreactor.netty:reactor-netty-http:$reactorNetty")
     api("io.projectreactor.netty:reactor-netty-core:$reactorNetty")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
     testImplementation("org.mock-server:mockserver-netty:$mockserver")
     testImplementation("org.mock-server:mockserver-client-java:$mockserver")
     testImplementation("io.github.resilience4j:resilience4j-retry:$resilience4jVersion")
     testImplementation("io.github.resilience4j:resilience4j-reactor:$resilience4jVersion")
     testImplementation("io.github.resilience4j:resilience4j-kotlin:$resilience4jVersion")
-    testImplementation("io.projectreactor:reactor-test:$reactorCore")
+    testImplementation("io.projectreactor:reactor-test:$reactor")
     testImplementation("io.mockk:mockk:1.13.4")
-    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.28.1")
     testImplementation("ch.qos.logback:logback-core:$logback")
     testImplementation("ch.qos.logback:logback-classic:$logback")
-    testImplementation("io.projectreactor:reactor-tools:3.5.7")
+    testImplementation("io.projectreactor:reactor-tools:$reactor")
     testImplementation(kotlin("test"))
 }
 

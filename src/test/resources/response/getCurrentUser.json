@@ -4,5 +4,6 @@
   "user_id": 1234,
   "account_id": 12345,
   "budget_name": "My New Budget - Jan 1",
+  "primary_currency": "usd",
   "api_key_label": null
 }
