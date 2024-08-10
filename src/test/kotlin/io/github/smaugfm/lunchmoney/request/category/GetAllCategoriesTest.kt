@@ -64,7 +64,7 @@ internal class GetAllCategoriesTest : TestMockServerBase() {
                                     id = 315162,
                                     name = "Alcohol, Bars",
                                     description = null,
-                                    createdAt = Instant.parse("2022-03-06T20:11:36.066Z"),
+                                    createdAt = Instant.parse("2022-03-06T20:11:36.066Z")
                                 )
                             )
                         )

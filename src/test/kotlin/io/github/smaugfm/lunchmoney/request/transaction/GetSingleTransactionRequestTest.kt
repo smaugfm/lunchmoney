@@ -5,6 +5,7 @@ import assertk.assertions.isEqualTo
 import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyTransaction
+import io.github.smaugfm.lunchmoney.model.LunchmoneyTransactionChild
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionSource
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
 import io.github.smaugfm.lunchmoney.request.transaction.params.GetSingleTransactionParams
@@ -154,6 +155,76 @@ internal class GetSingleTransactionRequestTest : TestMockServerBase() {
                     displayNotes = null,
                     accountDisplayName = "Amex Plat",
                     tags = emptyList()
+                )
+            )
+    }
+
+    @Test
+    fun singleTransactionTestSimple2() {
+        val id = 602L
+        mockServer
+            .`when`(
+                request("/transactions/$id")
+                    .withMethod("GET")
+            ).respond(
+                response()
+                    .withStatusCode(200)
+                    .withContentType(MediaType.APPLICATION_JSON_UTF_8)
+                    .withBody(getResourceAsString("response/getSingleTransaction2.json"))
+            )
+        val request = GetSingleTransactionRequest(id)
+        assertThat(api.execute(request).block())
+            .isEqualTo(
+                LunchmoneyTransaction(
+                    id = 2225874632,
+                    date = LocalDate.parse("2024-08-10"),
+                    amount = BigDecimal.valueOf(37.09),
+                    currency = Currency.getInstance("UAH"),
+                    toBase = 37.09,
+                    payee = "vasa",
+                    categoryId = null,
+                    categoryName = null,
+                    categoryGroupId = null,
+                    categoryGroupName = null,
+                    isIncome = false,
+                    excludeFromBudget = false,
+                    excludeFromTotals = false,
+                    createdAt = Instant.parse("2024-08-10T14:49:15.465Z"),
+                    updatedAt = Instant.parse("2024-08-10T14:49:15.465Z"),
+                    status = LunchmoneyTransactionStatus.CLEARED,
+                    isPending = false,
+                    hasChildren = false,
+                    isGroup = true,
+                    source = LunchmoneyTransactionSource.Api,
+                    displayName = "vasa",
+                    accountDisplayName = "",
+                    tags = listOf(),
+                    children = listOf(
+                        LunchmoneyTransactionChild(
+                            id = 220527530,
+                            payee = "Farmer&#x27;s Market",
+                            amount = BigDecimal.valueOf(36.09),
+                            currency = Currency.getInstance("UAH"),
+                            date = LocalDate.parse("2023-07-04"),
+                            formattedDate = LocalDate.parse("2023-07-04"),
+                            notes = "Jenny&#x27;s Potluck",
+                            assetId = 55209,
+                            plaidAccountId = null,
+                            toBase = 36.09
+                        ),
+                        LunchmoneyTransactionChild(
+                            id = 220556457,
+                            payee = null,
+                            amount = BigDecimal.valueOf(1.0),
+                            currency = Currency.getInstance("UAH"),
+                            date = LocalDate.parse("2023-07-04"),
+                            formattedDate = LocalDate.parse("2023-07-04"),
+                            notes = null,
+                            assetId = null,
+                            plaidAccountId = null,
+                            toBase = 1.0
+                        )
+                    )
                 )
             )
     }

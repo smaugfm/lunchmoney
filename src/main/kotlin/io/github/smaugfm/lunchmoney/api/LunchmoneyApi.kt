@@ -3,7 +3,6 @@ package io.github.smaugfm.lunchmoney.api
 import io.github.smaugfm.lunchmoney.model.LunchmoneyAsset
 import io.github.smaugfm.lunchmoney.model.LunchmoneyBudget
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategory
-import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryOld
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCrypto
 import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertTransaction
 import io.github.smaugfm.lunchmoney.model.LunchmoneyPlaidAccount
@@ -36,6 +35,7 @@ import io.github.smaugfm.lunchmoney.request.category.UpdateCategoryRequest
 import io.github.smaugfm.lunchmoney.request.category.params.AddToCategoryGroupsParams
 import io.github.smaugfm.lunchmoney.request.category.params.CreateCategoryGroupRequestParams
 import io.github.smaugfm.lunchmoney.request.category.params.CreateUpdateCategoryRequestParams
+import io.github.smaugfm.lunchmoney.request.category.params.GetAllCategoriesParams
 import io.github.smaugfm.lunchmoney.request.crypto.GetAllCryptoRequest
 import io.github.smaugfm.lunchmoney.request.crypto.UpdateManualCryptoAsset
 import io.github.smaugfm.lunchmoney.request.crypto.params.UpdateManualCryptoParams
@@ -218,7 +218,7 @@ class LunchmoneyApi internal constructor(
         groupId: Long,
         categoryIds: List<Long>? = null,
         newCategories: List<String>? = null
-    ): Mono<LunchmoneyCategoryOld> = execute(
+    ): Mono<LunchmoneyCategory> = execute(
         AddToCategoryGroupRequest(
             groupId,
             AddToCategoryGroupsParams(
@@ -256,7 +256,6 @@ class LunchmoneyApi internal constructor(
         excludeFromBudget: Boolean,
         excludeFromTotals: Boolean,
         description: String? = null,
-        categoryIds: List<Long>? = null,
         groupId: Long? = null
     ): Mono<Long> = execute(
         CreateCategoryRequest(
@@ -279,8 +278,18 @@ class LunchmoneyApi internal constructor(
         ForceDeleteCategoryRequest(categoryId)
     )
 
-    fun getAllCategories(): Mono<List<LunchmoneyCategory>> = execute(
-        GetAllCategoriesRequest()
+    fun getAllCategories(
+        isNested: Boolean = false
+    ): Mono<List<LunchmoneyCategory>> = execute(
+        GetAllCategoriesRequest(
+            GetAllCategoriesParams(
+                if (isNested) {
+                    GetAllCategoriesParams.Format.Nested
+                } else {
+                    GetAllCategoriesParams.Format.Flattened
+                }
+            )
+        )
     ).map { it.categories }
 
     fun getSingleCategory(categoryId: Long): Mono<LunchmoneyCategory> = execute(
@@ -294,7 +303,6 @@ class LunchmoneyApi internal constructor(
         excludeFromTotals: Boolean,
         name: String? = null,
         description: String? = null,
-        categoryIds: List<Long>? = null,
         groupId: Long? = null
     ): Mono<Boolean> = execute(
         UpdateCategoryRequest(
@@ -384,15 +392,15 @@ class LunchmoneyApi internal constructor(
         plaidAccountId: Long? = null,
         categoryId: Long? = null,
         assetId: Long? = null,
-        groupId: Long? = null,
         isGroup: Boolean? = null,
         status: LunchmoneyTransactionStatus? = null,
-        offset: Long? = null,
-        limit: Long? = null,
         startDate: LocalDate? = null,
         endDate: LocalDate? = null,
         debitAsNegative: Boolean? = null,
-        pending: Boolean? = null
+        pending: Boolean? = null,
+        offset: Long? = null,
+        limit: Long? = null,
+        groupId: Long? = null
     ): Mono<List<LunchmoneyTransaction>> = execute(
         GetAllTransactionsRequest(
             GetAllTransactionsParams(

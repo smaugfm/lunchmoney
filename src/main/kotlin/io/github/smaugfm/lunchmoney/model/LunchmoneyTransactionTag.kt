@@ -7,5 +7,5 @@ data class LunchmoneyTransactionTag(
     val id: Long,
     val name: String,
     val description: String? = null,
-    val archived: Boolean? = null,
+    val archived: Boolean? = null
 )

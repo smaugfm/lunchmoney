@@ -10,7 +10,7 @@ plugins {
     kotlin("jvm") version "2.0.0"
     kotlin("plugin.serialization") version "2.0.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.2.0"
-    id("io.gitlab.arturbosch.detekt") version "1.22.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("org.jetbrains.dokka") version "1.9.20"
     id("com.github.breadmoirai.github-release") version "2.4.1"
     signing
@@ -18,18 +18,18 @@ plugins {
 }
 
 group = "io.github.smaugfm"
-version = "1.0.2"
+version = "1.0.3-SNAPSHOT"
 val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
 
 repositories {
     mavenCentral()
 }
 
-val reactor= "3.6.8"
+val reactor = "3.6.8"
 val reactorNetty = "1.1.21"
 val mockserver = "5.15.0"
 val logback = "1.5.6"
-val javaVersion = "11"
+val javaVersion = "17"
 val resilience4jVersion = "1.7.0"
 
 dependencies {

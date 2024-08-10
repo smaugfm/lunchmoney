@@ -5,7 +5,6 @@ import assertk.assertThat
 import assertk.assertions.cause
 import assertk.assertions.contains
 import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.prop

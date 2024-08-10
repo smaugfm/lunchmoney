@@ -5,5 +5,4 @@ import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionSourc
 class TransactionSourceSerializer : LowercaseEnumSerializer<LunchmoneyTransactionSource>(
     "TransactionSource",
     LunchmoneyTransactionSource.entries.toTypedArray()
-) {
-}
+)

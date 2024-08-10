@@ -4,7 +4,6 @@ import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.cause
 import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.prop
@@ -14,7 +13,6 @@ import io.github.smaugfm.lunchmoney.exception.LunchmoneyApiResponseException
 import io.github.smaugfm.lunchmoney.model.LunchmoneyInsertTransaction
 import io.github.smaugfm.lunchmoney.model.enumeration.LunchmoneyTransactionStatus
 import io.github.smaugfm.lunchmoney.request.transaction.params.InsertTransactionRequestParams
-import io.github.smaugfm.lunchmoney.response.ApiErrorResponse
 import io.github.smaugfm.lunchmoney.response.InsertTransactionsResponse
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
@@ -102,15 +100,14 @@ internal class InsertTransactionsRequestTest : TestMockServerBase() {
             .cause()
             .isNotNull()
             .isInstanceOf(LunchmoneyApiResponseException::class)
-            .prop(LunchmoneyApiResponseException::apiErrorResponse)
+            .prop(LunchmoneyApiResponseException::message)
             .isNotNull()
-            .prop(ApiErrorResponse::error)
             .isEqualTo(
                 listOf(
                     "Transaction 0 is missing date.",
                     "Transaction 0 is missing amount.",
                     "Transaction 1 status must be either cleared or uncleared: null"
-                )
+                ).joinToString("\n")
             )
     }
 }

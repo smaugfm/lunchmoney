@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data class GetAllTransactionsResponse(
     val transactions: List<LunchmoneyTransaction>,
-    val hasMore: Boolean,
+    val hasMore: Boolean
 )

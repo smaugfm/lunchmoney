@@ -2,13 +2,9 @@ package io.github.smaugfm.lunchmoney.api
 
 import assertk.all
 import assertk.assertFailure
-import assertk.assertThat
-import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
-import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
-import assertk.assertions.isNull
 import assertk.assertions.prop
 import io.github.resilience4j.core.IntervalFunction
 import io.github.resilience4j.kotlin.retry.RetryConfig
@@ -58,12 +54,8 @@ class RequestExecutorTest : TestMockServerBase() {
             .isNotNull()
             .isInstanceOf(LunchmoneyApiResponseException::class.java)
             .all {
-                prop(LunchmoneyApiResponseException::apiErrorResponse)
-                    .isNull()
-                prop(LunchmoneyApiResponseException::body)
-                    .isEmpty()
-                prop(LunchmoneyApiResponseException::statusCode)
-                    .isEqualTo(500)
+                prop(LunchmoneyApiResponseException::message)
+                    .isEqualTo("Unknown empty response from Lunchmoney")
             }
         mockServer.verify(
             request("/me")
@@ -85,7 +77,6 @@ class RequestExecutorTest : TestMockServerBase() {
                     .withMethod("GET")
             ).respond(
                 response()
-                    .withStatusCode(200)
                     .withContentType(MediaType.TEXT_HTML_UTF_8)
                     .withStatusCode(500)
                     .withBody(body)
@@ -95,12 +86,9 @@ class RequestExecutorTest : TestMockServerBase() {
             .prop(Throwable::cause)
             .transform { it as LunchmoneyApiResponseException }
             .all {
-                prop(LunchmoneyApiResponseException::statusCode)
-                    .isEqualTo(500)
-                prop(LunchmoneyApiResponseException::body)
-                    .isEqualTo(body)
-                prop(LunchmoneyApiResponseException::apiErrorResponse)
-                    .isNull()
+                prop(LunchmoneyApiResponseException::message)
+                    .isNotNull()
+                    .isEqualTo("Unknown Lunchmoney API error. HTTP status: 500, body: \n$body")
             }
     }
 }

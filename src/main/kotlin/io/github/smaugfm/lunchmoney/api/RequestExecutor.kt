@@ -14,7 +14,6 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
-import kotlinx.serialization.serializer
 import mu.KotlinLogging
 import org.reactivestreams.Publisher
 import reactor.core.publisher.Mono
@@ -49,7 +48,6 @@ internal class RequestExecutor(
                 .send(requestBodyToByteBuffer(paramsSerializer, request.body()))
                 .responseSingle { resp, byteBufMono ->
                     processResponse(resp, byteBufMono, responseSerializer)
-                        .doOnNext { log.debug { "Response (${resp.status()}): $it" } }
                 }.doOnSubscribe {
                     log.debug { "Performing Lunchmoney API request $request" }
                 }.let {
@@ -86,43 +84,39 @@ internal class RequestExecutor(
             .asString()
             .flatMap { body: String ->
                 deserializeResponseBody(serializer, resp.status().code(), body)
-                    .transformDeferred { mapUnknownError(it, body, resp.status().code()) }
-            }.transformDeferred { errorOnEmptyResponse(it, resp) }
-
-    private fun <R> errorOnEmptyResponse(mono: Mono<R>, resp: HttpClientResponse): Mono<R> =
-        mono.switchIfEmpty(
-            if (isOkResponse(resp)) {
-                Mono.empty()
-            } else {
-                Mono.error(LunchmoneyApiResponseException(resp.status().code()))
-            }
-        )
-
-    private fun <R> mapUnknownError(mono: Mono<R>, body: String, statusCode: Int): Mono<R> =
-        mono.onErrorMap({ it !is LunchmoneyApiResponseException }) {
-            LunchmoneyApiResponseException(
-                body,
-                it,
-                statusCode
+                    .doOnNext { log.debug { "Response (${resp.status()})\n$body\n$it" } }
+            }.switchIfEmpty(
+                if (isOkResponse(resp)) {
+                    Mono.empty()
+                } else {
+                    Mono.error(
+                        LunchmoneyApiResponseException("Unknown empty response from Lunchmoney")
+                    )
+                }
             )
-        }
 
     private fun <R> deserializeResponseBody(
         serializer: KSerializer<R>,
         status: Int,
         body: String
     ): Mono<R> =
-        doDeserialize(serializer, body)
+        Mono.fromCallable { json.decodeFromString(serializer, body) }
             .onErrorResume(SerializationException::class.java) {
-                deserializeApiError(body)
-                    .flatMap { Mono.error(it.toException(body, status)) }
+                val apiError = getApiError(body, status)
+                Mono.error(LunchmoneyApiResponseException(apiError.msg))
             }
 
-    private fun deserializeApiError(body: String) =
-        doDeserialize<ApiErrorResponse>(json.serializersModule.serializer(), body)
-
-    private fun <T> doDeserialize(serializer: KSerializer<T>, body: String): Mono<T> =
-        Mono.fromCallable { json.decodeFromString(serializer, body) }
+    private fun getApiError(body: String, status: Int): ApiErrorResponse =
+        try {
+            json.decodeFromString(
+                ApiErrorResponse.StructuredApiErrorResponse.serializer(),
+                body
+            )
+        } catch (e: Exception) {
+            ApiErrorResponse.UnknownApiErrorResponse(
+                "Unknown Lunchmoney API error. HTTP status: $status, body: \n$body"
+            )
+        }
 
     private fun <T> serializeRequestBody(serializer: KSerializer<T>, body: T): ByteArray {
         val os = ByteArrayOutputStream()

@@ -19,5 +19,7 @@ data class LunchmoneyBudget(
     val excludeFromTotals: Boolean,
     val data: Map<LocalDate, LunchmoneyBudgetData>? = null,
     val config: LunchmoneyBudgetConfig? = null,
-    val order: Int? = null
+    val order: Int? = null,
+    val archived: Boolean? = null,
+    val recurring: LunchmoneyBudgetRecurringItemList? = null
 )

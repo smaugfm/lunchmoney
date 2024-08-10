@@ -20,8 +20,8 @@ data class LunchmoneyCategory(
     val updatedAt: Instant? = null,
     val createdAt: Instant? = null,
     val isGroup: Boolean? = null,
-    val groupCategoryName: String? = null,
     val groupId: Long? = null,
     val order: Long? = null,
-    val children: List<LunchmoneyCategoryChild>? = null
+    val children: List<LunchmoneyCategoryChild>? = null,
+    val groupCategoryName: String? = null
 )

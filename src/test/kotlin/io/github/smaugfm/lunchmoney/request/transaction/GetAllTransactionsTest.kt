@@ -127,7 +127,7 @@ internal class GetAllTransactionsTest : TestMockServerBase() {
                                     toBase = -33.6
                                 )
                             )
-                        ),
+                        )
                     ),
                     hasMore = true
                 )

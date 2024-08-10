@@ -80,5 +80,5 @@ data class LunchmoneyTransaction(
     val accountDisplayName: String,
     val tags: List<LunchmoneyTransactionTag>? = null,
     val children: List<LunchmoneyTransactionChild>? = null,
-    val externalId: String? = null,
+    val externalId: String? = null
 )

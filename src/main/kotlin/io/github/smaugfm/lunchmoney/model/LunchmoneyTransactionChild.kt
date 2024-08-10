@@ -2,7 +2,7 @@
     LocalDateSerializer::class,
     BigDecimalSerializer::class,
     CurrencySerializer::class,
-    InstantSerializer::class,
+    InstantSerializer::class
 )
 
 package io.github.smaugfm.lunchmoney.model
@@ -21,7 +21,7 @@ import java.util.Currency
 data class LunchmoneyTransactionChild(
     val id: Long,
     val date: LocalDate,
-    val payee: String,
+    val payee: String?,
     val amount: BigDecimal,
     val currency: Currency,
     val formattedDate: LocalDate,

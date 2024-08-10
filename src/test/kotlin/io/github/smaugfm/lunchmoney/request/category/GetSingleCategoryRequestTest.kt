@@ -6,7 +6,6 @@ import io.github.smaugfm.lunchmoney.TestMockServerBase
 import io.github.smaugfm.lunchmoney.Util.getResourceAsString
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategory
 import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryChild
-import io.github.smaugfm.lunchmoney.model.LunchmoneyCategoryOld
 import org.junit.jupiter.api.Test
 import org.mockserver.model.HttpRequest.request
 import org.mockserver.model.HttpResponse.response
@@ -39,8 +38,8 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     excludeFromTotals = false,
                     isGroup = false,
                     groupId = null,
-                    groupCategoryName = null,
-                    children = null
+                    children = null,
+                    groupCategoryName = null
                 )
             )
     }
@@ -70,7 +69,6 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     excludeFromTotals = false,
                     isGroup = true,
                     groupId = null,
-                    groupCategoryName = null,
                     children = listOf(
                         LunchmoneyCategoryChild(
                             427749L,
@@ -84,7 +82,8 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                             null,
                             Instant.parse("2023-02-02T14:57:43.459Z")
                         )
-                    )
+                    ),
+                    groupCategoryName = null
                 )
             )
     }
@@ -114,8 +113,8 @@ internal class GetSingleCategoryRequestTest : TestMockServerBase() {
                     excludeFromTotals = false,
                     isGroup = false,
                     groupId = 427758L,
-                    groupCategoryName = "Food",
-                    children = null
+                    children = null,
+                    groupCategoryName = "Food"
                 )
             )
     }
