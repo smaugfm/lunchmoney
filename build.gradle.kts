@@ -137,12 +137,12 @@ publishing {
                 setUrl("https://s01.oss.sonatype.org/content/repositories/snapshots")
             }
 
-            val ossrhUsername: String? by project
-            val ossrhPassword: String? by project
+            val ossrhToken: String? by project
+            val ossrhTokenPassword: String? by project
 
             credentials {
-                username = ossrhUsername
-                password = ossrhPassword
+                username = ossrhToken
+                password = ossrhTokenPassword
             }
         }
     }
