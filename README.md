@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.smaugfm:lunchmoney:1.0.2")
+    implementation("io.github.smaugfm:lunchmoney:1.1.0")
 }
 ```
 
